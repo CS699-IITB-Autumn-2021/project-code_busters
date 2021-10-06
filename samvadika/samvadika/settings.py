@@ -25,7 +25,7 @@ SECRET_KEY = ')!i+w&c_%3t()6+mlqmg+r&lp&hu+xl0ts0^92bvhf77o5)j0b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0' , 'localhost' ]
+ALLOWED_HOSTS = ['http://10.1.96.7', '0.0.0.0' ,'192.168.0.100','localhost']
 
 
 # Application definition
@@ -119,3 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL='login.NewUser'
