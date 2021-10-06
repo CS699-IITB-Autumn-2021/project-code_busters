@@ -64,11 +64,11 @@ def User_logout(request):
 
 def posted(request):
     print("did we reach here")
-    count = random.randint(0,200000000)
+   
     if request.method=="POST":   
         samvad = request.POST['samvad']
 
-        q = Question( question=samvad,threadid=count,user_name=request.user)
+        q = Question( question=samvad,user_name=request.user)
         q.save()
     
         print(samvad)
