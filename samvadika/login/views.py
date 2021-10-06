@@ -16,17 +16,17 @@ def index(request):
     if request.user.is_anonymous:
        return redirect('/login')
 
+    else :
+        q=Question.objects.order_by('-pub_date')
+        return render(request,'index.html',{"query":q , "user":request.user })
 
-    q=Question.objects.order_by('-pub_date')
-    
-    
-
-    
-    return render(request,'index.html',{"query":q , "user":request.user })
 def signup(request):
     return render(request, 'signup.html')
+
+
 def User_login(request):
         return    render(request, 'login.html')
+
 def action_(request):
     username=request.POST.get('email')
     password=request.POST.get('password')
@@ -34,7 +34,7 @@ def action_(request):
     user=authenticate(request,email=username,password=password)
     if user is not None:
         login(request,user)
-        return render(request,'index.html')
+        return redirect('/')
     else:
         messages.success(request, 'Incorrect Email or Password')
         return render(request, 'login.html')
@@ -57,7 +57,7 @@ def register(request):
             
             user = User.objects.create_user( email, username, first_name, password)
             user.save()
-            return render(request, 'index.html')
+            return redirect('/')
 def User_logout(request):
     logout(request)
     return render(request,'login.html')

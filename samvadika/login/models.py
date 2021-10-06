@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
+
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, user_name, first_name, password, **other_fields):
@@ -69,7 +70,7 @@ class Question(models.Model):
     tag8 = models.CharField(max_length=15)
     tag9 = models.CharField(max_length=15)
     tag10 = models.CharField(max_length=15)
-    threadid = models.IntegerField(primary_key=True)
+    threadid = models.AutoField(primary_key=True)
   
 class Reply(models.Model):
     threadid =  models.ForeignKey(Question, on_delete=models.CASCADE)
