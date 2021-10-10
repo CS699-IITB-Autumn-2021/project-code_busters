@@ -17,8 +17,15 @@ def index(request):
        return redirect('/login')
 
     else :
+        l=[]
         q=Question.objects.order_by('-pub_date')
-        return render(request,'index.html',{"query":q , "user":request.user })
+        for eq in q:
+            if Reply.objects.filter(threadid=eq.threadid).exists():
+                rp=Reply.objects.filter(threadid=eq.threadid)
+                l.append([eq,rp])
+            else:
+                l.append([eq,''])
+        return render(request,'index.html',{"query":l , "user":request.user })
 
 def signup(request):
     return render(request, 'signup.html')
@@ -75,3 +82,5 @@ def posted(request):
 
 
     return redirect('/')
+
+    

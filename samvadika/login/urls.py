@@ -10,5 +10,4 @@ urlpatterns = [
     path('action',action_,name='action_'),
     path('register',register,name='register'),
     path('posted',posted,name='posted') ,
-
 ]
