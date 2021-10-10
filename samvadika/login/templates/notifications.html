@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+
+
+
+
+
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  <style>
+      div{
+          background-color: white;
+          
+      }
+
+      ::placeholder {
+  color: red;
+  font-size: 1.5em;
+}
+
+textarea{
+    font-size: 1.5em;
+}
+
+input[type=submit]{
+    color:green;
+    padding:0.5em 2.2em;
+}
+   /* mouse over link */
+   side-nav-button:hover {
+  color: hotpink;
+}
+
+/* selected link */
+side-nav-button:active {
+  color: blue;
+}   
+
+  </style>
+
+</head>
+<body>
+
+
+
+
+     <div class="row progress" style="height:100vh;;border:1px solid;border-bottom:2px solid ;">
+         <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;">
+
+            <div class="row" style="width:100%;height:30%;border:1px solid;margin:0px auto" >
+                <img src='/static/pic.jpeg' class="img-fluid" alt='' style=" border-radius: 50%;
+                height:80%;
+                border:3px solid white;">
+
+                <br/>
+               <center> <span style="font-size: 2em;">{{user}}</span>
+               </center>
+            
+            </div>
+
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/">Discussions</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments">Score: 20</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/findpeople">Find people</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/notifications">Notifications</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/saveditems">Saved Items</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/updateprofile">Update Profile</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
+            
+
+       
+         </div>
+         <div class="col-sm-10" style="height:inherit;;;">
+
+           <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
+           <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
+
+<div class="row" style="width:100%;height:inherit;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto">
+<h2 style="font-size: very-large; text-align: center;">Notifications</p>   
+
+              </div>
+
+           </div>
+         </div>
+
+         </div>
+
+
+     </div>
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+{% endblock body %}

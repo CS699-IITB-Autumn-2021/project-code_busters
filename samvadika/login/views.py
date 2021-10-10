@@ -75,3 +75,15 @@ def posted(request):
 
 
     return redirect('/')
+
+def Find_people(request):
+    return render(request, 'findpeople.html')
+
+def Notifications(request):
+    return render(request, 'notifications.html')
+
+def Saved_items(request):
+    return render(request, 'saveditems.html')
+
+def Update_profile(request):
+    return render(request, 'updateprofile.html')
