@@ -13,5 +13,5 @@ urlpatterns = [
     path('findpeople/',Find_people,name='find_people'),
     path('notifications/', Notifications,name='nofitications'),
     path('saveditems/',Saved_items,name='saveditems'),
-     path('updateprofile/',Update_profile,name='updateprofile')
+    path('updateprofile/',Update_profile,name='updateprofile')
 ]
