@@ -10,4 +10,8 @@ urlpatterns = [
     path('action',action_,name='action_'),
     path('register',register,name='register'),
     path('posted',posted,name='posted') ,
+    path('findpeople/',Find_people,name='find_people'),
+    path('notifications/', Notifications,name='nofitications'),
+    path('saveditems/',Saved_items,name='saveditems'),
+    path('updateprofile/',Update_profile,name='updateprofile')
 ]
