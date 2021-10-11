@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
 import random
@@ -11,13 +12,16 @@ User=get_user_model()
 def index(request):
 
     print(request.user)
-    
 
     if request.user.is_anonymous:
        return redirect('/login')
 
+   
+
     else :
         l=[]
+        u=User.objects.get(user_name=request.user)
+        
         q=Question.objects.order_by('-pub_date')
         for eq in q:
             if Reply.objects.filter(threadid=eq.threadid).exists():
@@ -25,7 +29,9 @@ def index(request):
                 l.append([eq,rp])
             else:
                 l.append([eq,''])
-        return render(request,'index.html',{"query":l , "user":request.user })
+        
+       
+        return render(request,'index.html',{"query":l , "user":u})
 
 def signup(request):
     return render(request, 'signup.html')
@@ -70,7 +76,7 @@ def User_logout(request):
     return render(request,'login.html')
 
 def posted(request):
-    print("did we reach here")
+    
    
     if request.method=="POST":   
         samvad = request.POST['samvad']
@@ -96,3 +102,20 @@ def Saved_items(request):
 def Update_profile(request):
     return render(request, 'updateprofile.html')
 
+
+def answer(request):
+    if request.method=="POST":   
+        r = request.POST['ans']
+        thread= request.POST['threadid']
+        
+
+   
+    i= Question.objects.get(threadid=thread)
+
+    u = Reply(reply=r,threadid=i,user_name=request.user )
+    u.save()
+   
+  
+    
+    return redirect( '/')
+    
