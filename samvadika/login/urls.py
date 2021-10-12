@@ -15,5 +15,8 @@ urlpatterns = [
     path('saveditems/',Saved_items,name='saveditems'),
     path('updateprofile/',Update_profile,name='updateprofile'),
     path('answer/',answer,name='answer'),
-  
+    path('updateprofile/update_name',update_name,name='update_name'),
+    path('updateprofile/update_email',update_email,name='update_email'),
+    path('updateprofile/update_pwd',update_pwd,name='update_pwd'),
+    path('updateprofile/update_img',update_img,name='update_img'),
 ]
