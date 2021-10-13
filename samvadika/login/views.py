@@ -117,5 +117,5 @@ def answer(request):
    
   
     
-    return redirect( '/')
+    return redirect('/')
     
