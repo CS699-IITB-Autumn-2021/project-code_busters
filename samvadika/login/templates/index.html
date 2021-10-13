@@ -165,9 +165,11 @@ input[type=submit]{
                   <div style="width:100%;height:2em;padding:.2em;background-color:bisque;margin-top:1em;">
                     Replied by {{ y.user_name}}  <span style="position: relative;float:right">{{y.reply_date}} </span>
                   </div>
-                  <div style="width:100%;height:auto;padding:1em;background-color:lightgrey;">
+                  <div class = "reply" style="width:100%;height:auto;padding:1em;background-color:lightgrey;">
                   
                   <span> {{y.reply}} </span>
+                  <input type = "image" id="thumbsup" src = "/static/thumbsup_initial.png" onclick="changeupvote()" width="30px" height="30px" />
+                  <input type = "image" id="thumbsdown" src = "/static/thumbsdown_initial.png" onclick="changedownvote()" width="30px" height="30px"/>
                 </div>
               
               
@@ -200,7 +202,29 @@ input[type=submit]{
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"> </script>
+<script>
+  function changeupvote() {
+            var image = document.getElementById("thumbsup");
+            if (image.src.match("thumbsup_initial.png")) {
+                image.src = "/static/thumbsup_on.png";
+            }
+            else {
+                image.src = "/static/thumbsup_initial.png";
+            }
+        }
+  
+  function changedownvote(){
+    var image = document.getElementById("thumbsdown");
+            if (image.src.match("thumbsdown_initial.png")) {
+                image.src = "/static/thumbsdown_on.png";
+            }
+            else {
+                image.src = "/static/thumbsdown_initial.png";
+            }
+  }
+  </script>
+
 
 </body>
 </html>
