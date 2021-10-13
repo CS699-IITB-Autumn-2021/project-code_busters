@@ -117,7 +117,7 @@ def answer(request):
    
   
     
-    return redirect( '/')
+    return redirect('/')
     
 def update_name(request):
     print("did we reach here")
