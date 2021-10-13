@@ -119,3 +119,51 @@ def answer(request):
     
     return redirect( '/')
     
+def update_name(request):
+    print("did we reach here")
+    
+    if request.method=="POST":   
+        name=request.POST['first_name']
+        user=User.objects.get(user_name=request.user)
+        user.first_name=name
+        user.save()
+    
+        print('name changed')
+    return redirect('/updateprofile')
+def update_email(request):
+    print("did we reach here username block")
+    
+    if request.method=="POST":   
+        email=request.POST['email']
+        if User.objects.filter(email=email).exists():
+            messages.warning(request, 'Email already exist!')
+        else:
+            user = User.objects.get(user_name=request.user)
+            print('get user')
+            user.email=email
+            print('do view change')
+
+            user.save()
+            print('set username')
+    return redirect('/updateprofile')
+
+def update_pwd(request):
+    print("did we reach here pwd block")
+    
+    if request.method=="POST":
+        pwd=request.POST.get('password')
+        user=User.objects.get(user_name=request.user)
+        user.set_password(pwd)
+        user.save()
+        print('password changed')
+    return redirect('/updateprofile')
+def update_img(request):
+    print("did we reach here img block")
+    
+    if request.method=="POST":
+        user=User.objects.get(user_name=request.user)
+        if user.image!='pic.jpeg':
+            user.image.delete()
+        user.image=request.FILES['myfile']
+        user.save()
+    return redirect('/updateprofile')

@@ -40,7 +40,7 @@
           </div>
                <div class="form-row">
                    <div class="col-lg-7">
-                       <input type="email" pattern="^[a-zA-Z0-9]+@iitb\.ac\.in$" name="email" placeholder="Email Address" class="form-control my-3 p-2" required>
+                       <input type="email" title="use your LDAP ID" pattern="^[a-zA-Z0-9]+@iitb\.ac\.in$" name="email" placeholder="Email Address" class="form-control my-3 p-2" required>
                    </div>
                </div>
                <div class="form-row">
@@ -50,7 +50,7 @@
             </div>
             <div class="form-row">
                 <div class="col-lg-7">
-                    <input type="password" name="password" pattern="(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,14}" placeholder="Password" class="form-control my-3 p-2" required>
+                    <input type="password" name="password" title="password must have atleast 1 uppercase, 1 lowercase, 1 digit and 1 special(!,@,#,$,%,^,&,*) charcter and length between 6-14" pattern="(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,14}" placeholder="Password" class="form-control my-3 p-2" required>
                 </div>
             </div>
             <div class="form-row">
