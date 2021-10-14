@@ -89,9 +89,27 @@ def posted(request):
 
     return redirect('/')
 
+def Find_people_check(request):
+    l =  []
+    temp = ""
+    user = request.user
+    if not user.interest_form_submitted:
+        #temp = 'interestsform.html'
+        return render(request, 'interestsform.html')
+    else:
+        l = User.objects.all()
+        li = []
+        for h in l:
+            if Hobby.objects.filter(user_name=h).exists():
+                rp=Hobby.objects.filter(user_name=h)
+                if h != user:
+                    li.append([h,rp])
+            else:
+                li.append([h,''])
 
-def Find_people(request):
-    return render(request, 'findpeople.html')
+        #temp = 'findpeople.html'
+
+        return render(request,'findpeople.html',{"query":li}) 
 
 def Notifications(request):
     return render(request, 'notifications.html')
@@ -167,3 +185,26 @@ def update_img(request):
         user.image=request.FILES['myfile']
         user.save()
     return redirect('/updateprofile')
+
+
+def Updateinterests(request):
+    if request.method=="POST":  
+        user=User.objects.get(user_name=request.user)
+        interest_list=request.POST.getlist('hobbies_list')
+        user.fb_link+=request.POST.get('fb_url')
+        user.linkedin_link+=request.POST.get('linkedin_url')
+        user.interest_form_submitted = True
+
+        for hobby in interest_list:
+            h = Hobby(hobby_name=hobby,user_name=request.user)
+            h.save()
+          
+        user.save()
+    
+        
+    return redirect('/findpeople')
+
+def UserInterestInfo(request):
+    user_data = User.objects.all()
+    return render(request, '',{'users_list': NewUser.objects.all()})
+
