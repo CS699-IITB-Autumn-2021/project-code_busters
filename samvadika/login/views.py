@@ -63,6 +63,9 @@ def register(request):
         if password!=confirm_password:
             messages.warning(request, 'Mismatch in Password and Confirm Password')
             return render(request, 'signup.html')
+        if User.objects.filter(user_name=username).exists():
+            messages.warning(request, 'Username already taken')
+            return render(request, 'signup.html')
         if User.objects.filter(email=email).exists():
             messages.warning(request, 'Email already exists')
             return render(request, 'signup.html')
