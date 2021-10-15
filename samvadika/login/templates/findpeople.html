@@ -96,7 +96,25 @@ side-nav-button:active {
   <thead>
       <th>Name</th>
       <th>Email</th>
-      <th>Hobbies</th>
+      
+  <form method='POST' action='filter_people'>
+    {% csrf_token %}  
+      <th> <div class="form-group"> <label></label> <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Filter People by hobby" style="width: 100%;" tabindex="-1" aria-hidden="true" name="hobbies_filter_list" id="hobbies_filter_list" required>
+        <option>Cricket</option>
+        <option>Football</option>
+        <option>Chess</option>
+        <option>Evening Walk</option>
+        <option>Gaming</option>
+        <option>Badminton</option>
+    </select> 
+  </div>
+  <button type="sumbit" name="save_multiple" class="btn btn-primary">Apply</button>
+  <button type="sumbit" name="save_multiple" class="btn btn-secondary">
+    <a href="reset_filter_people" style="color:white">Reset</a>
+  </button><br/>
+  </form>
+  Hobbies
+    </th>
       <th>Facebook URL</th>
       <th>LinkedIn URL</th>
   </thead>

@@ -204,7 +204,30 @@ def Updateinterests(request):
         
     return redirect('/findpeople')
 
-def UserInterestInfo(request):
-    user_data = User.objects.all()
-    return render(request, '',{'users_list': NewUser.objects.all()})
+def filter_people(request):
+    print(request.method)
+    if request.method=="POST":  
+        interest_filter_list=request.POST.getlist('hobbies_filter_list')
+        user = request.user                                                                                                                                                                                                                                                                                                                              
+        l = User.objects.all()
+        li = []
+        
+        print(interest_filter_list)
+               
+        for filter_hobby in interest_filter_list:
+             
+            for h in l:
+                if Hobby.objects.filter(user_name=h, hobby_name=filter_hobby).exists():
+                    rp=Hobby.objects.filter(user_name=h)
+                    if h != user:
+                        li.append([h,rp])
+                    
+        print(li)
+        return render(request,'findpeople.html',{"query":li}) 
+    else:
+        print("please try hard")
+        return redirect('/findpeople')
 
+
+def Reset_filter_people(request):
+    return redirect('/findpeople')
