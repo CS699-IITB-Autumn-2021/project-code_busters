@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 
 
+
+
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, user_name, first_name, password, **other_fields):
@@ -42,6 +44,11 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, blank=True)
     image=models.ImageField(null=True, blank= True, default="pic.jpeg")
     start_date = models.DateTimeField(default=timezone.now)
+    
+    interest_form_submitted = models.BooleanField(default=False)
+    fb_link = models.URLField(max_length=200, default="https://www.facebook.com/")
+    linkedin_link = models.URLField(max_length=200, default="https://www.linkedin.com/in/")
+
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
@@ -55,7 +62,9 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.user_name
 
-
+class Hobby(models.Model):
+    hobby_name = models.CharField(max_length=200, default=None, blank=True, null=True)
+    user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
 
 class Question(models.Model):
     question = models.CharField(max_length=1000)
