@@ -4,6 +4,8 @@
 <html>
   <head>
   
+
+
   <!--
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   
@@ -30,6 +32,7 @@
         
         div{
             background-color: white;
+
             
         }
         .modal-backdrop{
@@ -52,34 +55,42 @@
      background: none;
   }
     </style>
-  </head>
-  <body>
   
+  ////////
+    
+    </head>
+<body>
+
+
+
+
+     <div class="row" style="height:100vh;;border:1px solid;border-bottom:2px solid ;">
+         <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;">
+
+            <div class="row" style="width:100%;height:30%;border:1px solid;margin:0px auto" >
+                <img src='/images/{{user.image}}' class="img-fluid" alt='' style=" border-radius: 50%;
+                height:80%;
+                border:3px solid white;">
+
+                <br/>
+               <center> <span style="font-size: 2em;">{{user.first_name}} </span>
+               </center>
+            
+            </div>
+
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/">Discussions</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments">Score: {{user.score}}</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/findpeople">Find people</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/notifications">Notifications</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/saveditems">Saved Items</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/updateprofile">Update Profile</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
+
+    
+    
+    ////////
   
-  
-  
-       <div class="row" style="height:100vh;;border:1px solid;border-bottom:2px solid ;">
-           <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;">
-  
-              <div class="row" style="width:100%;height:30%;border:1px solid;margin:0px auto" >
-                  <img src='/images/{{user.image}}' class="img-fluid" alt='' style=" border-radius: 50%;
-                  height:80%;
-                  border:3px solid white;">
-  
-                  <br/>
-                 <center> <span style="font-size: 2em;">{{user.first_name}} </span>
-                 </center>
-              
-              </div>
-  
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/">Discussions</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments">Score: 20</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/findpeople">Find people</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/notifications">Notifications</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/saveditems">Saved Items</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/updateprofile">Update Profile</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
-              
+    
   
          
            </div>
@@ -157,14 +168,68 @@
     
      
     <div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
-    <button  class='btn btn-dark' >Like</button>  <button  class='btn btn-dark' >Dislike</button> <button  class='btn btn-dark' >Save Question</button> 
-    <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
-      View Replies
-    </button>
-    </div>
+  <button  class='btn btn-dark' >Like</button>  <button  class='btn btn-dark' >Dislike</button> <button  class='btn btn-dark' id='save_{{x.0.threadid}}' onclick="myfunc({{x.0.threadid}})">Save Question</button> 
+  <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
+    View Replies
+  </button>
   
   </div>
   
+
+
+
+
+
+ <script>
+    function myfunc(x) {
+
+      
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function() {
+          
+        if (this.responseText=="SUCCESS") {
+          document.getElementById("save_"+x).innerHTML = "Saved"
+          document.getElementById("save_"+x).style="background-color:red"
+        }
+
+        else{
+          
+          document.getElementById("save_"+x).innerHTML = "Save Question"
+          document.getElementById("save_"+x).style="background-color:black"
+        }
+
+    
+
+      }
+      xhttp.open("GET", "saving?threadid="+x);
+      xhttp.send();
+    }
+    </script>
+
+
+<script>
+
+  function done(x)
+  {
+    document.getElementById("save_"+x).innerHTML = "Saved"
+    document.getElementById("save_"+x).style="background-color:red"
+  }
+
+</script>
+
+
+
+{% for x in save %}
+
+<script>
+  var b= {{x}};
+done(b);
+
+  </script>
+
+
+
+
       {% endfor %}
     
   
@@ -174,6 +239,7 @@
                 </div>
   
              </div>
+
            </div>
   
            </div>

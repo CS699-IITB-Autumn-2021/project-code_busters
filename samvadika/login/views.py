@@ -22,7 +22,19 @@ def index(request):
     else :
         l=[]
         u=User.objects.get(user_name=request.user)
-        
+        sav = SaveQuestion.objects.filter(user_name=request.user)
+        s=[]
+        try:
+            for my in sav:
+                
+               s.append(my.threadid.threadid)
+
+        except:
+            print("no value")
+
+
+        print(s)   
+
         q=Question.objects.order_by('-pub_date')
         for eq in q:
             qtag=Tag.objects.filter(threadid=eq.threadid)
@@ -34,7 +46,7 @@ def index(request):
                 l.append([eq,'',qtag])
         
        
-        return render(request,'index.html',{"query":l , "user":u})
+        return render(request,'index.html',{"query":l , "user":u , "save":s })
 
 def signup(request):
     return render(request, 'signup.html')
@@ -86,7 +98,13 @@ def posted(request):
    
     if request.method=="POST":   
         samvad = request.POST['samvad']
+
+        user = User.objects.get(user_name=request.user)
+        user.score = user.score + 10
+        user.save()
+
         tag_names=request.POST.getlist('tag')
+
         q = Question( question=samvad,user_name=request.user)
         q.save()
         for tag_name in tag_names:
@@ -121,7 +139,37 @@ def Notifications(request):
     return render(request, 'notifications.html')
 
 def Saved_items(request):
-    return render(request, 'saveditems.html')
+
+    try:
+        if request.method=="GET":   
+            thread=request.GET['threadid']
+       
+            i= Question.objects.get(threadid=thread)
+        
+            s= SaveQuestion(threadid=i,user_name=request.user)
+      
+            s.save()
+       
+
+            return redirect('/')
+    except:
+        u=User.objects.get(user_name=request.user)
+        print(u.score)
+
+        save = SaveQuestion.objects.filter(user_name=request.user)
+        s=[]
+        for x in save:
+            
+            
+            q = Question.objects.get(threadid=x.threadid.threadid)
+            s.append(q)
+
+            s = s[::-1]
+            
+
+
+    
+        return render(request,'saveditems.html',{"user":u , "save":s})
 
 def Update_profile(request):
     return render(request, 'updateprofile.html')
@@ -138,6 +186,10 @@ def answer(request):
 
     u = Reply(reply=r,threadid=i,user_name=request.user )
     u.save()
+
+    user = User.objects.get(user_name=request.user)
+    user.score = user.score + 10
+    user.save()
    
   
     
@@ -257,5 +309,40 @@ def filter_questions(request):
 def reset_filter_questions(request):
     return redirect('/')
 
+def saving(request):
+    print("I am defined")
+    try:
+        if request.method=="GET":   
+            thread=request.GET['threadid']
+       
+            i= Question.objects.get(threadid=thread)
+        
+            s= SaveQuestion(threadid=i,user_name=request.user)
+      
+            s.save()
+            return HttpResponse("SUCCESS")
+    except:  
+
+        thread=request.GET['threadid']
+        print(thread," i will delete this ")
+        i= Question.objects.get(threadid=thread)
+        s= SaveQuestion.objects.get(threadid=i,user_name=request.user).delete()
+    
+
+
+        return HttpResponse("FAILED")
+
+def remove(request):  
+    thread=request.GET['threadid']
+    
+    i= Question.objects.get(threadid=thread)
+    s= SaveQuestion.objects.get(threadid=i,user_name=request.user).delete()
+
+    return redirect('/saveditems')
+    
+
+   
+
 def filterbytags(request):
     return render(request, 'filterquestions.html')
+
