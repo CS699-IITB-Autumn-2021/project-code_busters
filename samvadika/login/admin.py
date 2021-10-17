@@ -34,4 +34,3 @@ admin.site.register(Hobby)
 
 admin.site.register(Question)
 admin.site.register(Reply)
-admin.site.register(SaveQuestion)
