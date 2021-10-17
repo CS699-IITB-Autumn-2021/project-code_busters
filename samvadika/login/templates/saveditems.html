@@ -66,6 +66,7 @@ side-nav-button:active {
             
             </div>
 
+<<<<<<< HEAD
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/"><i class="fa fa-commenting" aria-hidden="true"></i> Discussions</a></div>
               <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: 20</a></div>
               <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/findpeople"><i class="fa fa-users" aria-hidden="true"></i> Find people</a></div>
@@ -74,6 +75,16 @@ side-nav-button:active {
               <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/updateprofile"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> Update Profile</a></div>
               <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
 
+=======
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/">Discussions</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments">Score: {{user.score}}</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/findpeople">Find people</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/notifications">Notifications</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/saveditems">Saved Items</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/updateprofile">Update Profile</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
+            
+>>>>>>> origin/master
 
        
          </div>
@@ -82,8 +93,47 @@ side-nav-button:active {
            <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
            <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
 
-<div class="row" style="width:100%;height:inherit;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto">
-<h2 style="font-size: large; text-align: center;">Saved Questions/comments</p>   
+<div class="row" style="width:100%;height:inherit;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto;font-size:large;">
+<center><h2 style="font-size: large;">Saved Questions</h2></center>
+
+
+
+
+  {% for x in save %}
+    
+  <div  style="width:100%;height:auto;margin-top:1em">
+
+    <div style="width:100%;height:2em;padding:.2em;background-color:gold;">
+    <span style="position: relative;float: left;">Posted by {{ x.user_name}} </span>   <span style="position: relative;float:right">{{ x.pub_date }} </span>
+    </div>
+    <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
+   {{x.question}}  
+    </div>
+  
+  
+
+
+ 
+<div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
+<button  class='btn btn-dark' >Like</button>  <button  class='btn btn-dark' >Dislike</button> <button  class='btn btn-dark' id='save_{{x.0.threadid}}' onclick="myfunc({{x.threadid}})">Remove</button> 
+<button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
+  View Replies
+</button>
+</div>
+
+</div>
+
+  {% endfor %}
+
+
+
+  <script>
+    function myfunc(x) {
+        window.location.href = "/remove?threadid="+x;
+    }
+    </script>
+
+  </div>
 
               </div>
 
