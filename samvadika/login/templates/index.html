@@ -17,6 +17,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <script type="text/javascript">
       $(document).ready(function() {
         $('.select2').select2({
@@ -91,24 +93,13 @@
   
   
   <div class="row">
-    <form method='POST' action='#'>
+    <form method='POST' action=''>
       {% csrf_token %}  
-         <div class="form-group"> <label></label> <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Filter Question by tag" style="width: 50%;" tabindex="-1" aria-hidden="true" name="hobbies_filter_list" id="hobbies_filter_list" required>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="D">D</option>
-      </select> 
-    </div>
-    <button type="sumbit" name="save_multiple" class="btn btn-primary">Apply</button>
-    <button type="sumbit" name="save_multiple" class="btn btn-secondary">
-      <a href="#" style="color:white">Reset</a>
+       <button type="sumbit" name="save_multiple" class="btn btn-primary" style="float: right">
+      <a href="filterbytags/" style="color:white">Filter Questions by Tag(s)</a>
     </button><br/>
     </form>
     </div>
-  
-  
-  
   
   
   
@@ -118,12 +109,13 @@
          <div class="row">
           <textarea name="samvad" placeholder="What's on your mind, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
           </div>
+         
           <div class="row my-2">
             <div class="col-2 mt-2">
-          <strong>Question Tag:</strong>
+          <strong>Question Tag(s):</strong>
           </div>
-          <!--
-          <div class="col-5">
+          
+          <!--<div class="col-5">
           <select class="form-select" multiple="" aria-label="Default select example" name="tag" style="width:30%;right:5em;" required>
             <option value="">------</option>
             <option value="A">A</option>
@@ -142,10 +134,9 @@
           </select> 
             </div>
           
+            <input type="submit" style="width:fit-content" value="Post"/>
             </div>
-          <div class="row">
-          <input type="submit" style="width:fit-content" value="Post"/>
-        </div>
+         
       </form>
       </div>
   
@@ -158,7 +149,7 @@
         </div>
         <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
           {% for tg in x.2 %}
-          <strong> [{{tg.tag_name}}]</strong>{% endfor %}<br> {{x.0.question}}  
+          <i class="fa fa-tag" aria-hidden="true"></i><strong>[{{tg.tag_name}}]</strong>{% endfor %}<br> {{x.0.question}}  
         </div>
       
       

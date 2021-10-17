@@ -211,29 +211,51 @@ def Updateinterests(request):
     return redirect('/findpeople')
 
 def filter_people(request):
-    print(request.method)
-    if request.method=="POST":  
-        interest_filter_list=request.POST.getlist('hobbies_filter_list')
-        user = request.user                                                                                                                                                                                                                                                                                                                              
-        l = User.objects.all()
-        li = []
-        
-        print(interest_filter_list)
+    if request.method=="POST": 
+        if 'find_people_sumbit' in request.POST: 
+            interest_filter_list=request.POST.getlist('hobbies_filter_list')
+            user = request.user                                                                                                                                                                                                                                                                                                                              
+            l = User.objects.all()
+            li = []
                
-        for filter_hobby in interest_filter_list:
+            for filter_hobby in interest_filter_list:
              
-            for h in l:
-                if Hobby.objects.filter(user_name=h, hobby_name=filter_hobby).exists():
-                    rp=Hobby.objects.filter(user_name=h)
-                    if h != user:
-                        li.append([h,rp])
-                    
-        print(li)
-        return render(request,'findpeople.html',{"query":li}) 
-    else:
-        print("please try hard")
-        return redirect('/findpeople')
+                for h in l:
+                    if Hobby.objects.filter(user_name=h, hobby_name=filter_hobby).exists():
+                        rp=Hobby.objects.filter(user_name=h)
+                        if h != user:
+                            li.append([h,rp])
+            return render(request,'findpeople.html',{"query":li}) 
+        else:
+            return redirect('/findpeople')
 
 
 def Reset_filter_people(request):
     return redirect('/findpeople')
+
+def filter_questions(request):
+    if request.method=="POST":  
+        if 'filter_multiple' in request.POST:
+    
+            tag_filter_list=request.POST.getlist('tag_filter_list')     
+            print(tag_filter_list)                                                                                                                                                                                                                                                                                     
+            q = Question.objects.all()
+            li = []
+               
+            for qn_tag in tag_filter_list:
+             
+                for qn in q:
+                    if Tag.objects.filter(tag_name=qn_tag,threadid=qn.threadid).exists():
+                        rp=Tag.objects.filter(threadid=qn.threadid)
+                        li.append([qn,rp])
+            return render(request,'filterquestions.html',{"query":li}) 
+        
+        else:
+            return redirect('/')
+
+
+def reset_filter_questions(request):
+    return redirect('/')
+
+def filterbytags(request):
+    return render(request, 'filterquestions.html')
