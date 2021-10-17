@@ -2,44 +2,63 @@
 
 
 <html>
-<head>
-
-<!--
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
--->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-  <style>
-      div{
-          background-color: white;
-          
-      }
-      .modal-backdrop{
-          display: none;
-      }
-
-      ::placeholder {
-  color: red;
-  font-size: 1.3em;
-}
-textarea{
-  font-size : 1.3em;
-}
-
-input[type=submit]{
-    color:green;
-    padding:0.5em 2.2em;
-}     
-.modal-backdrop {
-   background: none;
-}
-
-  </style>
-
+  <head>
   
-</head>
+
+
+  <!--
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+        $('.select2').select2({
+        closeOnSelect: false
+        });
+        });
+      </script>
+      <style>
+        
+        div{
+            background-color: white;
+
+            
+        }
+        .modal-backdrop{
+            display: none;
+        }
+  
+        ::placeholder {
+    color: red;
+    font-size: 1.3em;
+  }
+  textarea{
+    font-size : 1.3em;
+  }
+  
+  input[type=submit]{
+      color:green;
+      padding:0.5em 2.2em;
+  }     
+  .modal-backdrop {
+     background: none;
+  }
+    </style>
+  
+  ////////
+    
+    </head>
 <body>
 
 
@@ -66,52 +85,97 @@ input[type=submit]{
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/saveditems">Saved Items</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/updateprofile">Update Profile</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
-            
 
-       
-         </div>
-         <div class="col-sm-10" style="height:auto;">
-
-           <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
-           <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
-
-<div class="row" style="width:100%;height:90%;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto">
-    
-    <form method="post" action="posted"><br/>
-        {% csrf_token %}
-       
-        <textarea name="samvad" placeholder="What's on your mind, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
-        <br/> 
-        <input type="submit" style="margin-top:.3em" value="Post"/>
-    </form>
-    
-
-    {% for x in query %}
-    
-    <div  style="width:100%;height:auto;margin-top:1em">
-
-      <div style="width:100%;height:2em;padding:.2em;background-color:gold;">
-        Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
-      </div>
-      <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
-     {{x.0.question}}  
-      </div>
     
     
-
+    ////////
   
-   
-  <div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
+    
+  
+         
+           </div>
+           <div class="col-sm-10" style="height:auto;">
+  
+             <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
+             <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
+  
+  <div class="row" style="width:100%;height:90%;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto">
+  
+  
+  
+  <div class="row">
+    <form method='POST' action=''>
+      {% csrf_token %}  
+       <button type="sumbit" name="save_multiple" class="btn btn-primary" style="float: right">
+      <a href="filterbytags/" style="color:white">Filter Questions by Tag(s)</a>
+    </button><br/>
+    </form>
+    </div>
+  
+  
+  
+      <div class="row">
+      <form method="post" action="posted"><br/>
+          {% csrf_token %}
+         <div class="row">
+          <textarea name="samvad" placeholder="What's on your mind, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
+          </div>
+         
+          <div class="row my-2">
+            <div class="col-2 mt-2">
+          <strong>Question Tag(s):</strong>
+          </div>
+          
+          <!--<div class="col-5">
+          <select class="form-select" multiple="" aria-label="Default select example" name="tag" style="width:30%;right:5em;" required>
+            <option value="">------</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+          </select>
+          </div>
+        -->
+          <div class="col-4">
+            <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select one or more tag" style="width: 100%;" tabindex="-1" aria-hidden="true" name="tag" id="hobbies_list" required>
+              <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+          </select> 
+            </div>
+          
+            <input type="submit" style="width:fit-content" value="Post"/>
+            </div>
+         
+      </form>
+      </div>
+  
+      {% for x in query %}
+      
+      <div  style="width:100%;height:auto;margin-top:1em">
+  
+        <div style="width:100%;height:2em;padding:.2em;background-color:gold;">
+        Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
+        </div>
+        <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
+          {% for tg in x.2 %}
+          <i class="fa fa-tag" aria-hidden="true"></i><strong>[{{tg.tag_name}}]</strong>{% endfor %}<br> {{x.0.question}}  
+        </div>
+      
+      
+  
+    
+     
+    <div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
   <button  class='btn btn-dark' >Like</button>  <button  class='btn btn-dark' >Dislike</button> <button  class='btn btn-dark' id='save_{{x.0.threadid}}' onclick="myfunc({{x.0.threadid}})">Save Question</button> 
   <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
     View Replies
   </button>
-  </div>
-
-</div>
-
-    {% endfor %}
   
+  </div>
+  
+
 
 
 
@@ -166,125 +230,124 @@ done(b);
 
 
 
-{% endfor %}
-
-
-
-
-
-
-
-
-
-              </div>
+      {% endfor %}
+    
+  
+  
+  
+  
+                </div>
+  
+             </div>
 
            </div>
-         </div>
-
-         </div>
-
-
-
-
-
-
-
-
-         {% for x in query %}
-   
-    <!--       Modal -->
-
-      <div class="modal fade"  id="id_{{x.0.threadid}}" role='dialog' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" >
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title"  id="exampleModalLabel"><span>Thread Id is : {{x.0.threadid}} </span></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="overflow: scroll;">
-
-              <div style="width:100%;height:2em;padding:.2em;background-color:gold;border:2px solid;">
-                Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
-              </div>
-              <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;border:2px solid;border-top:none;">
-                {{x.0.question}}  
-                 </div>
-                 <form method="post" action="answer/"><br/>
-                  {% csrf_token %}
-                 
-                  <textarea name="ans" placeholder="Do you wanna answer, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
-                  <br/> 
-                  <input type="hidden" name="threadid" value="{{x.0.threadid}}" />
-                  <input type="submit" style="margin-top:.3em" value="Answer"/>
-              </form>
-              
-               
-                  {% if x.1 is not '' %}
-                  {% for y in x.1 reversed %}
-
-                  <div style="width:100%;height:2em;padding:.2em;background-color:bisque;margin-top:1em;">
-                    Replied by {{ y.user_name}}  <span style="position: relative;float:right">{{y.reply_date}} </span>
-                  </div>
-                  <div class = "reply" style="width:100%;height:auto;padding:1em;background-color:lightgrey;">
-                  
-                  <span> {{y.reply}} </span>
-                  <input type = "image" id="thumbsup" src = "/static/thumbsup_initial.png" onclick="changeupvote()" width="30px" height="30px" />
-                  <input type = "image" id="thumbsdown" src = "/static/thumbsdown_initial.png" onclick="changedownvote()" width="30px" height="30px"/>
-                </div>
-              
-              
-                  {% endfor %}
-              
-              
-                  {% endif %}
-
-
-                  
-                 
-             
-              
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-          </div>
-        </div>
-        
-      </div>
-
-    {% endfor %}
-
-
-<!--
-     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
--->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"> </script>
-<script>
-  function changeupvote() {
-            var image = document.getElementById("thumbsup");
-            if (image.src.match("thumbsup_initial.png")) {
-                image.src = "/static/thumbsup_on.png";
-            }
-            else {
-                image.src = "/static/thumbsup_initial.png";
-            }
-        }
   
-  function changedownvote(){
-    var image = document.getElementById("thumbsdown");
-            if (image.src.match("thumbsdown_initial.png")) {
-                image.src = "/static/thumbsdown_on.png";
-            }
-            else {
-                image.src = "/static/thumbsdown_initial.png";
-            }
-  }
-  </script>
-
-
-</body>
-</html>
+           </div>
+  
+  
+  
+  
+  
+  
+  
+  
+           {% for x in query %}
+     
+      <!--       Modal -->
+  
+        <div class="modal fade"  id="id_{{x.0.threadid}}" role='dialog' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg" >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"  id="exampleModalLabel"><span>Thread Id is : {{x.0.threadid}} </span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" style="overflow: scroll;">
+  
+                <div style="width:100%;height:2em;padding:.2em;background-color:gold;border:2px solid;">
+                   Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
+                </div>
+                <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;border:2px solid;border-top:none;">
+                  {% for tg in x.2 %}
+                  <strong> [{{tg.tag_name}}]</strong>{% endfor %} <br> {{x.0.question}} 
+                   </div>
+                   <form method="post" action="answer/"><br/>
+                    {% csrf_token %}
+                   
+                    <textarea name="ans" placeholder="Do you wanna answer, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
+                    <br/> 
+                    <input type="hidden" name="threadid" value="{{x.0.threadid}}" />
+                    <input type="submit" style="margin-top:.3em" value="Answer"/>
+                </form>
+                
+                 
+                    {% if x.1 is not '' %}
+                    {% for y in x.1 reversed %}
+  
+                    <div style="width:100%;height:2em;padding:.2em;background-color:bisque;margin-top:1em;">
+                      Replied by {{ y.user_name}}  <span style="position: relative;float:right">{{y.reply_date}} </span>
+                    </div>
+                    <div class = "reply" style="width:100%;height:auto;padding:1em;background-color:lightgrey;">
+                     
+                    <span> {{y.reply}} </span>
+                    <input type = "image" id="thumbsup" src = "/static/thumbsup_initial.png" onclick="changeupvote()" width="30px" height="30px" />
+                    <input type = "image" id="thumbsdown" src = "/static/thumbsdown_initial.png" onclick="changedownvote()" width="30px" height="30px"/>
+                  </div>
+                
+                
+                    {% endfor %}
+                
+                
+                    {% endif %}
+  
+  
+                    
+                   
+               
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+          
+        </div>
+  
+      {% endfor %}
+  
+  
+  <!--
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"> </script>
+  <script>
+    function changeupvote() {
+              var image = document.getElementById("thumbsup");
+              if (image.src.match("thumbsup_initial.png")) {
+                  image.src = "/static/thumbsup_on.png";
+              }
+              else {
+                  image.src = "/static/thumbsup_initial.png";
+              }
+          }
+    
+    function changedownvote(){
+      var image = document.getElementById("thumbsdown");
+              if (image.src.match("thumbsdown_initial.png")) {
+                  image.src = "/static/thumbsdown_on.png";
+              }
+              else {
+                  image.src = "/static/thumbsdown_initial.png";
+              }
+    }
+    </script>
+  
+  
+  </body>
+  </html>
+  

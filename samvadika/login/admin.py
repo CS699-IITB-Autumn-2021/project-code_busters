@@ -29,6 +29,8 @@ class UserAdminConfig(UserAdmin):
     )
 admin.site.register(NewUser,UserAdminConfig)
 
+admin.site.register(Tag)
+admin.site.register(Hobby)
 
 admin.site.register(Question)
 admin.site.register(Reply)

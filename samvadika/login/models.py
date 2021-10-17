@@ -66,22 +66,19 @@ class Hobby(models.Model):
     hobby_name = models.CharField(max_length=200, default=None, blank=True, null=True)
     user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
 
+
+
 class Question(models.Model):
     question = models.CharField(max_length=1000)
     pub_date = models.DateTimeField(default=timezone.now)
     user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
-    tag1 = models.CharField(max_length=15)
-    tag2 = models.CharField(max_length=15)
-    tag3 = models.CharField(max_length=15)
-    tag4 = models.CharField(max_length=15)
-    tag5 = models.CharField(max_length=15)
-    tag6 = models.CharField(max_length=15)
-    tag7 = models.CharField(max_length=15)
-    tag8 = models.CharField(max_length=15)
-    tag9 = models.CharField(max_length=15)
-    tag10 = models.CharField(max_length=15)
+    #tag = models.ForeignKey(Tag,on_delete=models.CASCADE)
     threadid = models.AutoField(primary_key=True)
-  
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=50,default=" ", blank=True, null=True)
+    threadid=models.ForeignKey(Question, on_delete=models.CASCADE)
+
 class Reply(models.Model):
     threadid =  models.ForeignKey(Question, on_delete=models.CASCADE)
     reply_date = models.DateTimeField(default=timezone.now)

@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import *
 import random
 
+#f2
 
 User=get_user_model()
 # Create your views here.
@@ -36,11 +37,13 @@ def index(request):
 
         q=Question.objects.order_by('-pub_date')
         for eq in q:
+            qtag=Tag.objects.filter(threadid=eq.threadid)
+            print(qtag[0].tag_name)
             if Reply.objects.filter(threadid=eq.threadid).exists():
                 rp=Reply.objects.filter(threadid=eq.threadid)
-                l.append([eq,rp])
+                l.append([eq,rp,qtag])
             else:
-                l.append([eq,''])
+                l.append([eq,'',qtag])
         
        
         return render(request,'index.html',{"query":l , "user":u , "save":s })
@@ -75,6 +78,9 @@ def register(request):
         if password!=confirm_password:
             messages.warning(request, 'Mismatch in Password and Confirm Password')
             return render(request, 'signup.html')
+        if User.objects.filter(user_name=username).exists():
+            messages.warning(request, 'Username already taken')
+            return render(request, 'signup.html')
         if User.objects.filter(email=email).exists():
             messages.warning(request, 'Email already exists')
             return render(request, 'signup.html')
@@ -92,15 +98,19 @@ def posted(request):
    
     if request.method=="POST":   
         samvad = request.POST['samvad']
+
         user = User.objects.get(user_name=request.user)
         user.score = user.score + 10
         user.save()
+
+        tag_names=request.POST.getlist('tag')
+
         q = Question( question=samvad,user_name=request.user)
         q.save()
-    
+        for tag_name in tag_names:
+            tg=Tag(tag_name=tag_name,threadid=q)
+            tg.save()
         print(samvad)
-
-
     return redirect('/')
 
 def Find_people_check(request):
@@ -252,9 +262,52 @@ def Updateinterests(request):
         
     return redirect('/findpeople')
 
-def UserInterestInfo(request):
-    user_data = User.objects.all()
-    return render(request, '',{'users_list': NewUser.objects.all()})
+def filter_people(request):
+    if request.method=="POST": 
+        if 'find_people_sumbit' in request.POST: 
+            interest_filter_list=request.POST.getlist('hobbies_filter_list')
+            user = request.user                                                                                                                                                                                                                                                                                                                              
+            l = User.objects.all()
+            li = []
+               
+            for filter_hobby in interest_filter_list:
+             
+                for h in l:
+                    if Hobby.objects.filter(user_name=h, hobby_name=filter_hobby).exists():
+                        rp=Hobby.objects.filter(user_name=h)
+                        if h != user:
+                            li.append([h,rp])
+            return render(request,'findpeople.html',{"query":li}) 
+        else:
+            return redirect('/findpeople')
+
+
+def Reset_filter_people(request):
+    return redirect('/findpeople')
+
+def filter_questions(request):
+    if request.method=="POST":  
+        if 'filter_multiple' in request.POST:
+    
+            tag_filter_list=request.POST.getlist('tag_filter_list')     
+            print(tag_filter_list)                                                                                                                                                                                                                                                                                     
+            q = Question.objects.all()
+            li = []
+               
+            for qn_tag in tag_filter_list:
+             
+                for qn in q:
+                    if Tag.objects.filter(tag_name=qn_tag,threadid=qn.threadid).exists():
+                        rp=Tag.objects.filter(threadid=qn.threadid)
+                        li.append([qn,rp])
+            return render(request,'filterquestions.html',{"query":li}) 
+        
+        else:
+            return redirect('/')
+
+
+def reset_filter_questions(request):
+    return redirect('/')
 
 def saving(request):
     print("I am defined")
@@ -289,3 +342,7 @@ def remove(request):
     
 
    
+
+def filterbytags(request):
+    return render(request, 'filterquestions.html')
+
