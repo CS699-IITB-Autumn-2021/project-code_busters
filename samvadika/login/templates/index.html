@@ -4,8 +4,6 @@
 <html>
   <head>
   
-
-
   <!--
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   
@@ -32,7 +30,6 @@
         
         div{
             background-color: white;
-
             
         }
         .modal-backdrop{
@@ -55,7 +52,11 @@
      background: none;
   }
     </style>
+  </head>
+  <body>
   
+  
+
     
     </head>
 <body>
@@ -77,22 +78,19 @@
             
             </div>
 
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/">Discussions</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments">Score: {{user.score}}</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/findpeople">Find people</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/notifications">Notifications</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/saveditems">Saved Items</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;"href="/updateprofile">Update Profile</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
 
-    
-    
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/"><i class="fa fa-commenting" aria-hidden="true"></i> Discussions</a></div>
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: {{user.score}}</a></div>
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/findpeople"><i class="fa fa-users" aria-hidden="true"></i> Find people</a></div>
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/notifications"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a></div>
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/saveditems"><i class="fa fa-bookmark" aria-hidden="true"></i> Saved Items</a></div>
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/updateprofile"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> Update Profile</a></div>
+              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
+              
 
-  
-    
-  
-         
-           </div>
+
+
+ 
            <div class="col-sm-10" style="height:auto;">
   
              <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
@@ -167,13 +165,15 @@
     
      
     <div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
-  <button  class='btn btn-dark' >Like</button>  <button  class='btn btn-dark' >Dislike</button> <button  class='btn btn-dark' id='save_{{x.0.threadid}}' onclick="myfunc({{x.0.threadid}})">Save Question</button> 
-  <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
-    View Replies
-  </button>
+    <button  class='btn btn-dark' >Like</button>  <button  class='btn btn-dark' >Dislike</button> <button  class='btn btn-dark' >Save Question</button> 
+    <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
+      View Replies
+    </button>
+    </div>
   
   </div>
   
+
   {% endfor %}
 
 
@@ -238,7 +238,6 @@ done(b);
                 </div>
   
              </div>
-
            </div>
   
            </div>
