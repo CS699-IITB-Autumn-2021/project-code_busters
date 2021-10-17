@@ -20,5 +20,10 @@ urlpatterns = [
     path('updateprofile/update_pwd',update_pwd,name='update_pwd'),
     path('updateprofile/update_img',update_img,name='update_img'),
     path('findpeople/Updateinterests',Updateinterests,name='updateinterests'),
+
+    path('saving',saving,name='saving'),
+    path('remove',remove,name='remove'),
+
+
     #path('user_data/',UserInterestInfo, name='userinterestinfo')
 ]

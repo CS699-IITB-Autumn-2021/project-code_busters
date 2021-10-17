@@ -44,7 +44,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, blank=True)
     image=models.ImageField(null=True, blank= True, default="pic.jpeg")
     start_date = models.DateTimeField(default=timezone.now)
-    
+    score = models.IntegerField(default=5)
     interest_form_submitted = models.BooleanField(default=False)
     fb_link = models.URLField(max_length=200, default="https://www.facebook.com/")
     linkedin_link = models.URLField(max_length=200, default="https://www.linkedin.com/in/")
@@ -87,4 +87,13 @@ class Reply(models.Model):
     reply_date = models.DateTimeField(default=timezone.now)
     reply=models.CharField(max_length=1000)
     user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
+
+
+class SaveQuestion(models.Model):
+    threadid =  models.ForeignKey(Question, on_delete=models.CASCADE)
+    user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
+
+    class Meta:
+
+        unique_together = (('threadid', 'user_name'),)
 

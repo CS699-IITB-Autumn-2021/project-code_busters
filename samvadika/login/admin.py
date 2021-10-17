@@ -32,3 +32,4 @@ admin.site.register(NewUser,UserAdminConfig)
 
 admin.site.register(Question)
 admin.site.register(Reply)
+admin.site.register(SaveQuestion)
