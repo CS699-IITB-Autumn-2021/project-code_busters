@@ -21,5 +21,8 @@ urlpatterns = [
     path('updateprofile/update_img',update_img,name='update_img'),
     path('findpeople/Updateinterests',Updateinterests,name='updateinterests'),
     path('findpeople/reset_filter_people',Reset_filter_people,name='reset_filter_people'),
-    path('findpeople/filter_people',filter_people, name='filter_people')
+    path('findpeople/filter_people',filter_people, name='filter_people'),
+    path('reset_filter_questions/',reset_filter_questions,name='reset_filter_questions'),
+    path('filter_questions',filter_questions, name='filter_questions')
 ]
+

@@ -91,9 +91,9 @@
   
   
   <div class="row">
-    <form method='POST' action='#'>
+    <form method='POST' action='filter_questions'>
       {% csrf_token %}  
-         <div class="form-group"> <label></label> <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Filter Question by tag" style="width: 50%;" tabindex="-1" aria-hidden="true" name="hobbies_filter_list" id="hobbies_filter_list" required>
+         <div class="form-group"> <label></label> <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Filter Question by tag" style="width: 50%;" tabindex="-1" aria-hidden="true" name="tag_filter_list" id="tag_filter_list" required>
           <option value="A">A</option>
           <option value="B">B</option>
           <option value="C">C</option>
@@ -102,7 +102,7 @@
     </div>
     <button type="sumbit" name="save_multiple" class="btn btn-primary">Apply</button>
     <button type="sumbit" name="save_multiple" class="btn btn-secondary">
-      <a href="#" style="color:white">Reset</a>
+      <a href="reset_filter_questions/" style="color:white">Reset</a>
     </button><br/>
     </form>
     </div>
