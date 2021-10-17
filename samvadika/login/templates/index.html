@@ -17,6 +17,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <script type="text/javascript">
       $(document).ready(function() {
         $('.select2').select2({
@@ -147,7 +149,7 @@
         </div>
         <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
           {% for tg in x.2 %}
-          <strong> [{{tg.tag_name}}]</strong>{% endfor %}<br> {{x.0.question}}  
+          <i class="fa fa-tag" aria-hidden="true"></i><strong>[{{tg.tag_name}}]</strong>{% endfor %}<br> {{x.0.question}}  
         </div>
       
       
