@@ -85,8 +85,6 @@
     
                <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
                <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
-    
-    <div class="row">
       <form method='POST' action='filter_questions'>
         {% csrf_token %}  
            <div class="form-group"> <label></label> <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Filter Question by tag" style="width: 50%;" tabindex="-1" aria-hidden="true" name="tag_filter_list" id="tag_filter_list" required>
@@ -95,13 +93,13 @@
             <option value="C">C</option>
             <option value="D">D</option>
         </select> 
-      </div>
-      <button type="sumbit" name="save_multiple" class="btn btn-primary">Apply</button>
-      <button type="sumbit" name="save_multiple" class="btn btn-secondary">
+     
+      <button type="sumbit" name="filter_multiple" class="btn btn-primary">Apply</button>
+      <button type="sumbit" name="reset" class="btn btn-secondary">
         <a href="reset_filter_questions/" style="color:white">Reset</a>
       </button><br/>
-      </form>
-        {% for x in query %}
+    </form>
+        {% for x in query reversed %}
         
         <div  style="width:100%;height:auto;margin-top:1em">
     
