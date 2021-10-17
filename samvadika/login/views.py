@@ -24,11 +24,13 @@ def index(request):
         
         q=Question.objects.order_by('-pub_date')
         for eq in q:
+            qtag=Tag.objects.filter(threadid=eq.threadid)
+            print(qtag[0].tag_name)
             if Reply.objects.filter(threadid=eq.threadid).exists():
                 rp=Reply.objects.filter(threadid=eq.threadid)
-                l.append([eq,rp])
+                l.append([eq,rp,qtag])
             else:
-                l.append([eq,''])
+                l.append([eq,'',qtag])
         
        
         return render(request,'index.html',{"query":l , "user":u})
@@ -63,6 +65,9 @@ def register(request):
         if password!=confirm_password:
             messages.warning(request, 'Mismatch in Password and Confirm Password')
             return render(request, 'signup.html')
+        if User.objects.filter(user_name=username).exists():
+            messages.warning(request, 'Username already taken')
+            return render(request, 'signup.html')
         if User.objects.filter(email=email).exists():
             messages.warning(request, 'Email already exists')
             return render(request, 'signup.html')
@@ -80,13 +85,13 @@ def posted(request):
    
     if request.method=="POST":   
         samvad = request.POST['samvad']
-
+        tag_names=request.POST.getlist('tag')
         q = Question( question=samvad,user_name=request.user)
         q.save()
-    
+        for tag_name in tag_names:
+            tg=Tag(tag_name=tag_name,threadid=q)
+            tg.save()
         print(samvad)
-
-
     return redirect('/')
 
 def Find_people_check(request):
