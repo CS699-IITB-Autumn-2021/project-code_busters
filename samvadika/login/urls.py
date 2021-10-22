@@ -24,6 +24,7 @@ urlpatterns = [
     path('findpeople/filter_people',filter_people, name='filter_people'),
     path('filterbytags/reset_filter_questions/',reset_filter_questions,name='reset_filter_questions'),
     path('filterbytags/filter_questions',filter_questions, name='filter_questions'),
-    path('filterbytags/',filterbytags, name='filterbytags')
+    path('filterbytags/',filterbytags, name='filterbytags'),
+    path('save-upvote',save_upvote, name = 'save-upvote'),
+    path('save-downvote',save_downvote, name = 'save-downvote'),
 ]
-

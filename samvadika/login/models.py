@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, User
 
 
 
@@ -84,4 +84,14 @@ class Reply(models.Model):
     reply_date = models.DateTimeField(default=timezone.now)
     reply=models.CharField(max_length=1000)
     user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
+    replyid = models.AutoField(primary_key=True)
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
 
+class UpVote(models.Model):
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE)
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='upvote_user')
+
+class DownVote(models.Model):
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE)
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='downvote_user')
