@@ -1,3 +1,4 @@
+from types import ClassMethodDescriptorType
 from django.contrib import admin
 from .models import NewUser
 from django.contrib.auth.admin import UserAdmin
@@ -27,6 +28,12 @@ class UserAdminConfig(UserAdmin):
             'fields': ('email', 'user_name', 'first_name','image', 'password1', 'password2', 'is_active', 'is_staff')}
          ),
     )
+class UpvoteAdmin(admin.ModelAdmin):
+    list_display=('reply','user')
+
+class DownvoteAdmin(admin.ModelAdmin):
+    list_display=('reply','user')
+
 admin.site.register(NewUser,UserAdminConfig)
 
 admin.site.register(Tag)
@@ -34,3 +41,5 @@ admin.site.register(Hobby)
 
 admin.site.register(Question)
 admin.site.register(Reply)
+admin.site.register(UpVote,UpvoteAdmin)
+admin.site.register(DownVote, DownvoteAdmin)

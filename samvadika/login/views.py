@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout, authenticate, login
@@ -259,3 +260,33 @@ def reset_filter_questions(request):
 
 def filterbytags(request):
     return render(request, 'filterquestions.html')
+
+def save_upvote(request):
+    if request.method == 'POST':
+        replyid = request.POST['replyid']
+        reply = Reply.objects.get(pk=replyid)
+        user = request.user
+        check=UpVote.objects.filter(reply=reply,user=user).count()
+        if check > 0:
+            return JsonResponse({'bool':False})
+        else:
+            UpVote.objects.create(
+                reply = reply,
+                user = user
+            )
+            return JsonResponse({'bool':True})
+
+def save_downvote(request):
+    if request.method == 'POST':
+        replyid = request.POST['replyid']
+        reply = Reply.objects.get(pk=replyid)
+        user = request.user
+        check=DownVote.objects.filter(reply=reply,user=user).count()
+        if check > 0:
+            return JsonResponse({'bool':False})
+        else:
+            DownVote.objects.create(
+                reply = reply,
+                user = user
+            )
+            return JsonResponse({'bool':True})
