@@ -296,30 +296,48 @@ def save_like(request):
         threadid = request.POST['threadid']
         question = Question.objects.get(pk=threadid)
         user = request.user
-        check=Like.objects.filter(question = question,user=user).count()
-        print(check)
-        if check > 0:
-            return JsonResponse({'bool':False})
+        check_likes = Like.objects.filter(question = question,user=user).count()
+        check_dislikes=Dislike.objects.filter(question = question,user=user).count()        
+        # print(check)
+        if check_likes > 0:
+            Like.objects.filter(question = question,user=user).delete()
+            return JsonResponse({'bool':False,'other':False})
+        elif check_dislikes > 0:
+            Dislike.objects.filter(question = question,user=user).delete()
+            Like.objects.create(
+                question = question,
+                user = user
+            )
+            return JsonResponse({'bool':True,'other':True})
         else:
             Like.objects.create(
                 question = question,
                 user = user
             )
-            return JsonResponse({'bool':True})
+            return JsonResponse({'bool':True, 'other':False})
 
 def save_dislike(request):
     if request.method == 'POST':
         threadid = request.POST['threadid']
         question = Question.objects.get(pk=threadid)
         user = request.user
-        check=Dislike.objects.filter(question = question,user=user).count()
-        print(check)
-        if check > 0:            
-            return JsonResponse({'bool':False})
+        check_dislikes=Dislike.objects.filter(question = question,user=user).count()
+        check_likes = Like.objects.filter(question = question,user=user).count()
+        # print(check_dislikes,check_likes, Dislike.objects.filter(question = question,user=user))
+        if check_dislikes > 0 :            
+            Dislike.objects.filter(question = question,user=user).delete()
+            return JsonResponse({'bool':False,'other':False})
         
+        elif check_likes > 0 :
+            Like.objects.filter(question = question,user=user).delete()
+            Dislike.objects.create(
+                question = question,
+                user = user
+            )
+            return JsonResponse({'bool':True,'other':True})
         else:
             Dislike.objects.create(
                 question = question,
                 user = user
             )
-            return JsonResponse({'bool':True})
+            return JsonResponse({'bool':True,'other':False})

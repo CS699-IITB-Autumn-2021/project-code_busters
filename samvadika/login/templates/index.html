@@ -156,9 +156,9 @@
      
     <div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
     <button  class='btn btn-dark like-click' data-question = {{x.0.threadid}} >
-      <strong> Like  &ensp; &ensp;(<font class="like-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.like_set.count}}</font> )</strong> </button>  
+      <strong> Like  &ensp; &ensp;(<font class="like-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.like_set.count}}</font>)</strong> </button>  
       <button  class='btn btn-dark dislike-click'  data-question = {{x.0.threadid}}>
-      <strong > Dislike &ensp; &ensp;(<font class="dislike-count-{{x.0.threadid}}" style="vertical-align: middle;"> {{x.0.dislike_set.count}} </font> )</strong> </button> 
+      <strong > Dislike &ensp; &ensp;(<font class="dislike-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.dislike_set.count}}</font>)</strong> </button> 
         <button  class='btn btn-dark' >Save Question</button> 
     <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
       View Replies
@@ -373,7 +373,7 @@ done(b);
 
         $(".like-click").on('click',function(){
           var threadid=$(this).data('question');
-          console.log($(this));
+          // console.log($(this));
           $.ajax({
             url:"/save-like",
             type:"post",
@@ -385,8 +385,15 @@ done(b);
             success:function(res){
               // console.log(res);
               var _prevlikes=$(".like-count-"+threadid).text();
+              var _prevdislikes=$(".dislike-count-"+threadid).text();
               if(res.bool==true){
                 $(".like-count-"+threadid).text(parseInt(_prevlikes)+1);
+                if(res.other==true){
+                  $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)-1);
+                }
+              }
+              if(res.bool==false){
+                $(".like-count-"+threadid).text(parseInt(_prevlikes)-1);
               }
             }
           });          
@@ -394,7 +401,7 @@ done(b);
 
         $(".dislike-click").on('click',function(){
           var threadid=$(this).data('question');
-          console.log($(this));
+          // console.log($(this));
           $.ajax({
             url:"/save-dislike",
             type:"post",
@@ -406,8 +413,15 @@ done(b);
             success:function(res){
               // console.log(res);
               var _prevdislikes=$(".dislike-count-"+threadid).text();
+              var _prevlikes=$(".like-count-"+threadid).text();
               if(res.bool==true){
                 $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)+1);
+                if(res.other==true){
+                  $(".like-count-"+threadid).text(parseInt(_prevlikes)-1);
+                }
+              }
+              if(res.bool==false){
+                $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)-1);
               }
             }
           });          
