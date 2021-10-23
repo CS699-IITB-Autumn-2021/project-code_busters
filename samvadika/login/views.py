@@ -266,30 +266,48 @@ def save_upvote(request):
         replyid = request.POST['replyid']
         reply = Reply.objects.get(pk=replyid)
         user = request.user
-        check=UpVote.objects.filter(reply=reply,user=user).count()
-        if check > 0:
-            return JsonResponse({'bool':False})
+        check_upvotes=UpVote.objects.filter(reply=reply,user=user).count()
+        check_downvotes=DownVote.objects.filter(reply=reply,user=user).count()
+        if check_upvotes > 0:
+            UpVote.objects.filter(reply = reply,user=user).delete()
+            return JsonResponse({'bool':False,'other':False})
+        elif(check_downvotes > 0):
+            DownVote.objects.filter(reply = reply,user=user).delete()
+            UpVote.objects.create(
+                reply = reply,
+                user = user
+            )
+            return JsonResponse({'bool':True,'other':True})
         else:
             UpVote.objects.create(
                 reply = reply,
                 user = user
             )
-            return JsonResponse({'bool':True})
+            return JsonResponse({'bool':True,'other':False})
 
 def save_downvote(request):
     if request.method == 'POST':
         replyid = request.POST['replyid']
         reply = Reply.objects.get(pk=replyid)
         user = request.user
-        check=DownVote.objects.filter(reply=reply,user=user).count()
-        if check > 0:
-            return JsonResponse({'bool':False})
+        check_downvotes=DownVote.objects.filter(reply=reply,user=user).count()
+        check_upvotes=UpVote.objects.filter(reply=reply,user=user).count()
+        if check_downvotes > 0:
+            DownVote.objects.filter(reply = reply,user=user).delete()
+            return JsonResponse({'bool':False,'other':False})
+        elif(check_upvotes > 0):
+            UpVote.objects.filter(reply = reply,user=user).delete()
+            DownVote.objects.create(
+                reply = reply,
+                user = user
+            )
+            return JsonResponse({'bool':True,'other':True})
         else:
             DownVote.objects.create(
                 reply = reply,
                 user = user
             )
-            return JsonResponse({'bool':True})
+            return JsonResponse({'bool':True,'other':False})
 
 def save_like(request):
     if request.method == 'POST':
