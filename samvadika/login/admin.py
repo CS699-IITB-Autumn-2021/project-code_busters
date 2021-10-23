@@ -34,6 +34,12 @@ class UpvoteAdmin(admin.ModelAdmin):
 class DownvoteAdmin(admin.ModelAdmin):
     list_display=('reply','user')
 
+class LikeAdmin(admin.ModelAdmin):
+    list_display=('question','user')
+
+class DislikeAdmin(admin.ModelAdmin):
+    list_display=('question','user')
+
 admin.site.register(NewUser,UserAdminConfig)
 
 admin.site.register(Tag)
@@ -43,3 +49,5 @@ admin.site.register(Question)
 admin.site.register(Reply)
 admin.site.register(UpVote,UpvoteAdmin)
 admin.site.register(DownVote, DownvoteAdmin)
+admin.site.register(Like, LikeAdmin)
+admin.site.register(Dislike, DislikeAdmin)

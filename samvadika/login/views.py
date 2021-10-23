@@ -290,3 +290,36 @@ def save_downvote(request):
                 user = user
             )
             return JsonResponse({'bool':True})
+
+def save_like(request):
+    if request.method == 'POST':
+        threadid = request.POST['threadid']
+        question = Question.objects.get(pk=threadid)
+        user = request.user
+        check=Like.objects.filter(question = question,user=user).count()
+        print(check)
+        if check > 0:
+            return JsonResponse({'bool':False})
+        else:
+            Like.objects.create(
+                question = question,
+                user = user
+            )
+            return JsonResponse({'bool':True})
+
+def save_dislike(request):
+    if request.method == 'POST':
+        threadid = request.POST['threadid']
+        question = Question.objects.get(pk=threadid)
+        user = request.user
+        check=Dislike.objects.filter(question = question,user=user).count()
+        print(check)
+        if check > 0:            
+            return JsonResponse({'bool':False})
+        
+        else:
+            Dislike.objects.create(
+                question = question,
+                user = user
+            )
+            return JsonResponse({'bool':True})
