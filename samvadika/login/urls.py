@@ -27,4 +27,6 @@ urlpatterns = [
     path('filterbytags/',filterbytags, name='filterbytags'),
     path('save-upvote',save_upvote, name = 'save-upvote'),
     path('save-downvote',save_downvote, name = 'save-downvote'),
+    path('save-like',save_like, name = 'save-like'),
+    path('save-dislike',save_dislike, name = 'save-dislike'),
 ]

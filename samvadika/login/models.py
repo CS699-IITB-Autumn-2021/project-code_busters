@@ -95,3 +95,11 @@ class UpVote(models.Model):
 class DownVote(models.Model):
     reply = models.ForeignKey(Reply, on_delete=models.CASCADE)
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='downvote_user')
+
+class Like(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='like_user')
+
+class Dislike(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='dislike_user')
