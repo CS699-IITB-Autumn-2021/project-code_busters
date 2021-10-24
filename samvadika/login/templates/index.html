@@ -285,12 +285,12 @@ done(b);
                     <div class = "upvote" style="background-color:transparent; display: flex; flex-direction: column-reverse; align-items: center;padding: 5px;">
                       <strong class="upvote-count-{{y.replyid}}">{{y.upvote_set.count}}</strong>
                     
-                    <i class="fa fa-thumbs-up fa-2x upvote-click " data-reply = {{y.replyid}}></i>                    
+                    <i class="fa fa-thumbs-up fa-2x upvote-click" style="cursor: pointer" data-reply = {{y.replyid}}></i>                    
                   </div>
                   <div class = "downvote" style="background-color:transparent;display: flex; flex-direction: column-reverse; align-items: center;padding: 5px;">
                     <strong class="downvote-count-{{y.replyid}}">{{y.downvote_set.count}}</strong>
                   
-                  <i class="fa fa-thumbs-down fa-2x downvote-click" data-reply = {{y.replyid}}></i>                    
+                  <i class="fa fa-thumbs-down fa-2x downvote-click" style="cursor: pointer" data-reply = {{y.replyid}}></i>                    
                 </div>
               </div>
                   </div>
@@ -327,12 +327,10 @@ done(b);
   -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"> </script>
   
-    <script>
-      $(document).ready(function(){
-
+    <script>     
+      $(document).ready(function(){          
         $(".upvote-click").on('click',function(){
           var replyid=$(this).data('reply');
-          // console.log($(this));
           $.ajax({
             url:"/save-upvote",
             type:"post",
@@ -342,17 +340,20 @@ done(b);
             },
             dataType:'json',
             success:function(res){
-              // console.log(res);
               var _prevupvotes=$(".upvote-count-"+replyid).text();
               var _prevdownvotes=$(".downvote-count-"+replyid).text();
               if(res.bool==true){
                 $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)+1);
+                $(".upvote-count-"+replyid).css("color", "#03a603"); 
                 if(res.other==true){
                   $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)-1);
+                  $(".downvote-count-"+replyid).css("color", ""); 
                 }
               }
               if(res.bool==false){
                 $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)-1);
+                $(".upvote-count-"+replyid).css("color", ""); 
+                $(this).css("color", ""); 
               }
             }
           });          
@@ -369,17 +370,19 @@ done(b);
             },
             dataType:'json',
             success:function(res){
-              // console.log(res);
               var _prevdownvotes=$(".downvote-count-"+replyid).text();
               var _prevupvotes=$(".upvote-count-"+replyid).text();
               if(res.bool==true){
                 $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)+1);
+                $(".downvote-count-"+replyid).css("color", "#ca1919"); 
                 if(res.other==true){
                   $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)-1);
+                  $(".upvote-count-"+replyid).css("color", ""); 
                 }
               }
               if(res.bool==false){
                 $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)-1);
+                $(".downvote-count-"+replyid).css("color", ""); 
               }
             }
           });          
@@ -387,7 +390,6 @@ done(b);
 
         $(".like-click").on('click',function(){
           var threadid=$(this).data('question');
-          // console.log($(this));
           $.ajax({
             url:"/save-like",
             type:"post",
@@ -397,7 +399,6 @@ done(b);
             },
             dataType:'json',
             success:function(res){
-              // console.log(res);
               var _prevlikes=$(".like-count-"+threadid).text();
               var _prevdislikes=$(".dislike-count-"+threadid).text();
               if(res.bool==true){
@@ -415,7 +416,6 @@ done(b);
 
         $(".dislike-click").on('click',function(){
           var threadid=$(this).data('question');
-          // console.log($(this));
           $.ajax({
             url:"/save-dislike",
             type:"post",
@@ -425,7 +425,6 @@ done(b);
             },
             dataType:'json',
             success:function(res){
-              // console.log(res);
               var _prevdislikes=$(".dislike-count-"+threadid).text();
               var _prevlikes=$(".like-count-"+threadid).text();
               if(res.bool==true){

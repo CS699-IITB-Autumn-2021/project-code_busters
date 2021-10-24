@@ -316,7 +316,6 @@ def save_like(request):
         user = request.user
         check_likes = Like.objects.filter(question = question,user=user).count()
         check_dislikes=Dislike.objects.filter(question = question,user=user).count()        
-        # print(check)
         if check_likes > 0:
             Like.objects.filter(question = question,user=user).delete()
             return JsonResponse({'bool':False,'other':False})
@@ -341,7 +340,6 @@ def save_dislike(request):
         user = request.user
         check_dislikes=Dislike.objects.filter(question = question,user=user).count()
         check_likes = Like.objects.filter(question = question,user=user).count()
-        # print(check_dislikes,check_likes, Dislike.objects.filter(question = question,user=user))
         if check_dislikes > 0 :            
             Dislike.objects.filter(question = question,user=user).delete()
             return JsonResponse({'bool':False,'other':False})
