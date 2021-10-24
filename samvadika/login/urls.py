@@ -29,4 +29,8 @@ urlpatterns = [
     path('save-downvote',save_downvote, name = 'save-downvote'),
     path('save-like',save_like, name = 'save-like'),
     path('save-dislike',save_dislike, name = 'save-dislike'),
+    path('saving',saving, name = 'saving'),
+    path('remove',remove, name = 'remove'),
+    
+
 ]

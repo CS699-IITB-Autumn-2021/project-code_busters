@@ -44,6 +44,8 @@ admin.site.register(NewUser,UserAdminConfig)
 
 admin.site.register(Tag)
 admin.site.register(Hobby)
+admin.site.register(Save)
+admin.site.register(Notify)
 
 admin.site.register(Question)
 admin.site.register(Reply)

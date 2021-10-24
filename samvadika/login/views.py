@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
 import random
-
+import datetime
 #f2
 
 User=get_user_model()
@@ -34,15 +34,48 @@ def index(request):
             else:
                 l.append([eq,'',qtag])
         
-       
-        return render(request,'index.html',{"query":l , "user":u})
+        s=Save.objects.filter(user_name=request.user)
+
+        return render(request,'index.html',{"query":l , "user":u,"save":s})
 
 def signup(request):
     return render(request, 'signup.html')
 
+def saving(request):
+
+    
+    try:
+        id = Question.objects.get(threadid=request.GET['threadid'])    
+        s= Save(threadid=id,user_name=request.user)
+        s.save()
+        print(id.threadid)
+        print(id.user_name)
+        print(timezone.now())
+        st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+        print(st)
+        n = Notify(message=st,user_name=id.user_name)
+        n.save()
+        
+        return HttpResponse("SUCCESS")
+
+    except:
+        id = Question.objects.get(threadid=request.GET['threadid'])
+        Save.objects.get(threadid=id,user_name=request.user).delete()
+        return HttpResponse("Failed")
+
+
 
 def User_login(request):
         return    render(request, 'login.html')
+
+def remove(request):
+    id = request.GET['threadid']
+    id = Question.objects.get(threadid=id)
+
+    Save.objects.get(threadid=id,user_name=request.user).delete()
+
+    return redirect("/saveditems")
+
 
 def action_(request):
     username=request.POST.get('email')
@@ -88,8 +121,20 @@ def posted(request):
     if request.method=="POST":   
         samvad = request.POST['samvad']
         tag_names=request.POST.getlist('tag')
+        u=User.objects.get(user_name=request.user)
+        u.score+=10
+       
         q = Question( question=samvad,user_name=request.user)
         q.save()
+
+        q = Question.objects.get(question=samvad)
+
+        n = Notify(message="You gained 10 points on posting question (Threadid - " + str(q.threadid)+"). Now your score is "+str(u.score),user_name=request.user)
+        u.save()
+        n.save()
+
+        
+
         for tag_name in tag_names:
             tg=Tag(tag_name=tag_name,threadid=q)
             tg.save()
@@ -119,10 +164,28 @@ def Find_people_check(request):
         return render(request,'findpeople.html',{"query":li}) 
 
 def Notifications(request):
-    return render(request, 'notifications.html')
+
+    n = Notify.objects.filter(user_name=request.user)
+    s=[]
+    for x in n:
+        s.append(x)
+
+    s.reverse()
+
+    return render(request, 'notifications.html',{"notify":s})
 
 def Saved_items(request):
-    return render(request, 'saveditems.html')
+
+    s=Save.objects.filter(user_name=request.user)
+
+    l=[]
+
+    for q in s:
+        
+        l.append(Question.objects.get(threadid=q.threadid.threadid))
+
+    l.reverse()
+    return render(request, 'saveditems.html',{"save":l})
 
 def Update_profile(request):
     return render(request, 'updateprofile.html')
@@ -133,15 +196,21 @@ def answer(request):
         r = request.POST['ans']
         thread= request.POST['threadid']
         
-
-   
+    u=User.objects.get(user_name=request.user)
+    u.score+=10
+    u.save()
     i= Question.objects.get(threadid=thread)
 
     u = Reply(reply=r,threadid=i,user_name=request.user )
     u.save()
-   
-  
-    
+    u=User.objects.get(user_name=request.user)
+    u.score+=10
+    n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +"). Now your score is "+str(u.score),user_name=request.user)
+    n.save()
+    st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
+    print(st)
+    n = Notify(message=st,user_name=i.user_name)
+    n.save()
     return redirect('/')
     
 def update_name(request):

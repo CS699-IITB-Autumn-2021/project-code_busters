@@ -53,7 +53,7 @@ side-nav-button:active {
 
 
      <div class="row progress" style="height:100vh;;border:1px solid;border-bottom:2px solid ;">
-         <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;">
+         <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;background-color: black;">
 
             <div class="row" style="width:100%;height:30%;border:1px solid;margin:0px auto" >
                 <img src='/images/{{user.image}}' class="img-fluid" alt='' style=" border-radius: 50%;
@@ -77,13 +77,23 @@ side-nav-button:active {
 
        
          </div>
-         <div class="col-sm-10" style="height:inherit;;;">
-
-           <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
+         <div class="col-sm-10" style="height:100%;background-color:	#FAFAD2;">
+            <div class="row" style="height:11%;width:100%;background-color:	#FAFAD2;">
            <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
-
-<div class="row" style="width:100%;height:inherit;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto">
+          </div>
+<div class="row" style="width:100%;height:89%;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto;background-color:	#FAFAD2;">
 <h2 style="font-size: very-large; text-align: center;">Notifications</p>   
+
+  {% for x in notify %}
+
+  <div class="row" style="width:95%;height:auto;border:2px solid black;text-align: left;margin:0px auto">
+  <span style="background-color:#fffffa  ;padding:20px;">{{x.message}}  </span>
+  <span style="background-color: #d2143a	;color:white;padding:.3em;padding-bottom:0px;border-top:2px solid black;"><h6><strong>{{x.time}}</strong></h6></span>
+  </div> 
+  <br/>
+
+
+  {% endfor %}
 
               </div>
 
