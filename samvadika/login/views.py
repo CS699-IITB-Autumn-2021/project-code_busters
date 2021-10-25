@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
 import random
+import datetime
 
 User=get_user_model()
 # Create your views here.
@@ -41,8 +42,9 @@ def index(request):
             else:
                 l.append([eq,'',qtag])
         
-       
-        return render(request,'index.html',{"query":l , "user":u})
+        s=Save.objects.filter(user_name=request.user)
+
+        return render(request,'index.html',{"query":l , "user":u,"save":s})
 
 def signup(request):
     """Take User to the Signup Webpage.
@@ -56,6 +58,29 @@ def signup(request):
     """
     return render(request, 'signup.html')
 
+def saving(request):
+
+    
+    try:
+        id = Question.objects.get(threadid=request.GET['threadid'])    
+        s= Save(threadid=id,user_name=request.user)
+        s.save()
+        print(id.threadid)
+        print(id.user_name)
+        print(timezone.now())
+        st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+        print(st)
+        n = Notify(message=st,user_name=id.user_name)
+        n.save()
+        
+        return HttpResponse("SUCCESS")
+
+    except:
+        id = Question.objects.get(threadid=request.GET['threadid'])
+        Save.objects.get(threadid=id,user_name=request.user).delete()
+        return HttpResponse("Failed")
+
+
 
 def User_login(request):
     """Take user to the login webpage.
@@ -68,6 +93,15 @@ def User_login(request):
     :rtype: HttpResponse object
     """
     return    render(request, 'login.html')
+
+def remove(request):
+    id = request.GET['threadid']
+    id = Question.objects.get(threadid=id)
+
+    Save.objects.get(threadid=id,user_name=request.user).delete()
+
+    return redirect("/saveditems")
+
 
 def action_(request):
     """Authenticate the user by confirming there Email ID and password. If there is mismatch then it display the warning and take user to login page otherwise on successfully login it
@@ -152,8 +186,20 @@ def posted(request):
     if request.method=="POST":   
         samvad = request.POST['samvad']
         tag_names=request.POST.getlist('tag')
+        u=User.objects.get(user_name=request.user)
+        u.score+=10
+       
         q = Question( question=samvad,user_name=request.user)
         q.save()
+
+        q = Question.objects.get(question=samvad)
+
+        n = Notify(message="You gained 10 points on posting question (Threadid - " + str(q.threadid)+"). Now your score is "+str(u.score),user_name=request.user)
+        u.save()
+        n.save()
+
+        
+
         for tag_name in tag_names:
             tg=Tag(tag_name=tag_name,threadid=q)
             tg.save()
@@ -202,7 +248,14 @@ def Notifications(request):
     :return: Notifications webpage which display all the notifications to the user.
     :rtype: HttpResponse object
     """
-    return render(request, 'notifications.html')
+    n = Notify.objects.filter(user_name=request.user)
+    s=[]
+    for x in n:
+        s.append(x)
+
+    s.reverse()
+
+    return render(request, 'notifications.html',{"notify":s})
 
 def Saved_items(request):
     """Display all the questions which are saved by the user.
@@ -214,7 +267,16 @@ def Saved_items(request):
     :return: Saveditem webpage that shows all the item saved by the user.
     :rtype: HttpResponse object
     """
-    return render(request, 'saveditems.html')
+    s=Save.objects.filter(user_name=request.user)
+
+    l=[]
+
+    for q in s:
+        
+        l.append(Question.objects.get(threadid=q.threadid.threadid))
+
+    l.reverse()
+    return render(request, 'saveditems.html',{"save":l})
 
 def Update_profile(request):
     """Take user to the update profile page from where he/she update his details.
@@ -243,15 +305,21 @@ def answer(request):
         r = request.POST['ans']
         thread= request.POST['threadid']
         
-
-   
+    u=User.objects.get(user_name=request.user)
+    u.score+=10
+    u.save()
     i= Question.objects.get(threadid=thread)
 
     u = Reply(reply=r,threadid=i,user_name=request.user )
     u.save()
-   
-  
-    
+    u=User.objects.get(user_name=request.user)
+    u.score+=10
+    n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +"). Now your score is "+str(u.score),user_name=request.user)
+    n.save()
+    st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
+    print(st)
+    n = Notify(message=st,user_name=i.user_name)
+    n.save()
     return redirect('/')
     
 def update_name(request):
@@ -318,6 +386,64 @@ def update_pwd(request):
         user.set_password(pwd)
         user.save()
         print('password changed')
+    return redirect('/updateprofile')
+
+
+
+def update_fb_link(request):
+    """Changed the Facebook profile link of the user.
+    :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
+    ...
+    :raises [ErrorType]: [ErrorDescription]
+    ...
+    :return: updateprofile webpage with updated Facebook Profile link.
+    :rtype: HttpResponseRedirect object
+    """
+    user=User.objects.get(user_name=request.user)
+    if not user.interest_form_submitted:
+        return redirect('/findpeople')
+    if request.method=="POST":
+        user.fb_link='https://www.facebook.com/'+request.POST.get('fb_url')
+        user.save()
+    return redirect('/updateprofile')
+
+def update_linkedin_link(request):
+    """Changed the LinkedIn profile link of the user.
+    :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
+    ...
+    :raises [ErrorType]: [ErrorDescription]
+    ...
+    :return: updateprofile webpage with updated LinkedIn Profile link.
+    :rtype: HttpResponseRedirect object
+    """
+    user=User.objects.get(user_name=request.user)
+    if request.method=="POST":
+        user.fb_link='https://www.linkedin.com/in/'+request.POST.get('linkedin_url')
+        user.save()
+    return redirect('/updateprofile')
+
+def update_hobbies(request):
+    """Changed the Hobbies of the user.
+    :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
+    ...
+    :raises [ErrorType]: [ErrorDescription]
+    ...
+    :return:updateprofile webpage with updated user hobbies.
+    :rtype: HttpResponseRedirect object
+    """
+    if request.method=="POST":
+        user=User.objects.get(user_name=request.user)
+        hobby_obj=Hobby.objects.filter(user_name=user)
+        for obj in hobby_obj:
+            obj.delete()
+        interest_list=request.POST.getlist('hobbies_list')
+        for hobby in interest_list:
+            h = Hobby(hobby_name=hobby,user_name=request.user)
+            h.save()
+
     return redirect('/updateprofile')
 
 def update_img(request):
@@ -424,7 +550,7 @@ def filter_questions(request):
             tag_filter_list=request.POST.getlist('tag_filter_list')     
             print(tag_filter_list)                                                                                                                                                                                                                                                                                     
             q = Question.objects.all()
-            li = []
+            li=[]
                
             for qn_tag in tag_filter_list:
              

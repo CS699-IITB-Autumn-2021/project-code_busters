@@ -36,6 +36,10 @@ class CustomAccountManager(BaseUserManager):
                           first_name=first_name, **other_fields)
         user.set_password(password)
         user.save()
+        
+            
+            
+
         return user
 
 
@@ -61,7 +65,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         'about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-
+    score=models.IntegerField(default=5)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -113,6 +117,14 @@ class Reply(models.Model):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
 
+
+class Save(models.Model):
+    threadid =  models.ForeignKey(Question, on_delete=models.CASCADE)  
+    user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
+    class Meta:
+        unique_together=[[ 'threadid','user_name']]
+   
+
 class UpVote(models.Model):
     """Model UpVote extends django.db.models.Model inbuilt class for storing Upvoted reply instance with user who Upvoted.
     :param model.Model: django.db.models.Model class act as a superclass for the Upvote model.
@@ -144,3 +156,9 @@ class Dislike(models.Model):
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='dislike_user')
+
+class Notify(models.Model):
+    message = models.CharField(max_length=1000)
+    user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
+    time = models.DateTimeField(default=timezone.now)
+   

@@ -34,7 +34,7 @@
         }
   
         ::placeholder {
-    color: red;
+    color: #971c1f;
     font-size: 1.3em;
   }
   textarea{
@@ -48,16 +48,24 @@
   .modal-backdrop {
      background: none;
   }
+
+  .nav{
+    border:2px solid black; 
+  }
+  .q{
+    margin:0px auto;
+    border:2px solid black;
+  }
     </style>
   </head>
   <body>
   
   
+    <div class="container-fluid" >
+     <div class="row" style="height:100%;width:100%;">
+         <div id='menu'class="col-sm-2" style="height:100%;background-color:black;">
 
-     <div class="row" style="height:100vh;;border:1px solid;border-bottom:2px solid ;">
-         <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;">
-
-            <div class="row" style="width:100%;height:30%;border:1px solid;margin:0px auto" >
+            <div class="row" style="width:100%;height:30%;margin:0px auto;border-top:10px solid black;border-bottom:10px solid black;" >
                 <img src='/images/{{user.image}}' class="img-fluid" alt='' style=" border-radius: 50%;
                 height:80%;
                 border:3px solid white;">
@@ -69,27 +77,27 @@
             </div>
 
 
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/"><i class="fa fa-commenting" aria-hidden="true"></i> Discussions</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: {{user.score}}</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/findpeople"><i class="fa fa-users" aria-hidden="true"></i> Find people</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/notifications"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/saveditems"><i class="fa fa-bookmark" aria-hidden="true"></i> Saved Items</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/updateprofile"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> Update Profile</a></div>
-              <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/"><i class="fa fa-commenting" aria-hidden="true"></i> Discussions</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: {{user.score}}</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/findpeople"><i class="fa fa-users" aria-hidden="true"></i> Find people</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/notifications"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/saveditems"><i class="fa fa-bookmark" aria-hidden="true"></i> Saved Items</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/updateprofile"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> Update Profile</a></div>
+              <div class="row nav" style="width:100%;height:10%;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
               
 
-            </div>
+        
+          </div>
 
  
-           <div class="col-sm-10" style="height:auto;">
+           <div class="col-sm-10" style="height:100%;background-color: #fffff7;">
   
-             <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
-             <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
+            <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS;height:11%">SAMVADIKA </h3></center> 
+    
   
-  <div class="row" style="width:100%;height:90%;overflow: scroll;padding:20px;padding-top:0px;margin:0px auto">
-  
-  
-  
+  <div class="row" style="width:100%;height:89%;overflow:scroll;padding:20px;background-color: #fffff7;">
+    
+    
   <div class="row">
     <form method='POST' action=''>
       {% csrf_token %}  
@@ -101,7 +109,7 @@
   
   
   
-      <div class="row">
+      <div class="row" style="width:95%;margin:0px auto">
       <form method="post" action="posted"><br/>
           {% csrf_token %}
          <div class="row">
@@ -140,29 +148,30 @@
   
       {% for x in query %}
       
-      <div  style="width:100%;height:auto;margin-top:1em">
+      <div  style="width:95%;height:auto;margin:0px auto;margin-top:1em; ">
   
-        <div style="width:100%;height:2em;padding:.2em;background-color:gold;">
-        Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
-        </div>
-        <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
+        <div class="q" style="width:98%;height:2em;padding:.2em;background-color:gold;">
           {% for tg in x.2 %}
-          <i class="fa fa-tag" aria-hidden="true"></i><strong>[{{tg.tag_name}}]</strong>{% endfor %}<br> {{x.0.question}}  
+          <i class="fa fa-tag" aria-hidden="true"></i><strong>[{{tg.tag_name}}]</strong>{% endfor %} Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
+        </div>
+        <div class="q" style="width:98%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
+          <br> {{x.0.question}}  
         </div>
       
       
   
     
      
-    <div style="width:100%;height:auto;padding:.3em;background-color:lightgrey;">
+    <div class="q" style="width:98%;height:auto;padding:.3em;background-color:lightgrey;border-top:none;">
     <button  class='btn btn-dark like-click' data-question = {{x.0.threadid}} >
       <strong> Like  &ensp; &ensp;(<font class="like-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.like_set.count}}</font>)</strong> </button>  
       <button  class='btn btn-dark dislike-click'  data-question = {{x.0.threadid}}>
       <strong > Dislike &ensp; &ensp;(<font class="dislike-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.dislike_set.count}}</font>)</strong> </button> 
-        <button  class='btn btn-dark' >Save Question</button> 
+        <button  class='btn btn-dark'id="save_{{x.0.threadid}}" onclick="myfunc({{x.0.threadid}})">Save Question</button> 
     <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
       View Replies
     </button>
+    <span style="float:right"><h5> <strong>Thread Id : {{x.0.threadid}}</strong> </h5>   </span>
     </div>
   
   </div>
@@ -215,7 +224,7 @@
 {% for x in save %}
 
 <script>
-  var b= {{x}};
+  var b= {{x.threadid.threadid}};
 done(b);
 
   </script>
@@ -229,7 +238,7 @@ done(b);
   
   
   
-                </div>
+         
   
              </div>
            </div>
@@ -247,9 +256,9 @@ done(b);
      
       <!--       Modal -->
   
-        <div class="modal fade"  id="id_{{x.0.threadid}}" role='dialog' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable modal-lg" >
-            <div class="modal-content">
+        <div class="modal fade" style="background-color: black;" id="id_{{x.0.threadid}}" role='dialog' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg"  >
+            <div class="modal-content" >
               <div class="modal-header">
                 <h5 class="modal-title"  id="exampleModalLabel"><span>Thread Id is : {{x.0.threadid}} </span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -316,7 +325,7 @@ done(b);
         </div>
   
       {% endfor %}
-  
+    </div>
   
   <!--
        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

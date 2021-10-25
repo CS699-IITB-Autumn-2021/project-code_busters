@@ -13,10 +13,30 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  -->
+  
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+-->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+        $('.select2').select2({
+        closeOnSelect: false
+        });
+        });
+      </script>
+
 
   <style>
       div{
@@ -75,7 +95,7 @@ side-nav-button:active {
             </div>
 
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/"><i class="fa fa-commenting" aria-hidden="true"></i> Discussions</a></div>
-            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: 20</a></div>
+            <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: {{user.score}}</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/findpeople"><i class="fa fa-users" aria-hidden="true"></i> Find people</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/notifications"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/saveditems"><i class="fa fa-bookmark" aria-hidden="true"></i> Saved Items</a></div>
@@ -151,9 +171,80 @@ side-nav-button:active {
                 </form>
               </div>
               </div>
-       <!--   </li>  -->
+{% if user.interest_form_submitted %}
+            
+<!--     for hobbies   -->
+<div class="row">
+  <div class='col-md-5 cc' style="border-right: 1px solid;">
+    <p style="font-size: 1rem; margin-top: 2rem;">
+    <strong>Change Hobbies</strong><br><br></p>
+    </div>
+    <div class='col-md-7 py-2 cc'>
+      <form method="post" action='update_hobbies'>
+        {% csrf_token %}
+        <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select one or more hobbies" style="width: 100%;" tabindex="-1" aria-hidden="true" name="hobbies_list" id="hobbies_list" required>
+          <option value="Cricket">Cricket</option>
+            <option value="Football">Football</option>
+            <option value="Chess">Chess</option>
+            <option value="Evening Walk">Evening Walk</option>
+            <option value="Gaming">Gaming</option>
+            <option value="Badminton">Badminton</option>
+        <input type="submit" class="btn btn-dark mt-2" value="UPDATE" style="position: parent;">
+     </form>
+          </div>
+    </div>
 
-       <!--   <li class="list-group-item"> -->
+<!--  end update  -->
+
+
+<!--     for fb url   -->
+<div class="row">
+  <div class='col-md-5 cc' style="border-right: 1px solid;">
+    <p style="font-size: 1rem; margin-top: 2rem;">
+     <strong>Facebook Profile</strong><br><br></p>
+    </div>
+    <div class='col-md-7 py-2 cc'>
+      <form method="post" action='update_fb_link'>
+        {% csrf_token %}
+        
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">https://www.facebook.com/</span>
+          </div>
+          <input type="text" class="form-control" name="fb_url" id="fb_url" aria-describedby="basic-addon3" required>
+        </div>
+        <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;">
+     </form>
+          </div>
+    </div>
+
+<!--  end fb_url  -->
+
+
+<!--     for linked_url   -->
+<div class="row">
+  <div class='col-md-5 cc' style="border-right: 1px solid;">
+    <p style="font-size: 1rem; margin-top: 2rem;">
+       <strong>Change Linked Profile</strong><br><br></p>
+    </div>
+    <div class='col-md-7 py-2 cc'>
+      <form method="post" action='update_linkedin_link'>
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon4">https://www.linkedin.com/in/</span>
+          </div>
+          <input type="text" class="form-control" name="linkedin_url" id="linkedin_url" aria-describedby="basic-addon3" required>
+        </div>
+
+        <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;">
+     </form>
+          </div>
+    </div>
+{% endif %}
+<!--  end linked_url  -->
+
+
             <div class="row">
               <div class='col-md-5 cc' style="border-right: 1px solid;">
                 <p style="font-size: 1rem; margin-top: 2rem;">
@@ -168,12 +259,10 @@ side-nav-button:active {
                  </form>
                       </div>
                 </div>
-            </div>
-            </div>
-           <!-- </li>
 
-    </ul> -->
-    <!--  </div>  -->
+
+            </div>
+            </div>
 
 
 
