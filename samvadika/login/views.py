@@ -45,6 +45,8 @@ def index(request):
         
         s=Save.objects.filter(user_name=request.user)
 
+        print(l)
+
         return render(request,'index.html',{"query":l , "user":u,"save":s})
 
 def signup(request):
@@ -69,10 +71,12 @@ def saving(request):
         print(id.threadid)
         print(id.user_name)
         print(timezone.now())
-        st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
-        print(st)
-        n = Notify(message=st,user_name=id.user_name)
-        n.save()
+
+        if(request.user!= id.user_name):
+            st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+            print(st)
+            n = Notify(message=st,user_name=id.user_name)
+            n.save()
         
         return HttpResponse("SUCCESS")
 
@@ -168,6 +172,11 @@ def register(request):
             
             user = User.objects.create_user( email, username, first_name, password)
             user.save()
+
+            u = User.objects.get(user_name=username)
+
+            n = Notify(message="You have gained 5 bonus points on joining SAMVADIKA" , user_name=u)
+            n.save()
             return redirect('/')
 def User_logout(request):
     """Logout user and take him to login page.
@@ -198,14 +207,14 @@ def posted(request):
         tag_names=request.POST.getlist('tag')
         u=User.objects.get(user_name=request.user)
         u.score+=10
-       
+        u.save()
+
         q = Question( question=samvad,user_name=request.user)
         q.save()
 
         q = Question.objects.get(question=samvad)
 
         n = Notify(message="You gained 10 points on posting question (Threadid - " + str(q.threadid)+"). Now your score is "+str(u.score),user_name=request.user)
-        u.save()
         n.save()
 
         
@@ -282,13 +291,27 @@ def Saved_items(request):
     s=Save.objects.filter(user_name=request.user)
 
     l=[]
-
+    u=User.objects.get(user_name=request.user)
     for q in s:
         
         l.append(Question.objects.get(threadid=q.threadid.threadid))
 
     l.reverse()
-    return render(request, 'saveditems.html',{"save":l})
+
+    x=[]
+    for eq in l:
+        qtag=Tag.objects.filter(threadid=eq.threadid)
+        print(qtag[0].tag_name)
+        if Reply.objects.filter(threadid=eq.threadid).exists():
+            rp=Reply.objects.filter(threadid=eq.threadid)
+            x.append([eq,rp,qtag])
+        else:
+            x.append([eq,'',qtag])
+        
+        print(x)
+
+    return render(request, 'saveditems.html',{"user":u,"query":x})
+
 
 def Update_profile(request):
     """Take user to the update profile page from where he/she update his details.
@@ -324,15 +347,16 @@ def answer(request):
     u = Reply(reply=r,threadid=i,user_name=request.user )
     u.save()
     u=User.objects.get(user_name=request.user)
-    u.score+=10
-    u.save()
-
-    n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +"). Now your score is "+str(u.score),user_name=request.user)
-    n.save()
-    st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
-    print(st)
-    n = Notify(message=st,user_name=i.user_name)
-    n.save()
+    
+    if(request.user != i.user_name):
+        n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +") posted by "+ str(i.user_name) +". Now your score is "+str(u.score),user_name=request.user)
+        n.save()
+        st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
+        print(st)
+        n = Notify(message=st,user_name=i.user_name)
+        n.save()
+        u.score+=10
+        u.save()
     return redirect('/')
     
 def update_name(request):
@@ -669,6 +693,16 @@ def save_upvote(request):
                 reply = reply,
                 user = user
             )
+
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score+=5
+                u.save()
+            
+                st = str(request.user) + " has UpVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you have gained 5 points and now your new score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':False})
 
 def save_downvote(request):
@@ -703,6 +737,17 @@ def save_downvote(request):
                 reply = reply,
                 user = user
             )
+        if (reply.user_name!= request.user):
+
+            u = User.objects.get(user_name=reply.user_name)
+            u.score-=5
+            u.save()
+            
+            st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
+            print(st)
+            n=Notify(message=st,user_name=reply.user_name)
+            n.save()
+        
             return JsonResponse({'bool':True,'other':False})
 
 def save_like(request):
@@ -737,6 +782,14 @@ def save_like(request):
                 question = question,
                 user = user
             )
+            
+            print(question.user_name)
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has liked your Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
+            
             return JsonResponse({'bool':True, 'other':False})
 
 def save_dislike(request):
@@ -772,4 +825,10 @@ def save_dislike(request):
                 question = question,
                 user = user
             )
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has Disliked the Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
+
             return JsonResponse({'bool':True,'other':False})
