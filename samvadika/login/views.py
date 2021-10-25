@@ -8,6 +8,7 @@ from .models import *
 import random
 import datetime
 
+
 User=get_user_model()
 # Create your views here.
 def index(request):
@@ -93,6 +94,15 @@ def User_login(request):
     :rtype: HttpResponse object
     """
     return    render(request, 'login.html')
+
+def remove(request):
+    id = request.GET['threadid']
+    id = Question.objects.get(threadid=id)
+
+    Save.objects.get(threadid=id,user_name=request.user).delete()
+
+    return redirect("/saveditems")
+
 
 def remove(request):
     id = request.GET['threadid']
@@ -248,6 +258,7 @@ def Notifications(request):
     :return: Notifications webpage which display all the notifications to the user.
     :rtype: HttpResponse object
     """
+
     n = Notify.objects.filter(user_name=request.user)
     s=[]
     for x in n:
@@ -267,6 +278,7 @@ def Saved_items(request):
     :return: Saveditem webpage that shows all the item saved by the user.
     :rtype: HttpResponse object
     """
+
     s=Save.objects.filter(user_name=request.user)
 
     l=[]
@@ -306,14 +318,15 @@ def answer(request):
         thread= request.POST['threadid']
         
     u=User.objects.get(user_name=request.user)
-    u.score+=10
-    u.save()
+
     i= Question.objects.get(threadid=thread)
 
     u = Reply(reply=r,threadid=i,user_name=request.user )
     u.save()
     u=User.objects.get(user_name=request.user)
     u.score+=10
+    u.save()
+
     n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +"). Now your score is "+str(u.score),user_name=request.user)
     n.save()
     st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
@@ -513,11 +526,46 @@ def filter_people(request):
             for filter_hobby in interest_filter_list:
              
                 for h in l:
-                    if Hobby.objects.filter(user_name=h, hobby_name=filter_hobby).exists():
+                    if Hobby.objects.filter(user_name=h, hobby_name=filter_hobby).exists(): 
                         rp=Hobby.objects.filter(user_name=h)
                         if h != user:
                             li.append([h,rp])
-            return render(request,'findpeople.html',{"query":li}) 
+
+            hobby={}
+
+            
+            print(len(li))
+            send=[]
+            for i in li:
+                print(i[0]," ",i[1] )
+                hobby[i[0]]=[]
+            
+            for i in li:
+                hobby[i[0]].extend(i[1])
+
+            for i in hobby.keys():
+                hobby[i] = set(hobby[i])
+
+            for k in hobby.keys():
+                send.append([k, hobby[k]])
+
+            send = list(send)
+            # for i in range(0,len(li)):
+            #     #print( li[i])
+            #     print( li[i][i])
+            #     print( li[i][1][i].hobby_name)
+
+            # for x in li:
+            #     hobby[x[0][0]].append(x[0][1][0].hobby_name)
+
+            # for x in li:
+            #     hobby[x[0][0]] = set(hobby[x[0][0]])
+
+            # for keys in hobby.keys():
+            #     print( hobby[keys] ) 
+            # print("printed dictionary")
+            
+            return render(request,'findpeople.html',{"query":send}) 
         else:
             return redirect('/findpeople')
 
@@ -633,6 +681,7 @@ def save_downvote(request):
     :return:
     :rtype:
     """
+
     if request.method == 'POST':
         replyid = request.POST['replyid']
         reply = Reply.objects.get(pk=replyid)
@@ -657,6 +706,7 @@ def save_downvote(request):
             return JsonResponse({'bool':True,'other':False})
 
 def save_like(request):
+
     """
     :param request: contains the metadata of the request to save upvote e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
@@ -699,6 +749,7 @@ def save_dislike(request):
     :return:
     :rtype:
     """
+
     if request.method == 'POST':
         threadid = request.POST['threadid']
         question = Question.objects.get(pk=threadid)

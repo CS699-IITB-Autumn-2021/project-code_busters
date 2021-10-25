@@ -118,11 +118,14 @@ class Reply(models.Model):
     downvotes = models.IntegerField(default=0)
 
 
+
 class Save(models.Model):
     threadid =  models.ForeignKey(Question, on_delete=models.CASCADE)  
     user_name = models.ForeignKey(NewUser, on_delete=models.CASCADE)
     class Meta:
         unique_together=[[ 'threadid','user_name']]
+   
+
    
 
 class UpVote(models.Model):
@@ -134,6 +137,7 @@ class UpVote(models.Model):
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='upvote_user')
 
 class DownVote(models.Model):
+
     """Model DownVote extends django.db.models.Model inbuilt class for storing Downvoted reply instance with user who Downvoted.
     :param model.Model: django.db.models.Model class act as a superclass for the Downvote model.
     :type models.Model: class
@@ -146,6 +150,7 @@ class Like(models.Model):
     :param model.Model: django.db.models.Model class act as a superclass for the new model class.
     :type models.Model: class
     """
+
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='like_user')
 
