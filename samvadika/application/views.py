@@ -669,6 +669,16 @@ def save_upvote(request):
                 reply = reply,
                 user = user
             )
+
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score+=5
+                u.save()
+            
+                st = str(request.user) + " has UpVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you have gained 5 points and now your new score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':False})
 
 def save_downvote(request):
@@ -703,6 +713,17 @@ def save_downvote(request):
                 reply = reply,
                 user = user
             )
+        if (reply.user_name!= request.user):
+
+            u = User.objects.get(user_name=reply.user_name)
+            u.score-=5
+            u.save()
+            
+            st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
+            print(st)
+            n=Notify(message=st,user_name=reply.user_name)
+            n.save()
+        
             return JsonResponse({'bool':True,'other':False})
 
 def save_like(request):
@@ -737,6 +758,14 @@ def save_like(request):
                 question = question,
                 user = user
             )
+            
+            print(question.user_name)
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has liked your Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
+            
             return JsonResponse({'bool':True, 'other':False})
 
 def save_dislike(request):
@@ -772,4 +801,10 @@ def save_dislike(request):
                 question = question,
                 user = user
             )
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has Disliked the Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
+
             return JsonResponse({'bool':True,'other':False})
