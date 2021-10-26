@@ -802,6 +802,11 @@ def save_like(request):
         check_dislikes=Dislike.objects.filter(question = question,user=user).count()        
         if check_likes > 0:
             Like.objects.filter(question = question,user=user).delete()
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has undone his Like on the Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         elif check_dislikes > 0:
             Dislike.objects.filter(question = question,user=user).delete()
@@ -809,6 +814,12 @@ def save_like(request):
                 question = question,
                 user = user
             )
+            print(question.user_name)
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has changed Dislike to Like on the Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             Like.objects.create(
@@ -818,7 +829,7 @@ def save_like(request):
             
             print(question.user_name)
             if ( request.user != question.user_name):
-                st = str(request.user) +" has liked your Question (Threadid -"+ str(threadid) +") posted by you."
+                st = str(request.user) +" has liked the Question (Threadid -"+ str(threadid) +") posted by you."
                 print(st)
                 n = Notify(message=st,user_name=question.user_name)
                 n.save()
@@ -844,6 +855,12 @@ def save_dislike(request):
         check_likes = Like.objects.filter(question = question,user=user).count()
         if check_dislikes > 0 :            
             Dislike.objects.filter(question = question,user=user).delete()
+
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has undone his Dislike on the Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         
         elif check_likes > 0 :
@@ -852,6 +869,11 @@ def save_dislike(request):
                 question = question,
                 user = user
             )
+            if ( request.user != question.user_name):
+                st = str(request.user) +" has changed  Like to Dislike the Question (Threadid -"+ str(threadid) +") posted by you."
+                print(st)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             Dislike.objects.create(
