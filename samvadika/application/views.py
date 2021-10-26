@@ -284,9 +284,9 @@ def Saved_items(request):
         print(qtag[0].tag_name)
         if Reply.objects.filter(threadid=eq.threadid).exists():
             rp=Reply.objects.filter(threadid=eq.threadid)
-            x.append([eq,rp,qtag])
+            x.append([eq,rp,qtag,len(rp)])
         else:
-            x.append([eq,'',qtag])
+            x.append([eq,'',qtag,],0)
         
         print(x)
 
