@@ -672,14 +672,6 @@ def save_upvote(request):
                 reply = reply,
                 user = user
             )
-            if (reply.user_name!= request.user):
-                u = User.objects.get(user_name=reply.user_name)
-                u.score+=10
-                u.save()
-            
-                st = str(request.user) + " has UpVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you have gained 5 points and now your new score is "+str(u.score)
-                n=Notify(message=st,user_name=reply.user_name)
-                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             UpVote.objects.create(
@@ -722,14 +714,6 @@ def save_downvote(request):
                 reply = reply,
                 user = user
             )
-            if (reply.user_name!= request.user):
-                u = User.objects.get(user_name=reply.user_name)
-                u.score-=10
-                u.save()
-                
-                st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
-                n=Notify(message=st,user_name=reply.user_name)
-                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             DownVote.objects.create(
