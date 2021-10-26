@@ -102,11 +102,12 @@
         <a href="reset_filter_questions/" style="color:white">Reset</a>
       </button><br/>
     </form>
+          Results for Selected Tag(s): <i class="fa fa-tag" aria-hidden="true"></i>{{selected_tag_list}}
         {% for x in query reversed %}
         
         <div  style="width:100%;height:auto;margin-top:1em">
     
-          <div style="width:100%;height:2em;padding:.2em;background-color:gold;">
+          <div style="width:100%;height:2em;padding:.2em;background-color:rgb(227, 231, 233);">
           Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
           </div>
           <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;">
@@ -160,7 +161,7 @@
                 </div>
                 <div class="modal-body" style="overflow: scroll;">
     
-                  <div style="width:100%;height:2em;padding:.2em;background-color:gold;border:2px solid;">
+                  <div style="width:100%;height:2em;padding:.2em;background-color:rgb(227, 231, 233);border:2px solid;">
                      Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
                   </div>
                   <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;border:2px solid;border-top:none;">
@@ -178,7 +179,7 @@
                   
                    
                       {% if x.1 is not '' %}
-                      {% for y in x.1 reversed %}
+                      {% for y in x.1 %}
     
                       <div style="width:100%;height:2em;padding:.2em;background-color:bisque;margin-top:1em;">
                         Replied by {{ y.user_name}}  <span style="position: relative;float:right">{{y.reply_date}} </span>

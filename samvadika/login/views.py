@@ -557,11 +557,8 @@ def filter_people(request):
 
             hobby={}
 
-            
-            print(len(li))
             send=[]
             for i in li:
-                print(i[0]," ",i[1] )
                 hobby[i[0]]=[]
             
             for i in li:
@@ -574,22 +571,7 @@ def filter_people(request):
                 send.append([k, hobby[k]])
 
             send = list(send)
-            # for i in range(0,len(li)):
-            #     #print( li[i])
-            #     print( li[i][i])
-            #     print( li[i][1][i].hobby_name)
-
-            # for x in li:
-            #     hobby[x[0][0]].append(x[0][1][0].hobby_name)
-
-            # for x in li:
-            #     hobby[x[0][0]] = set(hobby[x[0][0]])
-
-            # for keys in hobby.keys():
-            #     print( hobby[keys] ) 
-            # print("printed dictionary")
-            
-            return render(request,'findpeople.html',{"query":send}) 
+            return render(request,'findpeople.html',{"query":send,"selected_hobbies_list":interest_filter_list}) 
         else:
             return redirect('/findpeople')
 
@@ -630,7 +612,23 @@ def filter_questions(request):
                     if Tag.objects.filter(tag_name=qn_tag,threadid=qn.threadid).exists():
                         rp=Tag.objects.filter(threadid=qn.threadid)
                         li.append([qn,rp])
-            return render(request,'filterquestions.html',{"query":li}) 
+
+            qn_tags={}
+            send=[]
+            for i in li:
+                qn_tags[i[0]]=[]
+            
+            for i in li:
+                qn_tags[i[0]].extend(i[1])
+
+            for i in qn_tags.keys():
+                qn_tags[i] = set(qn_tags[i])
+
+            for k in qn_tags.keys():
+                send.append([k, qn_tags[k]])
+
+            send = list(send)
+            return render(request,'filterquestions.html',{"query":send,"selected_tag_list":tag_filter_list}) 
         
         else:
             return redirect('/')
