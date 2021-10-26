@@ -325,14 +325,14 @@ def answer(request):
     u=User.objects.get(user_name=request.user)
     
     if(request.user != i.user_name):
+        u.score+=10
+        u.save()
         n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +") posted by "+ str(i.user_name) +". Now your score is "+str(u.score),user_name=request.user)
         n.save()
         st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
         print(st)
         n = Notify(message=st,user_name=i.user_name)
-        n.save()
-        u.score+=10
-        u.save()
+        n.save()        
     return redirect('/')
     
 def update_name(request):
@@ -634,6 +634,14 @@ def save_upvote(request):
                 reply = reply,
                 user = user
             )
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score+=10
+                u.save()
+            
+                st = str(request.user) + " has UpVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you have gained 5 points and now your new score is "+str(u.score)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             UpVote.objects.create(
@@ -676,23 +684,30 @@ def save_downvote(request):
                 reply = reply,
                 user = user
             )
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score-=10
+                u.save()
+                
+                st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             DownVote.objects.create(
                 reply = reply,
                 user = user
             )
-        if (reply.user_name!= request.user):
-
-            u = User.objects.get(user_name=reply.user_name)
-            u.score-=5
-            u.save()
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score-=5
+                u.save()
+                
+                st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             
-            st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
-            print(st)
-            n=Notify(message=st,user_name=reply.user_name)
-            n.save()
-        
             return JsonResponse({'bool':True,'other':False})
 
 def save_like(request):
