@@ -87,6 +87,31 @@ def saving(request):
         return HttpResponse("Failed")
 
 
+def filtertag_save(request):
+
+    
+    try:
+        id = Question.objects.get(threadid=request.GET['threadid'])    
+        s= Save(threadid=id,user_name=request.user)
+        s.save()
+        print(id.threadid)
+        print(id.user_name)
+        print(timezone.now())
+
+        if(request.user!= id.user_name):
+            st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+            print(st)
+            n = Notify(message=st,user_name=id.user_name)
+            n.save()
+        
+        return HttpResponse("SUCCESS")
+
+    except:
+        id = Question.objects.get(threadid=request.GET['threadid'])
+        Save.objects.get(threadid=id,user_name=request.user).delete()
+        return HttpResponse("Failed")
+
+
 
 def User_login(request):
     """Takes user to the login webpage.
@@ -284,9 +309,9 @@ def Saved_items(request):
         print(qtag[0].tag_name)
         if Reply.objects.filter(threadid=eq.threadid).exists():
             rp=Reply.objects.filter(threadid=eq.threadid)
-            x.append([eq,rp,qtag])
+            x.append([eq,rp,qtag,len(rp)])
         else:
-            x.append([eq,'',qtag])
+            x.append([eq,'',qtag,0])
         
         print(x)
 
@@ -334,6 +359,7 @@ def answer(request):
         n = Notify(message=st,user_name=i.user_name)
         n.save()        
     return redirect('/')
+
     
 def update_name(request):
     """Updates the user name.
@@ -583,7 +609,19 @@ def filter_questions(request):
                 send.append([k, qn_tags[k]])
 
             send = list(send)
-            return render(request,'filterquestions.html',{"query":send,"selected_tag_list":tag_filter_list}) 
+            f_li=[]
+            sv=[]
+            for li in send:
+                if Save.objects.filter(threadid=li[0],user_name=request.user).exists():
+                    sv.append(Save.objects.get(threadid=li[0],user_name=request.user))
+                if Reply.objects.filter(threadid=li[0].threadid).exists():
+                    rp=Reply.objects.filter(threadid=li[0].threadid)
+                    f_li.append([li[0],rp,li[1],len(rp)])
+                else:
+                    f_li.append([li[0],'',li[1],0])
+
+
+            return render(request,'filterquestions.html',{"query":f_li,"selected_tag_list":tag_filter_list,"save":sv}) 
         
         else:
             return redirect('/')
