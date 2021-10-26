@@ -39,9 +39,9 @@ def index(request):
             print(qtag[0].tag_name)
             if Reply.objects.filter(threadid=eq.threadid).exists():
                 rp=Reply.objects.filter(threadid=eq.threadid)
-                l.append([eq,rp,qtag])
+                l.append([eq,rp,qtag,len(rp)])
             else:
-                l.append([eq,'',qtag])
+                l.append([eq,'',qtag,0])
         
         s=Save.objects.filter(user_name=request.user)
 
