@@ -627,6 +627,15 @@ def save_upvote(request):
         check_downvotes=DownVote.objects.filter(reply=reply,user=user).count()
         if check_upvotes > 0:
             UpVote.objects.filter(reply = reply,user=user).delete()
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score-=5
+                if u.score < 0:
+                    u.score = 0
+                u.save()    
+                st = str(request.user) + " has removed UpVote on your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         elif(check_downvotes > 0):
             DownVote.objects.filter(reply = reply,user=user).delete()
@@ -677,6 +686,13 @@ def save_downvote(request):
         check_upvotes=UpVote.objects.filter(reply=reply,user=user).count()
         if check_downvotes > 0:
             DownVote.objects.filter(reply = reply,user=user).delete()
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score+=5
+                u.save()
+                st = str(request.user) + " has removed DownVote on your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you gained 5 points and now your new Score is "+str(u.score)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         elif(check_upvotes > 0):
             UpVote.objects.filter(reply = reply,user=user).delete()
@@ -687,6 +703,8 @@ def save_downvote(request):
             if (reply.user_name!= request.user):
                 u = User.objects.get(user_name=reply.user_name)
                 u.score-=10
+                if u.score < 0:
+                    u.score = 0
                 u.save()
                 
                 st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
@@ -701,6 +719,8 @@ def save_downvote(request):
             if (reply.user_name!= request.user):
                 u = User.objects.get(user_name=reply.user_name)
                 u.score-=5
+                if u.score < 0:
+                    u.score = 0
                 u.save()
                 
                 st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
@@ -726,6 +746,15 @@ def save_like(request):
         check_dislikes=Dislike.objects.filter(question = question,user=user).count()        
         if check_likes > 0:
             Like.objects.filter(question = question,user=user).delete()
+            if (request.user != question.user_name):
+                u = User.objects.get(user_name=question.user_name)
+                u.score -= 5
+                if u.score < 0:
+                    u.score = 0 
+                u.save()
+                st = str(request.user) +" has removed like on your Question (Threadid -"+ str(threadid) +") posted by you. As a result you have lost 5 points and now your new Score is "+str(u.score)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         elif check_dislikes > 0:
             Dislike.objects.filter(question = question,user=user).delete()
@@ -733,6 +762,13 @@ def save_like(request):
                 question = question,
                 user = user
             )
+            if (request.user != question.user_name):
+                u = User.objects.get(user_name=question.user_name)
+                u.score += 10                
+                u.save()
+                st = str(request.user) +" has liked your Question (Threadid -"+ str(threadid) +") posted by you. As a result you have gained 5 points and now your new Score is "+str(u.score)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             Like.objects.create(
@@ -740,10 +776,11 @@ def save_like(request):
                 user = user
             )
             
-            print(question.user_name)
-            if ( request.user != question.user_name):
-                st = str(request.user) +" has liked your Question (Threadid -"+ str(threadid) +") posted by you."
-                print(st)
+            if (request.user != question.user_name):
+                u = User.objects.get(user_name=question.user_name)
+                u.score += 5                
+                u.save()
+                st = str(request.user) +" has liked your Question (Threadid -"+ str(threadid) +") posted by you. As a result you have gained 5 points and now your new Score is "+str(u.score)
                 n = Notify(message=st,user_name=question.user_name)
                 n.save()
             
@@ -766,6 +803,13 @@ def save_dislike(request):
         check_likes = Like.objects.filter(question = question,user=user).count()
         if check_dislikes > 0 :            
             Dislike.objects.filter(question = question,user=user).delete()
+            if (request.user != question.user_name):
+                u = User.objects.get(user_name=question.user_name)
+                u.score += 5            
+                u.save()
+                st = str(request.user) +" has removed dislike on the Question (Threadid -"+ str(threadid) +") posted by you. As a result you have gained 5 points and now your new Score is "+str(u.score)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         
         elif check_likes > 0 :
@@ -774,15 +818,28 @@ def save_dislike(request):
                 question = question,
                 user = user
             )
+            if (request.user != question.user_name):
+                u = User.objects.get(user_name=question.user_name)
+                u.score -= 10
+                if u.score < 0:
+                    u.score = 0              
+                u.save()
+                st = str(request.user) +" has Disliked the Question (Threadid -"+ str(threadid) +") posted by you. As a result you have lost 5 points and now your new Score is "+str(u.score)
+                n = Notify(message=st,user_name=question.user_name)
+                n.save()
             return JsonResponse({'bool':True,'other':True})
         else:
             Dislike.objects.create(
                 question = question,
                 user = user
             )
-            if ( request.user != question.user_name):
-                st = str(request.user) +" has Disliked the Question (Threadid -"+ str(threadid) +") posted by you."
-                print(st)
+            if (request.user != question.user_name):
+                u = User.objects.get(user_name=question.user_name)
+                u.score -= 5  
+                if u.score < 0:
+                    u.score = 0              
+                u.save()
+                st = str(request.user) +" has Disliked the Question (Threadid -"+ str(threadid) +") posted by you. As a result you have lost 5 points and now your new Score is "+str(u.score)
                 n = Notify(message=st,user_name=question.user_name)
                 n.save()
 
