@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0' ,'*','localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'login',
+    'application',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,7 +122,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL='login.NewUser'
+AUTH_USER_MODEL='application.NewUser'
 
 MEDIA_URL='/images/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'login/static/images')
+MEDIA_ROOT=os.path.join(BASE_DIR,'application/static/images')

@@ -112,66 +112,21 @@
 
            <div class="col-sm-10" style="height:100%;background-color: #fffff7;border:10px solid;border-left:none;">
   
-            <center><h1 style="margin:0px auto;padding:0.9em;color:#971c1f;;font-family:Comic Sans MS;height:11%;">SAMVADIKA </h3></center> 
+            <center><h1 style="margin:0px auto;padding:0.9em;color:#971c1f;;font-family:Comic Sans MS;height:11%;">SAMVADIKA </h1>
+              
+            </center> 
     
   
-  <div class="row" style="height:7%;width:95%;margin:0px auto;background-color: inherit;">
-    <form method='POST' action='' >
 
-      {% csrf_token %}  
-       <button type="sumbit" name="save_multiple" class="btn btn-primary" style="float: right">
-      <a href="filterbytags/" style="color:white">Filter Questions by Tag(s)</a>
-    </button><br/>
-    </form>
-    </div>
   
     
-  <div class="row" style="width:100%;height:82%;overflow:scroll;padding-top:0px;background-color: #fffff7;;margin:0px auto;">
+  <div class="row" style="width:100%;height:89%;overflow:scroll;padding-top:0px;background-color: #fffff7;;margin:0px auto;">
     
-    
-    
-  
-      <div class="row" style="width:95%;background-color:inherit;margin:0px auto;">
-
-      <form method="post" action="posted"><br/>
-          {% csrf_token %}
-         <div class="row">
-          <textarea name="samvad" placeholder="What's on your mind, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
-          </div>
-         
-          <div class="row my-2" >
-            <div class="col-2 mt-2">
-          <strong>Question Tag(s):</strong>
-          </div>
-          
-          <!--<div class="col-5">
-          <select class="form-select" multiple="" aria-label="Default select example" name="tag" style="width:30%;right:5em;" required>
-            <option value="">------</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-          </select>
-          </div>
-        -->
-          <div class="col-4"  style="padding-top:.3em;">
-            <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select one or more tag" style="width: 100%;" tabindex="-1" aria-hidden="true" name="tag" id="hobbies_list" required>
-              <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-          </select> 
-            </div>
-          
-            <input type="submit" value="Post"/>
-            </div>
-         
-      </form>
-      </div>
+    <center><h4>Saved Questions</h4></center>
   
       {% for x in query %}
 
-      <div  style="width:95%;height:auto;margin:0px auto;">
+      <div  style="width:95%;margin:0px auto;background-color: #fffff7;">
 
   
         <div class="q" style="width:98%;height:2em;padding:.2em;background-color:rgb(227, 231, 233);">
@@ -192,7 +147,7 @@
       <strong> Like  &ensp; &ensp;(<font class="like-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.like_set.count}}</font>)</strong> </button>  
       <button  class='btn btn-dark dislike-click'  data-question = {{x.0.threadid}}>
       <strong > Dislike &ensp; &ensp;(<font class="dislike-count-{{x.0.threadid}}" style="vertical-align: middle;">{{x.0.dislike_set.count}}</font>)</strong> </button> 
-        <button  class='btn btn-dark'id="save_{{x.0.threadid}}" onclick="myfunc({{x.0.threadid}})">Save Question</button> 
+        <button  class='btn btn-dark'id="save_{{x.0.threadid}}" onclick="myfunc('{{x.0.threadid}}')">Remove</button> 
     <button type="button" class='btn btn-dark' data-backdrop='false' data-bs-toggle="modal" data-bs-target="#id_{{x.0.threadid}}" style="width: 10em;height:auto;">
       View Replies
     </button>
@@ -208,39 +163,14 @@
 
 
  <script>
-    function myfunc(x) {
-
-      
-      const xhttp = new XMLHttpRequest();
-      xhttp.onload = function() {
-          
-        if (this.responseText=="SUCCESS") {
-          document.getElementById("save_"+x).innerHTML = "Saved"
-          document.getElementById("save_"+x).style="background-color:red"
-        }
-
-        else{
-          
-          document.getElementById("save_"+x).innerHTML = "Save Question"
-          document.getElementById("save_"+x).style="background-color:black"
-        }
-
-    
-
-      }
-      xhttp.open("GET", "saving?threadid="+x);
-      xhttp.send();
+   function myfunc(x) {
+        window.location.href = "/remove?threadid="+x;
     }
     </script>
 
 
 <script>
 
-  function done(x)
-  {
-    document.getElementById("save_"+x).innerHTML = "Saved"
-    document.getElementById("save_"+x).style="background-color:red"
-  }
 
 </script>
 
@@ -249,7 +179,7 @@
 {% for x in save %}
 
 <script>
-  var b= {{x.threadid.threadid}};
+  var b= '{{x.threadid.threadid}}';
 done(b);
 
   </script>
@@ -290,14 +220,14 @@ done(b);
               </div>
               <div class="modal-body" style="overflow: scroll;">
   
-                <div style="width:100%;height:2em;padding:.2em;background-color:rgb(227, 231, 233);border:2px solid;">
+                <div style="width:100%;height:2em;padding:.2em;background-color:gold;border:2px solid;">
                   {% for tg in x.2 %}
                   <strong> [{{tg.tag_name}}]</strong>{% endfor %} Posted by {{ x.0.user_name}}  <span style="position: relative;float:right">{{ x.0.pub_date }} </span>
                 </div>
                 <div style="width:100%;height:auto;padding:1em;background-color:lightgoldenrodyellow;border:2px solid;border-top:none;">
                    {{x.0.question}} 
                    </div>
-                   <form method="post" action="answer/"><br/>
+                   <form method="post" action="/answer/"><br/>
                     {% csrf_token %}
                    
                     <textarea name="ans" placeholder="Do you wanna answer, {{user}}..." required style="width:100%;padding:0.4em;height:5em;"></textarea>
