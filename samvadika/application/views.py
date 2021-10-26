@@ -12,12 +12,10 @@ import datetime
 User=get_user_model()
 # Create your views here.
 def index(request):
-    """Display the Samvadika home page if the user is authenticated otherwise through user to the login webpage. It show all the question with their threadid, published date, question tag along with 
+    """Display the Samvadika home page if the user is authenticated otherwise takes user to the login webpage. It shows all the question with their thread ID, published date and question tag along with 
     reply, save-item, like and dislike option.
-    :param request: contains the metadata about the request e.g. HTTP request method used, The IP address of the client etc.
+    :param request: contains the metadata about the request e.g. HTTP request method used, IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage for authenticated user and login webpage for unauthenticated user.
     :rtype: HttpResponse object - for authenticated user, HttpResponseRedirect object - for unauthenticated user
@@ -39,20 +37,20 @@ def index(request):
             print(qtag[0].tag_name)
             if Reply.objects.filter(threadid=eq.threadid).exists():
                 rp=Reply.objects.filter(threadid=eq.threadid)
-                l.append([eq,rp,qtag])
+                l.append([eq,rp,qtag,len(rp)])
             else:
-                l.append([eq,'',qtag])
+                l.append([eq,'',qtag,0])
         
         s=Save.objects.filter(user_name=request.user)
+
+        print(l)
 
         return render(request,'index.html',{"query":l , "user":u,"save":s})
 
 def signup(request):
-    """Take User to the Signup Webpage.
+    """Takes user to the Signup Webpage.
     :param request: contains the metadata of the signup request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Signup webpage for new registration.
     :rtype: HttpResponse object
@@ -60,6 +58,42 @@ def signup(request):
     return render(request, 'signup.html')
 
 def saving(request):
+    """Saves a particular question for the user.
+    :param request: contains the metadata of the signup request e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
+    ...
+    :return: A response denoting if the question has been saved successfully or not.
+    :rtype: HttpResponse object
+    """
+    try:
+        print("hello what happend")
+        id = Question.objects.get(threadid=request.GET['threadid'])    
+        s= Save(threadid=id,user_name=request.user)
+        s.save()
+        print(id.threadid)
+        print(id.user_name)
+        print(timezone.now())
+
+        if(request.user!= id.user_name):
+            st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+            print(st)
+            n = Notify(message=st,user_name=id.user_name)
+            n.save()
+        
+        return HttpResponse("SUCCESS")
+
+    except:
+        id = Question.objects.get(threadid=request.GET['threadid'])
+        Save.objects.get(threadid=id,user_name=request.user).delete()
+        if(request.user!= id.user_name):
+            st = str(request.user) + " has Unsaved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+            print(st)
+            n = Notify(message=st,user_name=id.user_name)
+            n.save()
+        return HttpResponse("Failed")
+
+
+def filtertag_save(request):
 
     
     try:
@@ -69,10 +103,12 @@ def saving(request):
         print(id.threadid)
         print(id.user_name)
         print(timezone.now())
-        st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
-        print(st)
-        n = Notify(message=st,user_name=id.user_name)
-        n.save()
+
+        if(request.user!= id.user_name):
+            st = str(request.user) + " has saved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+            print(st)
+            n = Notify(message=st,user_name=id.user_name)
+            n.save()
         
         return HttpResponse("SUCCESS")
 
@@ -84,11 +120,9 @@ def saving(request):
 
 
 def User_login(request):
-    """Take user to the login webpage.
+    """Takes user to the login webpage.
     :param request: contains the metadata of the login request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Login webpage.
     :rtype: HttpResponse object
@@ -96,30 +130,29 @@ def User_login(request):
     return    render(request, 'login.html')
 
 def remove(request):
-    id = request.GET['threadid']
-    id = Question.objects.get(threadid=id)
-
-    Save.objects.get(threadid=id,user_name=request.user).delete()
-
-    return redirect("/saveditems")
-
-
-def remove(request):
-    id = request.GET['threadid']
-    id = Question.objects.get(threadid=id)
-
-    Save.objects.get(threadid=id,user_name=request.user).delete()
-
-    return redirect("/saveditems")
-
-
-def action_(request):
-    """Authenticate the user by confirming there Email ID and password. If there is mismatch then it display the warning and take user to login page otherwise on successfully login it
-    user to samvadika home page.
-    :param request: contains the metadata of the login action request e.g. HTTP request method used, The IP address of the client etc.
+    """Removes an already saved question from the Saved Items page
+    :param request: contains the metadata of the question posting request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
+    :return: Saved Items webpage.
+    :rtype: HttpResponseRedirect object
+    """
+    id = request.GET['threadid']
+    id = Question.objects.get(threadid=id)
+
+    Save.objects.get(threadid=id,user_name=request.user).delete()
+    if(request.user!= id.user_name):
+            st = str(request.user) + " has Unsaved the question (ThreadId - "+ str(id.threadid) +") posted by you."
+            print(st)
+            n = Notify(message=st,user_name=id.user_name)
+            n.save()
+
+    return redirect("/saveditems")
+
+def action_(request):
+    """Authenticate the user by confirming their Email ID and password. If there is mismatch then it displays the warning and takes user to login page. On successful login, the user is redirected to samvadika home page.
+    :param request: contains the metadata of the login action request e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
     ...
     :return: Samvadika home webpage if user is authenticated or Login webpage for unauthenticated user.
     :rtype: HttpResponse object - if user is unauthenticated, HttpResponseRedirect object - if user is authenticated
@@ -137,12 +170,9 @@ def action_(request):
 
 
 def register(request):
-    """Successfully register the new user by storing it details in the database. If there is some mismatch in password and confirm password or the email and username 
-    which new user used to register himself already be in use then it display warning message and user to signup page otherwise it take user to home page. 
+    """Successfully registers the new user by storing the details in the database. A warning message is displayed if there is a mismatch in password and confirm password fields, or if the email or username is already in use. Otherwise the user is redirected to the home page.
     :param request: contains the metadata of the signup action request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage if user is successfully registered otherwise signup webpage.
     :rtype: HttpResponse object
@@ -168,13 +198,16 @@ def register(request):
             
             user = User.objects.create_user( email, username, first_name, password)
             user.save()
+
+            u = User.objects.get(user_name=username)
+
+            n = Notify(message="You have gained 5 bonus points on joining SAMVADIKA" , user_name=u)
+            n.save()
             return redirect('/')
 def User_logout(request):
-    """Logout user and take him to login page.
+    """Logs out user and redirects to login page.
     :param request: contains the metadata of the logout request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Login webpage.
     :rtype: HttpResponse object
@@ -183,11 +216,9 @@ def User_logout(request):
     return render(request,'login.html')
 
 def posted(request):
-    """Store the posted question in the database and redirect user to the home page.
+    """Stores the posted question in the database and redirects user to the home page.
     :param request: contains the metadata of the question posting request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage.
     :rtype: HttpResponseRedirect object
@@ -198,14 +229,14 @@ def posted(request):
         tag_names=request.POST.getlist('tag')
         u=User.objects.get(user_name=request.user)
         u.score+=10
-       
+        u.save()
+
         q = Question( question=samvad,user_name=request.user)
         q.save()
 
         q = Question.objects.get(question=samvad)
 
         n = Notify(message="You gained 10 points on posting question (Threadid - " + str(q.threadid)+"). Now your score is "+str(u.score),user_name=request.user)
-        u.save()
         n.save()
 
         
@@ -217,11 +248,9 @@ def posted(request):
     return redirect('/')
 
 def Find_people_check(request):
-    """Display Interest form for the first time to the user and after fillup that form it display the list of all the user with their hobbies.
+    """Displays interest form initially and after filling up the form, it display the list of all the users with their hobbies.
     :param request: contains the metadata of the request to find the people e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: interestsform webpage if user not fill his/her interest otherwise findpeople webpage with list of all user with their hobbies.
     :rtype: HttpResponse object
@@ -249,15 +278,13 @@ def Find_people_check(request):
         return render(request,'findpeople.html',{"query":li}) 
 
 def Notifications(request):
-    """
+    """Displays all the notifications like getting a response for a question posted by the user, upvotes or downvotes received for replies, etc.
     :param request: contains the metadata of the request to goto Notifications webpage e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
     :return: Notifications webpage which display all the notifications to the user.
     :rtype: HttpResponse object
-    """
+    """ 
 
     n = Notify.objects.filter(user_name=request.user)
     s=[]
@@ -269,11 +296,9 @@ def Notifications(request):
     return render(request, 'notifications.html',{"notify":s})
 
 def Saved_items(request):
-    """Display all the questions which are saved by the user.
+    """Displays all the questions which are saved by the user.
     :param request: contains the metadata of the request to the Saved item webpage e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Saveditem webpage that shows all the item saved by the user.
     :rtype: HttpResponse object
@@ -282,20 +307,32 @@ def Saved_items(request):
     s=Save.objects.filter(user_name=request.user)
 
     l=[]
-
+    u=User.objects.get(user_name=request.user)
     for q in s:
         
         l.append(Question.objects.get(threadid=q.threadid.threadid))
 
     l.reverse()
-    return render(request, 'saveditems.html',{"save":l})
+
+    x=[]
+    for eq in l:
+        qtag=Tag.objects.filter(threadid=eq.threadid)
+        print(qtag[0].tag_name)
+        if Reply.objects.filter(threadid=eq.threadid).exists():
+            rp=Reply.objects.filter(threadid=eq.threadid)
+            x.append([eq,rp,qtag,len(rp)])
+        else:
+            x.append([eq,'',qtag,0])
+        
+        print(x)
+
+    return render(request, 'saveditems.html',{"user":u,"query":x})
+
 
 def Update_profile(request):
-    """Take user to the update profile page from where he/she update his details.
+    """Takes user to the update profile page from where he/she updates the details.
     :param request: contains the metadata of the request to update profile e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage which provide the options to update the user profile.
     :rtype: HttpResponse object
@@ -304,11 +341,9 @@ def Update_profile(request):
 
 
 def answer(request):
-    """Store the replies to the question in the database and redirect user to the home page. 
+    """Stores the replies to the question in the database and redirects user to the home page. 
     :param request: contains the metadata of the request to answering the question(reply) e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage.
     :rtype: HttpResponseRedirect object
@@ -324,23 +359,23 @@ def answer(request):
     u = Reply(reply=r,threadid=i,user_name=request.user )
     u.save()
     u=User.objects.get(user_name=request.user)
-    u.score+=10
-    u.save()
-
-    n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +"). Now your score is "+str(u.score),user_name=request.user)
-    n.save()
-    st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
-    print(st)
-    n = Notify(message=st,user_name=i.user_name)
-    n.save()
+    
+    if(request.user != i.user_name):
+        u.score+=10
+        u.save()
+        n = Notify(message="You gained 10 points on answering a question (Threadid - "+ str(i.threadid) +") posted by "+ str(i.user_name) +". Now your score is "+str(u.score),user_name=request.user)
+        n.save()
+        st =  str(request.user) + " has answered the question (ThreadId - "+ str(i.threadid) +") posted by you."
+        print(st)
+        n = Notify(message=st,user_name=i.user_name)
+        n.save()        
     return redirect('/')
+
     
 def update_name(request):
-    """Update the user name.
+    """Updates the user name.
     :param request: contains the metadata of the request to update name of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated user name.
     :rtype: HttpResponseRedirect object
@@ -355,12 +390,11 @@ def update_name(request):
     
         print('name changed')
     return redirect('/updateprofile')
+
 def update_email(request):
-    """Update the email of the user.
+    """Updates the email of the user.
     :param request: contains the metadata of the request to update email of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated user email.
     :rtype: HttpResponseRedirect object
@@ -382,11 +416,9 @@ def update_email(request):
     return redirect('/updateprofile')
 
 def update_pwd(request):
-    """Update the password of the user.
+    """Updates the password of the user.
     :param request: contains the metadata of the request to update password of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated password.
     :rtype: HttpResponseRedirect object
@@ -404,11 +436,9 @@ def update_pwd(request):
 
 
 def update_fb_link(request):
-    """Changed the Facebook profile link of the user.
+    """Changes the Facebook profile link of the user.
     :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated Facebook Profile link.
     :rtype: HttpResponseRedirect object
@@ -422,11 +452,9 @@ def update_fb_link(request):
     return redirect('/updateprofile')
 
 def update_linkedin_link(request):
-    """Changed the LinkedIn profile link of the user.
+    """Changes the LinkedIn profile link of the user.
     :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated LinkedIn Profile link.
     :rtype: HttpResponseRedirect object
@@ -438,11 +466,9 @@ def update_linkedin_link(request):
     return redirect('/updateprofile')
 
 def update_hobbies(request):
-    """Changed the Hobbies of the user.
+    """Changes the Hobbies of the user.
     :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return:updateprofile webpage with updated user hobbies.
     :rtype: HttpResponseRedirect object
@@ -460,11 +486,9 @@ def update_hobbies(request):
     return redirect('/updateprofile')
 
 def update_img(request):
-    """Update the profile picture of the user.
+    """Updates the profile picture of the user.
     :param request: contains the metadata of the request to update image of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated user image.
     :rtype: HttpResponseRedirect object
@@ -481,11 +505,9 @@ def update_img(request):
 
 
 def Updateinterests(request):
-    """Update the user interests i.e. hobbies with there social media link like Facebook link, LinkedIn link. So that it is easier to find the people of same kind of interest and to link with them through social media.
+    """Updates the user interests i.e. hobbies with there social media link like Facebook link, LinkedIn link. So that it is easier to find the people of same kind of interest and to link with them through social media.
     :param request: contains the metadata of the request to update interests of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: findpeople webpage where user see all users interest and option to contact him e.g. facebook, LinkedIn.
     :rtype: HttpResponseRedirect object
@@ -507,11 +529,9 @@ def Updateinterests(request):
     return redirect('/findpeople')
 
 def filter_people(request):
-    """Filter the people by hobbies. It also allow to display multiple hobby users at a time.
+    """Filters the people by hobbies. It also supports filtering people by multiple hobbies.
     :param request: contains the metadata of the request to filter user by their hobbies e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: findpeople webpage with list of all filtered user.
     :rtype: HttpResponse object
@@ -533,11 +553,8 @@ def filter_people(request):
 
             hobby={}
 
-            
-            print(len(li))
             send=[]
             for i in li:
-                print(i[0]," ",i[1] )
                 hobby[i[0]]=[]
             
             for i in li:
@@ -550,32 +567,15 @@ def filter_people(request):
                 send.append([k, hobby[k]])
 
             send = list(send)
-            # for i in range(0,len(li)):
-            #     #print( li[i])
-            #     print( li[i][i])
-            #     print( li[i][1][i].hobby_name)
-
-            # for x in li:
-            #     hobby[x[0][0]].append(x[0][1][0].hobby_name)
-
-            # for x in li:
-            #     hobby[x[0][0]] = set(hobby[x[0][0]])
-
-            # for keys in hobby.keys():
-            #     print( hobby[keys] ) 
-            # print("printed dictionary")
-            
-            return render(request,'findpeople.html',{"query":send}) 
+            return render(request,'findpeople.html',{"query":send,"selected_hobbies_list":interest_filter_list}) 
         else:
             return redirect('/findpeople')
 
 
 def Reset_filter_people(request):
-    """Reset the filter to find people and allow user to adjust filter from starting.
+    """Resets the filter to find people and allow users to adjust filter from starting.
     :param request: contains the metadata of the request to reset filter to find people e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: findpeople webpage.
     :rtype: HttpResponseRedirect object
@@ -583,11 +583,9 @@ def Reset_filter_people(request):
     return redirect('/findpeople')
 
 def filter_questions(request):
-    """Filter the questions by the tags and show all filtered question with their replies.  
+    """Filters the questions by tags and show all filtered question with their replies.  
     :param request: contains the metadata of the request to filter questions by the tags e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: filterquestions webpage with list of all filtered question with their replies.
     :rtype: HttpResponse object
@@ -606,32 +604,56 @@ def filter_questions(request):
                     if Tag.objects.filter(tag_name=qn_tag,threadid=qn.threadid).exists():
                         rp=Tag.objects.filter(threadid=qn.threadid)
                         li.append([qn,rp])
-            return render(request,'filterquestions.html',{"query":li}) 
+
+            qn_tags={}
+            send=[]
+            for i in li:
+                qn_tags[i[0]]=[]
+            
+            for i in li:
+                qn_tags[i[0]].extend(i[1])
+
+            for i in qn_tags.keys():
+                qn_tags[i] = set(qn_tags[i])
+
+            for k in qn_tags.keys():
+                send.append([k, qn_tags[k]])
+
+            send = list(send)
+            f_li=[]
+            sv=[]
+            for li in send:
+                if Save.objects.filter(threadid=li[0],user_name=request.user).exists():
+                    sv.append(Save.objects.get(threadid=li[0],user_name=request.user))
+                if Reply.objects.filter(threadid=li[0].threadid).exists():
+                    rp=Reply.objects.filter(threadid=li[0].threadid)
+                    f_li.append([li[0],rp,li[1],len(rp)])
+                else:
+                    f_li.append([li[0],'',li[1],0])
+
+
+            return render(request,'filterquestions.html',{"query":f_li,"selected_tag_list":tag_filter_list,"save":sv}) 
         
         else:
             return redirect('/')
 
 
 def reset_filter_questions(request):
-    """Reset the filter to find people and allow user to adjust filter from starting.
+    """Resets the filter to find people and allow user to adjust filter from starting.
     :param request: contains the metadata of the request to reset filter to find question e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return: Home webpage from where user reset question tag for filter.
+    :return: Home webpage from where user resets question tag for filter.
     :rtype: HttpResponseRedirect object
     """
     return redirect('/')
 
 def filterbytags(request):
-    """Through the user to the webpage from where user filter the questions by specifying tag.
+    """Takes the user to the webpage from where user filters the questions by specifying tag.
     :param request: contains the metadata of the request for the tag filter e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return: filterquestions webpage through which user choose the tag to filter the questions.
+    :return: filterquestions webpage through which user chooses the tag to filter the questions.
     :rtype: HttpResponseRedirect object
     """
     return render(request, 'filterquestions.html')
@@ -655,7 +677,17 @@ def save_upvote(request):
         check_upvotes=UpVote.objects.filter(reply=reply,user=user).count()
         check_downvotes=DownVote.objects.filter(reply=reply,user=user).count()
         if check_upvotes > 0:
+            
             UpVote.objects.filter(reply = reply,user=user).delete()
+            u = User.objects.get(user_name=reply.user_name)
+            if ( request.user != reply.user_name):
+                u.score-=5
+                u.save()    
+                st = str(request.user) + " has undone his UpVote on your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result your score is reduced by 5 points and now your new score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
+
             return JsonResponse({'bool':False,'other':False})
         elif(check_downvotes > 0):
             DownVote.objects.filter(reply = reply,user=user).delete()
@@ -663,6 +695,14 @@ def save_upvote(request):
                 reply = reply,
                 user = user
             )
+            if ( request.user != reply.user_name):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score+=10
+                u.save()    
+                st = str(request.user) + " has changed  his DownVote to UpVote on your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result your score is increased by 10 points and now your new score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save() 
             return JsonResponse({'bool':True,'other':True})
         else:
             UpVote.objects.create(
@@ -700,6 +740,15 @@ def save_downvote(request):
         check_upvotes=UpVote.objects.filter(reply=reply,user=user).count()
         if check_downvotes > 0:
             DownVote.objects.filter(reply = reply,user=user).delete()
+            UpVote.objects.filter(reply = reply,user=user).delete()
+            u = User.objects.get(user_name=reply.user_name)
+            if (reply.user_name!= request.user):
+                u.score+=5
+                u.save()    
+                st = str(request.user) + " has undone his DownVote on your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result your score is increased by 5 points and now your new score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
             return JsonResponse({'bool':False,'other':False})
         elif(check_upvotes > 0):
             UpVote.objects.filter(reply = reply,user=user).delete()
@@ -707,22 +756,30 @@ def save_downvote(request):
                 reply = reply,
                 user = user
             )
+            if (reply.user_name!= request.user):
+                u = User.objects.get(user_name=reply.user_name)
+                u.score-=10
+                u.save()    
+                st = str(request.user) + " has changed  his UpVote to DownVote on your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result your score is reduced by 10 points and now your new score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save() 
             return JsonResponse({'bool':True,'other':True})
         else:
             DownVote.objects.create(
                 reply = reply,
                 user = user
             )
-        if (reply.user_name!= request.user):
+            if (reply.user_name!= request.user):
 
-            u = User.objects.get(user_name=reply.user_name)
-            u.score-=5
-            u.save()
+                u = User.objects.get(user_name=reply.user_name)
+                u.score-=5
+                u.save()
             
-            st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
-            print(st)
-            n=Notify(message=st,user_name=reply.user_name)
-            n.save()
+                st = str(request.user) + " has DownVoted your Reply on the Question (Threadid - "+ str(reply.threadid.threadid) +"). As a result you lost 5 points and now your new Score is "+str(u.score)
+                print(st)
+                n=Notify(message=st,user_name=reply.user_name)
+                n.save()
         
             return JsonResponse({'bool':True,'other':False})
 

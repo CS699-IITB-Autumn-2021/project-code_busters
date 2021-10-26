@@ -362,122 +362,123 @@ done(b);
   -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"> </script>
   
-    <script>     
-      $(document).ready(function(){          
-        $(".upvote-click").on('click',function(){
-          var replyid=$(this).data('reply');
-          $.ajax({
-            url:"/save-upvote",
-            type:"post",
-            data:{
-              replyid:replyid,
-              csrfmiddlewaretoken:"{{csrf_token}}"
-            },
-            dataType:'json',
-            success:function(res){
-              var _prevupvotes=$(".upvote-count-"+replyid).text();
-              var _prevdownvotes=$(".downvote-count-"+replyid).text();
-              if(res.bool==true){
-                $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)+1);
-                $(".upvote-count-"+replyid).css("color", "#03a603"); 
-                if(res.other==true){
-                  $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)-1);
-                  $(".downvote-count-"+replyid).css("color", ""); 
-                }
-              }
-              if(res.bool==false){
-                $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)-1);
-                $(".upvote-count-"+replyid).css("color", ""); 
-                $(this).css("color", ""); 
-              }
-            }
-          });          
-        });
-
-        $(".downvote-click").on('click',function(){
-          var replyid=$(this).data('reply');
-          $.ajax({
-            url:"/save-downvote",
-            type:"post",
-            data:{
-              replyid:replyid,
-              csrfmiddlewaretoken:"{{csrf_token}}"
-            },
-            dataType:'json',
-            success:function(res){
-              var _prevdownvotes=$(".downvote-count-"+replyid).text();
-              var _prevupvotes=$(".upvote-count-"+replyid).text();
-              if(res.bool==true){
-                $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)+1);
-                $(".downvote-count-"+replyid).css("color", "#ca1919"); 
-                if(res.other==true){
-                  $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)-1);
-                  $(".upvote-count-"+replyid).css("color", ""); 
-                }
-              }
-              if(res.bool==false){
+  <script>     
+    $(document).ready(function(){          
+      $(".upvote-click").on('click',function(){
+        var replyid=$(this).data('reply');
+        $.ajax({
+          url:"/save-upvote",
+          type:"post",
+          data:{
+            replyid:replyid,
+            csrfmiddlewaretoken:"{{csrf_token}}"
+          },
+          dataType:'json',
+          success:function(res){
+            var _prevupvotes=$(".upvote-count-"+replyid).text();
+            var _prevdownvotes=$(".downvote-count-"+replyid).text();
+            if(res.bool==true){
+              $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)+1);
+              $(".upvote-count-"+replyid).css("color", "#03a603"); 
+              if(res.other==true){
                 $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)-1);
                 $(".downvote-count-"+replyid).css("color", ""); 
               }
             }
-          });          
-        });
+            if(res.bool==false){
+              $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)-1);
+              $(".upvote-count-"+replyid).css("color", ""); 
+              $(this).css("color", ""); 
+            }
+          }
+        });          
+      });
 
-        $(".like-click").on('click',function(){
-          var threadid=$(this).data('question');
-          $.ajax({
-            url:"/save-like",
-            type:"post",
-            data:{
-              threadid:threadid,
-              csrfmiddlewaretoken:"{{csrf_token}}"
-            },
-            dataType:'json',
-            success:function(res){
-              var _prevlikes=$(".like-count-"+threadid).text();
-              var _prevdislikes=$(".dislike-count-"+threadid).text();
-              if(res.bool==true){
-                $(".like-count-"+threadid).text(parseInt(_prevlikes)+1);
-                if(res.other==true){
-                  $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)-1);
-                }
-              }
-              if(res.bool==false){
-                $(".like-count-"+threadid).text(parseInt(_prevlikes)-1);
+      $(".downvote-click").on('click',function(){
+        var replyid=$(this).data('reply');
+        $.ajax({
+          url:"/save-downvote",
+          type:"post",
+          data:{
+            replyid:replyid,
+            csrfmiddlewaretoken:"{{csrf_token}}"
+          },
+          dataType:'json',
+          success:function(res){
+            var _prevdownvotes=$(".downvote-count-"+replyid).text();
+            var _prevupvotes=$(".upvote-count-"+replyid).text();
+            if(res.bool==true){
+              $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)+1);
+              $(".downvote-count-"+replyid).css("color", "#ca1919"); 
+              if(res.other==true){
+                $(".upvote-count-"+replyid).text(parseInt(_prevupvotes)-1);
+                $(".upvote-count-"+replyid).css("color", ""); 
               }
             }
-          });          
-        });
+            if(res.bool==false){
+              $(".downvote-count-"+replyid).text(parseInt(_prevdownvotes)-1);
+              $(".downvote-count-"+replyid).css("color", ""); 
+            }
+          }
+        });          
+      });
 
-        $(".dislike-click").on('click',function(){
-          var threadid=$(this).data('question');
-          $.ajax({
-            url:"/save-dislike",
-            type:"post",
-            data:{
-              threadid:threadid,
-              csrfmiddlewaretoken:"{{csrf_token}}"
-            },
-            dataType:'json',
-            success:function(res){
-              var _prevdislikes=$(".dislike-count-"+threadid).text();
-              var _prevlikes=$(".like-count-"+threadid).text();
-              if(res.bool==true){
-                $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)+1);
-                if(res.other==true){
-                  $(".like-count-"+threadid).text(parseInt(_prevlikes)-1);
-                }
-              }
-              if(res.bool==false){
+      $(".like-click").on('click',function(){
+        var threadid=$(this).data('question');
+        $.ajax({
+          url:"/save-like",
+          type:"post",
+          data:{
+            threadid:threadid,
+            csrfmiddlewaretoken:"{{csrf_token}}"
+          },
+          dataType:'json',
+          success:function(res){
+            var _prevlikes=$(".like-count-"+threadid).text();
+            var _prevdislikes=$(".dislike-count-"+threadid).text();
+            if(res.bool==true){
+              $(".like-count-"+threadid).text(parseInt(_prevlikes)+1);
+              if(res.other==true){
                 $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)-1);
               }
             }
-          });          
-        });
-
+            if(res.bool==false){
+              $(".like-count-"+threadid).text(parseInt(_prevlikes)-1);
+            }
+          }
+        });          
       });
 
-    </script>
+      $(".dislike-click").on('click',function(){
+        var threadid=$(this).data('question');
+        $.ajax({
+          url:"/save-dislike",
+          type:"post",
+          data:{
+            threadid:threadid,
+            csrfmiddlewaretoken:"{{csrf_token}}"
+          },
+          dataType:'json',
+          success:function(res){
+            var _prevdislikes=$(".dislike-count-"+threadid).text();
+            var _prevlikes=$(".like-count-"+threadid).text();
+            if(res.bool==true){
+              $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)+1);
+              if(res.other==true){
+                $(".like-count-"+threadid).text(parseInt(_prevlikes)-1);
+              }
+            }
+            if(res.bool==false){
+              $(".dislike-count-"+threadid).text(parseInt(_prevdislikes)-1);
+            }
+          }
+        });          
+      });
+
+    });
+
+  </script>
+
   </body>
   </html>
   
