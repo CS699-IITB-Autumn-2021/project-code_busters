@@ -1,5 +1,5 @@
 
-# Samvadika - An o  nline Interaction Platform.
+# Samvadika - An online Interaction Platform.
 
 
 ## Problem Statement
