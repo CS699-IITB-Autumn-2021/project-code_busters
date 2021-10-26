@@ -34,6 +34,7 @@ urlpatterns = [
     path('save-dislike',save_dislike, name = 'save-dislike'),
     path('saving',saving, name = 'saving'),
     path('remove',remove, name = 'remove'),
+    path('filterbytags/saving',filtertag_save,name="filter_save"),
     
 
 ]
