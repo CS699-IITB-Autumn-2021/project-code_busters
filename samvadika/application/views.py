@@ -12,12 +12,10 @@ import datetime
 User=get_user_model()
 # Create your views here.
 def index(request):
-    """Display the Samvadika home page if the user is authenticated otherwise through user to the login webpage. It show all the question with their threadid, published date, question tag along with 
+    """Display the Samvadika home page if the user is authenticated otherwise takes user to the login webpage. It shows all the question with their thread ID, published date and question tag along with 
     reply, save-item, like and dislike option.
-    :param request: contains the metadata about the request e.g. HTTP request method used, The IP address of the client etc.
+    :param request: contains the metadata about the request e.g. HTTP request method used, IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage for authenticated user and login webpage for unauthenticated user.
     :rtype: HttpResponse object - for authenticated user, HttpResponseRedirect object - for unauthenticated user
@@ -50,11 +48,9 @@ def index(request):
         return render(request,'index.html',{"query":l , "user":u,"save":s})
 
 def signup(request):
-    """Take User to the Signup Webpage.
+    """Takes user to the Signup Webpage.
     :param request: contains the metadata of the signup request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Signup webpage for new registration.
     :rtype: HttpResponse object
@@ -62,8 +58,13 @@ def signup(request):
     return render(request, 'signup.html')
 
 def saving(request):
-
-    
+    """Saves a particular question for the user.
+    :param request: contains the metadata of the signup request e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
+    ...
+    :return: A response denoting if the question has been saved successfully or not.
+    :rtype: HttpResponse object
+    """
     try:
         id = Question.objects.get(threadid=request.GET['threadid'])    
         s= Save(threadid=id,user_name=request.user)
@@ -88,11 +89,9 @@ def saving(request):
 
 
 def User_login(request):
-    """Take user to the login webpage.
+    """Takes user to the login webpage.
     :param request: contains the metadata of the login request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Login webpage.
     :rtype: HttpResponse object
@@ -100,30 +99,24 @@ def User_login(request):
     return    render(request, 'login.html')
 
 def remove(request):
-    id = request.GET['threadid']
-    id = Question.objects.get(threadid=id)
-
-    Save.objects.get(threadid=id,user_name=request.user).delete()
-
-    return redirect("/saveditems")
-
-
-def remove(request):
-    id = request.GET['threadid']
-    id = Question.objects.get(threadid=id)
-
-    Save.objects.get(threadid=id,user_name=request.user).delete()
-
-    return redirect("/saveditems")
-
-
-def action_(request):
-    """Authenticate the user by confirming there Email ID and password. If there is mismatch then it display the warning and take user to login page otherwise on successfully login it
-    user to samvadika home page.
-    :param request: contains the metadata of the login action request e.g. HTTP request method used, The IP address of the client etc.
+    """Removes an already saved question from the Saved Items page
+    :param request: contains the metadata of the question posting request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
+    :return: Saved Items webpage.
+    :rtype: HttpResponseRedirect object
+    """
+    id = request.GET['threadid']
+    id = Question.objects.get(threadid=id)
+
+    Save.objects.get(threadid=id,user_name=request.user).delete()
+
+    return redirect("/saveditems")
+
+def action_(request):
+    """Authenticate the user by confirming their Email ID and password. If there is mismatch then it displays the warning and takes user to login page. On successful login, the user is redirected to samvadika home page.
+    :param request: contains the metadata of the login action request e.g. HTTP request method used, The IP address of the client etc.
+    :type request: HttpRequest object
     ...
     :return: Samvadika home webpage if user is authenticated or Login webpage for unauthenticated user.
     :rtype: HttpResponse object - if user is unauthenticated, HttpResponseRedirect object - if user is authenticated
@@ -141,12 +134,9 @@ def action_(request):
 
 
 def register(request):
-    """Successfully register the new user by storing it details in the database. If there is some mismatch in password and confirm password or the email and username 
-    which new user used to register himself already be in use then it display warning message and user to signup page otherwise it take user to home page. 
+    """Successfully registers the new user by storing the details in the database. A warning message is displayed if there is a mismatch in password and confirm password fields, or if the email or username is already in use. Otherwise the user is redirected to the home page.
     :param request: contains the metadata of the signup action request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage if user is successfully registered otherwise signup webpage.
     :rtype: HttpResponse object
@@ -179,11 +169,9 @@ def register(request):
             n.save()
             return redirect('/')
 def User_logout(request):
-    """Logout user and take him to login page.
+    """Logs out user and redirects to login page.
     :param request: contains the metadata of the logout request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Login webpage.
     :rtype: HttpResponse object
@@ -192,11 +180,9 @@ def User_logout(request):
     return render(request,'login.html')
 
 def posted(request):
-    """Store the posted question in the database and redirect user to the home page.
+    """Stores the posted question in the database and redirects user to the home page.
     :param request: contains the metadata of the question posting request e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage.
     :rtype: HttpResponseRedirect object
@@ -226,11 +212,9 @@ def posted(request):
     return redirect('/')
 
 def Find_people_check(request):
-    """Display Interest form for the first time to the user and after fillup that form it display the list of all the user with their hobbies.
+    """Displays interest form initially and after filling up the form, it display the list of all the users with their hobbies.
     :param request: contains the metadata of the request to find the people e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: interestsform webpage if user not fill his/her interest otherwise findpeople webpage with list of all user with their hobbies.
     :rtype: HttpResponse object
@@ -258,15 +242,13 @@ def Find_people_check(request):
         return render(request,'findpeople.html',{"query":li}) 
 
 def Notifications(request):
-    """
+    """Displays all the notifications like getting a response for a question posted by the user, upvotes or downvotes received for replies, etc.
     :param request: contains the metadata of the request to goto Notifications webpage e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
     :return: Notifications webpage which display all the notifications to the user.
     :rtype: HttpResponse object
-    """
+    """ 
 
     n = Notify.objects.filter(user_name=request.user)
     s=[]
@@ -278,11 +260,9 @@ def Notifications(request):
     return render(request, 'notifications.html',{"notify":s})
 
 def Saved_items(request):
-    """Display all the questions which are saved by the user.
+    """Displays all the questions which are saved by the user.
     :param request: contains the metadata of the request to the Saved item webpage e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Saveditem webpage that shows all the item saved by the user.
     :rtype: HttpResponse object
@@ -314,11 +294,9 @@ def Saved_items(request):
 
 
 def Update_profile(request):
-    """Take user to the update profile page from where he/she update his details.
+    """Takes user to the update profile page from where he/she updates the details.
     :param request: contains the metadata of the request to update profile e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage which provide the options to update the user profile.
     :rtype: HttpResponse object
@@ -327,11 +305,9 @@ def Update_profile(request):
 
 
 def answer(request):
-    """Store the replies to the question in the database and redirect user to the home page. 
+    """Stores the replies to the question in the database and redirects user to the home page. 
     :param request: contains the metadata of the request to answering the question(reply) e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: Samvadika home webpage.
     :rtype: HttpResponseRedirect object
@@ -360,11 +336,9 @@ def answer(request):
     return redirect('/')
     
 def update_name(request):
-    """Update the user name.
+    """Updates the user name.
     :param request: contains the metadata of the request to update name of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated user name.
     :rtype: HttpResponseRedirect object
@@ -379,12 +353,11 @@ def update_name(request):
     
         print('name changed')
     return redirect('/updateprofile')
+
 def update_email(request):
-    """Update the email of the user.
+    """Updates the email of the user.
     :param request: contains the metadata of the request to update email of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated user email.
     :rtype: HttpResponseRedirect object
@@ -406,11 +379,9 @@ def update_email(request):
     return redirect('/updateprofile')
 
 def update_pwd(request):
-    """Update the password of the user.
+    """Updates the password of the user.
     :param request: contains the metadata of the request to update password of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated password.
     :rtype: HttpResponseRedirect object
@@ -428,11 +399,9 @@ def update_pwd(request):
 
 
 def update_fb_link(request):
-    """Changed the Facebook profile link of the user.
+    """Changes the Facebook profile link of the user.
     :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated Facebook Profile link.
     :rtype: HttpResponseRedirect object
@@ -446,11 +415,9 @@ def update_fb_link(request):
     return redirect('/updateprofile')
 
 def update_linkedin_link(request):
-    """Changed the LinkedIn profile link of the user.
+    """Changes the LinkedIn profile link of the user.
     :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated LinkedIn Profile link.
     :rtype: HttpResponseRedirect object
@@ -462,11 +429,9 @@ def update_linkedin_link(request):
     return redirect('/updateprofile')
 
 def update_hobbies(request):
-    """Changed the Hobbies of the user.
+    """Changes the Hobbies of the user.
     :param request: contains the metadata of the request to changed hobbies of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return:updateprofile webpage with updated user hobbies.
     :rtype: HttpResponseRedirect object
@@ -484,11 +449,9 @@ def update_hobbies(request):
     return redirect('/updateprofile')
 
 def update_img(request):
-    """Update the profile picture of the user.
+    """Updates the profile picture of the user.
     :param request: contains the metadata of the request to update image of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: updateprofile webpage with updated user image.
     :rtype: HttpResponseRedirect object
@@ -505,11 +468,9 @@ def update_img(request):
 
 
 def Updateinterests(request):
-    """Update the user interests i.e. hobbies with there social media link like Facebook link, LinkedIn link. So that it is easier to find the people of same kind of interest and to link with them through social media.
+    """Updates the user interests i.e. hobbies with there social media link like Facebook link, LinkedIn link. So that it is easier to find the people of same kind of interest and to link with them through social media.
     :param request: contains the metadata of the request to update interests of the user e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: findpeople webpage where user see all users interest and option to contact him e.g. facebook, LinkedIn.
     :rtype: HttpResponseRedirect object
@@ -531,11 +492,9 @@ def Updateinterests(request):
     return redirect('/findpeople')
 
 def filter_people(request):
-    """Filter the people by hobbies. It also allow to display multiple hobby users at a time.
+    """Filters the people by hobbies. It also supports filtering people by multiple hobbies.
     :param request: contains the metadata of the request to filter user by their hobbies e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: findpeople webpage with list of all filtered user.
     :rtype: HttpResponse object
@@ -577,11 +536,9 @@ def filter_people(request):
 
 
 def Reset_filter_people(request):
-    """Reset the filter to find people and allow user to adjust filter from starting.
+    """Resets the filter to find people and allow users to adjust filter from starting.
     :param request: contains the metadata of the request to reset filter to find people e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: findpeople webpage.
     :rtype: HttpResponseRedirect object
@@ -589,11 +546,9 @@ def Reset_filter_people(request):
     return redirect('/findpeople')
 
 def filter_questions(request):
-    """Filter the questions by the tags and show all filtered question with their replies.  
+    """Filters the questions by tags and show all filtered question with their replies.  
     :param request: contains the metadata of the request to filter questions by the tags e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
-    ...
-    :raises [ErrorType]: [ErrorDescription]
     ...
     :return: filterquestions webpage with list of all filtered question with their replies.
     :rtype: HttpResponse object
@@ -635,25 +590,21 @@ def filter_questions(request):
 
 
 def reset_filter_questions(request):
-    """Reset the filter to find people and allow user to adjust filter from starting.
+    """Resets the filter to find people and allow user to adjust filter from starting.
     :param request: contains the metadata of the request to reset filter to find question e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return: Home webpage from where user reset question tag for filter.
+    :return: Home webpage from where user resets question tag for filter.
     :rtype: HttpResponseRedirect object
     """
     return redirect('/')
 
 def filterbytags(request):
-    """Through the user to the webpage from where user filter the questions by specifying tag.
+    """Takes the user to the webpage from where user filters the questions by specifying tag.
     :param request: contains the metadata of the request for the tag filter e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return: filterquestions webpage through which user choose the tag to filter the questions.
+    :return: filterquestions webpage through which user chooses the tag to filter the questions.
     :rtype: HttpResponseRedirect object
     """
     return render(request, 'filterquestions.html')
@@ -661,14 +612,12 @@ def filterbytags(request):
 
 
 def save_upvote(request):
-    """
+    """Saves the particular upvote in the database if the user has not already upvoted. The upvote entry is deleted if the user had already upvoted previously.
     :param request: contains the metadata of the request to save upvote e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return:
-    :rtype:
+    :return: Two boolean values as a JsonResponse object which indicates if the user had already upvoted and if he/she had already downvoted.
+    :rtype: JsonResponse object
     """
     if request.method == 'POST':
         replyid = request.POST['replyid']
@@ -704,14 +653,12 @@ def save_upvote(request):
             return JsonResponse({'bool':True,'other':False})
 
 def save_downvote(request):
-    """
+    """Saves the particular downvote in the database if the user has not already downvoted. The downvote entry is deleted if the user had already downvoted previously.
     :param request: contains the metadata of the request to save upvote e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return:
-    :rtype:
+    :return: Two boolean values as a JsonResponse object which indicates if the user had already upvoted and if he/she had already downvoted.
+    :rtype: JsonResponse object
     """
 
     if request.method == 'POST':
@@ -749,15 +696,12 @@ def save_downvote(request):
             return JsonResponse({'bool':True,'other':False})
 
 def save_like(request):
-
-    """
+    """Saves the like in the database when the user likes a question. A new entry is created in the database if the user has not already liked. The like entry is deleted if the user had already liked previously.
     :param request: contains the metadata of the request to save upvote e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return:
-    :rtype:
+    :return: Two boolean values as a JsonResponse object which indicates if the user had already liked and if he/she had already disliked.
+    :rtype: JsonResponse object
     """
     if request.method == 'POST':
         threadid = request.POST['threadid']
@@ -791,14 +735,12 @@ def save_like(request):
             return JsonResponse({'bool':True, 'other':False})
 
 def save_dislike(request):
-    """
+    """Saves the dislike in the database when the user dislikes a question. A new entry is created in the database if the user has not already disliked. The dislike entry is deleted if the user had already disliked previously.
     :param request: contains the metadata of the request to save upvote e.g. HTTP request method used, The IP address of the client etc.
     :type request: HttpRequest object
     ...
-    :raises [ErrorType]: [ErrorDescription]
-    ...
-    :return:
-    :rtype:
+    :return: Two boolean values as a JsonResponse object which indicates if the user had already liked and if he/she had already disliked.
+    :rtype: JsonResponse object
     """
 
     if request.method == 'POST':
