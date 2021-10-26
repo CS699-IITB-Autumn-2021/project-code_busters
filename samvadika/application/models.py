@@ -8,8 +8,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 
 class CustomAccountManager(BaseUserManager):
-    """CustomAccountManager class extends BaseUserManager providing two additional method create_superuser and create_user to create the superuser and user as without superuser
-     we are unable to access the admin.
+    """CustomAccountManager class extends BaseUserManager providing two additional methods create_superuser and create_user to create the superuser and user as without superuser we are unable to access the admin.
     :param BaseUserManager: models.BaseUserManager class act as a superclass for CustomAccountManager class.
     :type BaseUserManager: class
     """
@@ -33,13 +32,9 @@ class CustomAccountManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(email=email, user_name=user_name,
-                          first_name=first_name, **other_fields)
+        first_name=first_name, **other_fields)
         user.set_password(password)
-        user.save()
-        
-            
-            
-
+        user.save()                        
         return user
 
 
@@ -116,8 +111,6 @@ class Reply(models.Model):
     replyid = models.AutoField(primary_key=True)
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
-
-
 
 class Save(models.Model):
     threadid =  models.ForeignKey(Question, on_delete=models.CASCADE)  
