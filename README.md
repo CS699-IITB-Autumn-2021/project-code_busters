@@ -42,8 +42,8 @@ In the current online semester, several students of our college have a tough tim
   - [x] Signup with required info like username, password, email, first name and last name etc and login in secured way
 
 ## Hardware/Software Requirements
-Windows 4GB RAM
-
+Operating System - Windows, macOS, Linux/Unix 
+Software -  Python 3.6 to 3.8 , Django
 ## How to operate
 Once the repository is cloned, run the following commands:
 ```
