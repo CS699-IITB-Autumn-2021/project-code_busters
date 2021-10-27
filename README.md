@@ -1,5 +1,5 @@
 
-# Samvadika - An online Interaction Platform.
+# Samvadika - An online Interaction Platform
 
 
 ## Problem Statement
@@ -8,7 +8,7 @@ In the current online semester, several students of our college have a tough tim
 
 
 ## Sell your product or service
-
+Samvadika is an online platform for students to share thoughts, start a discussion on any topic and filter people who are into various hobbies.
 
 ## List of features
 - Posting questions and replies in the form of threads
@@ -20,11 +20,11 @@ In the current online semester, several students of our college have a tough tim
 - A score for each user by looking at his/her activity
 
 ## Technology Stack
-- Python
+- **Python**
 - Django
 - Ajax
-- SQLite
-- HTML, CSS, Bootstrap, JS
+- **SQLite**
+- **HTML, CSS, Bootstrap, JS**
 
 ## List of deliverables
 - [x] Post Questions and replies/comments
@@ -42,8 +42,9 @@ In the current online semester, several students of our college have a tough tim
   - [x] Signup with required info like username, password, email, first name and last name etc and login in secured way
 
 ## Hardware/Software Requirements
-Operating System - Windows, macOS, Linux/Unix 
-Software -  Python 3.6 to 3.8 , Django
+Operating System - Windows, macOS, Linux/Unix with atleast 4 GB RAM <br>
+Software -  Python 3.6 to 3.8, Django
+
 ## How to operate
 Once the repository is cloned, run the following commands:
 ```
@@ -52,11 +53,13 @@ source bin/activate
 cd samvadika
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver
 ```
+To create a superuser, run ```python manage.py createsuperuser``` and enter the required data. Finally to run the project, execute <br>
+```python manage.py runserver``` <br>
+A login page could now be accessed by visiting the URL http://127.0.0.1:8000. Using the "Register here" button in the login page, new users can register and get access to the discussion forum.
 
 ## Primary stakeholders of the product built
-
+The platform would be used by students and faculties 
 
 ## Team details along with the contribution
 
