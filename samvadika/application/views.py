@@ -430,6 +430,7 @@ def update_pwd(request):
         user=User.objects.get(user_name=request.user)
         user.set_password(pwd)
         user.save()
+        login(request,user)
         print('password changed')
     return redirect('/updateprofile')
 
