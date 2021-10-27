@@ -69,4 +69,4 @@ Tushar Tomar (213050023) <br/>
 Vivek Anil Pandey (21q05r004) <br/>
 
 ## Path to Code Documentation
-./docs/_build/index.html
+/docs/build/index.html
