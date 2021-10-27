@@ -62,11 +62,11 @@ A login page could now be accessed by visiting the URL http://127.0.0.1:8000. Us
 The platform would be used by students and faculties 
 
 ## Team details along with the contribution
-Team Name:** Code Busters**
-Ajay Ravindran (213059004)
-Naveen Badathala (213050052)
-Tushar Tomar (213050023)
-Vivek Anil Pandey (21q05r004)
+Team Name:** Code Busters** <br/>
+Ajay Ravindran (213059004) <br/>
+Naveen Badathala (213050052) <br/>
+Tushar Tomar (213050023) <br/>
+Vivek Anil Pandey (21q05r004) <br/>
 
 ## Path to Code Documentation
 ./docs/_build/index.html
