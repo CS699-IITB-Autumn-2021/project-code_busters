@@ -198,7 +198,7 @@ def register(request):
             
             user = User.objects.create_user( email, username, first_name, password)
             user.save()
-
+            login(request,user)
             u = User.objects.get(user_name=username)
 
             n = Notify(message="You have gained 5 bonus points on joining SAMVADIKA" , user_name=u)
