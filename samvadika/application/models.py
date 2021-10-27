@@ -41,6 +41,7 @@ class CustomAccountManager(BaseUserManager):
 class NewUser(AbstractBaseUser, PermissionsMixin):
     """Custom user model extends models.AbstractBaseUser class which provide the core implementation of user model and models.PermissionMixin class which provide 
      all the methods and database fields necessary to support Django’s permission model.
+    
     :param AbstractBaseUser: models.AbstractBaseUser class act as a superclass for NewUser model.
     :type AbstractBaseUser: class
     :param PermissionMixin: models.PermissionMixin class inherited by NewUser model.
