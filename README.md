@@ -59,7 +59,7 @@ To create a superuser, run ```python manage.py createsuperuser``` and enter the 
 A login page could now be accessed by visiting the URL http://127.0.0.1:8000. Using the "Register here" button in the login page, new users can register and get access to the discussion forum.
 
 ## Primary stakeholders of the product built
-The platform would be used by students and faculties 
+The platform would be used by students and faculties of IIT Bombay.
 
 ## Team details along with the contribution
 Team Name: Code Busters <br/>
