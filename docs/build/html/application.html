@@ -252,9 +252,12 @@
 <dt class="sig sig-object py" id="application.models.CustomAccountManager">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">CustomAccountManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.CustomAccountManager" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.base_user.BaseUserManager</span></code></p>
-<p>CustomAccountManager class extends BaseUserManager providing two additional methods create_superuser and create_user to create the superuser and user as without superuser we are unable to access the admin.
-:param BaseUserManager: models.BaseUserManager class act as a superclass for CustomAccountManager class.
-:type BaseUserManager: class</p>
+<p>CustomAccountManager class extends BaseUserManager providing two additional methods create_superuser and create_user to create the superuser and user as without superuser we are unable to access the admin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>BaseUserManager</strong> (<em>class</em>) – models.BaseUserManager class act as a superclass for CustomAccountManager class.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="application.models.CustomAccountManager.create_superuser">
 <span class="sig-name descname"><span class="pre">create_superuser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">other_fields</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.CustomAccountManager.create_superuser" title="Permalink to this definition"></a></dt>
@@ -271,12 +274,11 @@
 <dt class="sig sig-object py" id="application.models.Dislike">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">Dislike</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.Dislike" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model Dislike extends django.db.models.Model inbuilt class and create a databse table for storing disliked question instance with corresponding user.
-:param model.Model: django.db.models.Model class act as a superclass for the new model class.
-:type models.Model: class</p>
+<p>Model Dislike extends django.db.models.Model inbuilt class and create a databse table for storing disliked question instance with corresponding user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the new model class.</p></li>
 <li><p><strong>id</strong> (<em>BigAutoField</em>) – Id</p></li>
 <li><p><strong>question</strong> (ForeignKey to <a class="reference internal" href="#application.models.Question" title="application.models.Question"><code class="xref py py-class docutils literal notranslate"><span class="pre">Question</span></code></a>) – Question</p></li>
 <li><p><strong>user</strong> (ForeignKey to <a class="reference internal" href="#application.models.NewUser" title="application.models.NewUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewUser</span></code></a>) – User</p></li>
@@ -336,12 +338,11 @@
 <dt class="sig sig-object py" id="application.models.DownVote">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">DownVote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.DownVote" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model DownVote extends django.db.models.Model inbuilt class for storing Downvoted reply instance with user who Downvoted.
-:param model.Model: django.db.models.Model class act as a superclass for the Downvote model.
-:type models.Model: class</p>
+<p>Model DownVote extends django.db.models.Model inbuilt class for storing Downvoted reply instance with user who Downvoted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the Downvote model.</p></li>
 <li><p><strong>id</strong> (<em>BigAutoField</em>) – Id</p></li>
 <li><p><strong>reply</strong> (ForeignKey to <a class="reference internal" href="#application.models.Reply" title="application.models.Reply"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reply</span></code></a>) – Reply</p></li>
 <li><p><strong>user</strong> (ForeignKey to <a class="reference internal" href="#application.models.NewUser" title="application.models.NewUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewUser</span></code></a>) – User</p></li>
@@ -401,12 +402,11 @@
 <dt class="sig sig-object py" id="application.models.Hobby">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">Hobby</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.Hobby" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model Hobby extends django.db.models.Model inbuilt class for storing hobbies of the user with user instance in many to one form.
-:param model.Model: django.db.models.Model class act as a superclass for the Hobby model.
-:type models.Model: class</p>
+<p>Model Hobby extends django.db.models.Model inbuilt class for storing hobbies of the user with user instance in many to one form.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the Hobby model.</p></li>
 <li><p><strong>id</strong> (<em>BigAutoField</em>) – Id</p></li>
 <li><p><strong>hobby_name</strong> (<em>CharField</em>) – Hobby name</p></li>
 <li><p><strong>user_name</strong> (ForeignKey to <a class="reference internal" href="#application.models.NewUser" title="application.models.NewUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewUser</span></code></a>) – User name</p></li>
@@ -460,12 +460,11 @@
 <dt class="sig sig-object py" id="application.models.Like">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">Like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.Like" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model Like extends django.db.models.Model inbuilt class and create a database table for storing liked question instance with corresponding user.
-:param model.Model: django.db.models.Model class act as a superclass for the new model class.
-:type models.Model: class</p>
+<p>Model Like extends django.db.models.Model inbuilt class and create a database table for storing liked question instance with corresponding user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the new model class.</p></li>
 <li><p><strong>id</strong> (<em>BigAutoField</em>) – Id</p></li>
 <li><p><strong>question</strong> (ForeignKey to <a class="reference internal" href="#application.models.Question" title="application.models.Question"><code class="xref py py-class docutils literal notranslate"><span class="pre">Question</span></code></a>) – Question</p></li>
 <li><p><strong>user</strong> (ForeignKey to <a class="reference internal" href="#application.models.NewUser" title="application.models.NewUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewUser</span></code></a>) – User</p></li>
@@ -812,12 +811,11 @@
 <dt class="sig sig-object py" id="application.models.Question">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">Question</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.Question" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model Question extends django.db.models.Model inbuilt class for storing question with published date, thread id and user who post the question.
-:param model.Model: django.db.models.Model class act as a superclass for the Question model.
-:type models.Model: class</p>
+<p>Model Question extends django.db.models.Model inbuilt class for storing question with published date, thread id and user who post the question.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the Question model.</p></li>
 <li><p><strong>question</strong> (<em>CharField</em>) – Question</p></li>
 <li><p><strong>pub_date</strong> (<em>DateTimeField</em>) – Pub date</p></li>
 <li><p><strong>user_name</strong> (ForeignKey to <a class="reference internal" href="#application.models.NewUser" title="application.models.NewUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewUser</span></code></a>) – User name</p></li>
@@ -920,12 +918,11 @@
 <dt class="sig sig-object py" id="application.models.Reply">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">Reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.Reply" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model Reply extends django.db.models.Model inbuilt class for storing reply to the question with reply date, reply id, number of upvotes, number of downvotes, corresponding question instance and user who replied.
-:param model.Model: django.db.models.Model class act as a superclass for the Reply model.
-:type models.Model: class</p>
+<p>Model Reply extends django.db.models.Model inbuilt class for storing reply to the question with reply date, reply id, number of upvotes, number of downvotes, corresponding question instance and user who replied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the Reply model.</p></li>
 <li><p><strong>threadid</strong> (ForeignKey to <a class="reference internal" href="#application.models.Question" title="application.models.Question"><code class="xref py py-class docutils literal notranslate"><span class="pre">Question</span></code></a>) – Threadid</p></li>
 <li><p><strong>reply_date</strong> (<em>DateTimeField</em>) – Reply date</p></li>
 <li><p><strong>reply</strong> (<em>CharField</em>) – Reply</p></li>
@@ -1099,12 +1096,11 @@
 <dt class="sig sig-object py" id="application.models.Tag">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">Tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.Tag" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model Tag extends django.db.models.Model inbuilt class for storing tag of the question with question instance.
-:param model.Model: django.db.models.Model class act as a superclass for the Tag model.
-:type models.Model: class</p>
+<p>Model Tag extends django.db.models.Model inbuilt class for storing tag of the question with question instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the Tag model.</p></li>
 <li><p><strong>id</strong> (<em>BigAutoField</em>) – Id</p></li>
 <li><p><strong>tag_name</strong> (<em>CharField</em>) – Tag name</p></li>
 <li><p><strong>threadid</strong> (ForeignKey to <a class="reference internal" href="#application.models.Question" title="application.models.Question"><code class="xref py py-class docutils literal notranslate"><span class="pre">Question</span></code></a>) – Threadid</p></li>
@@ -1158,12 +1154,11 @@
 <dt class="sig sig-object py" id="application.models.UpVote">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">application.models.</span></span><span class="sig-name descname"><span class="pre">UpVote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.models.UpVote" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
-<p>Model UpVote extends django.db.models.Model inbuilt class for storing Upvoted reply instance with user who Upvoted.
-:param model.Model: django.db.models.Model class act as a superclass for the Upvote model.
-:type models.Model: class</p>
+<p>Model UpVote extends django.db.models.Model inbuilt class for storing Upvoted reply instance with user who Upvoted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model.Model</strong> – django.db.models.Model class act as a superclass for the Upvote model.</p></li>
 <li><p><strong>id</strong> (<em>BigAutoField</em>) – Id</p></li>
 <li><p><strong>reply</strong> (ForeignKey to <a class="reference internal" href="#application.models.Reply" title="application.models.Reply"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reply</span></code></a>) – Reply</p></li>
 <li><p><strong>user</strong> (ForeignKey to <a class="reference internal" href="#application.models.NewUser" title="application.models.NewUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewUser</span></code></a>) – User</p></li>
