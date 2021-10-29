@@ -72,7 +72,7 @@ Contributions:
 * Questions tagging with default tags or custom created tags and filter by tags functionality - **Naveen, Tushar**
 * Upvotes and Downvotes for each question and replies - **Ajay**
 * Save Question or Comment option - **Vivek**
-* Find people Interface to find people of same interest andsearch by interest/hobby functionality - **Naveen**
+* Find people Interface to find people of same interest and search by interest/hobby functionality - **Naveen**
 * Notifications and Score Calculation based on User related activity - **Vivek, Ajay**
 * Update Profile functionality - Name, password, profile picture,hobbies and social links - **Tushar, Naveen**
 * Authentication- User Signup and Sigin Interface - **Tushar**
