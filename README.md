@@ -2,7 +2,7 @@
 # Samvadika - An online Interaction Platform
 
 
-## Problem Statement
+## Problem Statement or Motivation
 An online discussion forum for the students and faculty of IITB to discuss various topics of their interest.
 In the current online semester, several students of our college have a tough time finding like minded people to share their thoughts and creativity. A discussion forum is a great way for students to talk about what they love and find other people sharing the same interests. Similarly the current scenario makes it tough for students to find the right people to ask and clarify their doubts. As a solution, we've built samvadika, an online discussion forum for students to interact with each other and have light-hearted discussions.
 
@@ -21,8 +21,8 @@ Samvadika is an online platform for students to share thoughts, start a discussi
 
 ## Technology Stack
 - **Python**
-- **Django**
-- **Ajax**
+- Django
+- Ajax
 - **SQLite**
 - **HTML, CSS, Bootstrap, JS**
 
