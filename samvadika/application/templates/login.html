@@ -1,57 +1,75 @@
+
+<!--  Extends base.html    -->
+
 {% extends 'base.html' %}
+
+<!--    link css file to login.html, give title as login to login webpage.    -->
+
 {%block head%}<link href="/static/styles.css" rel='stylesheet'>{% endblock head %}
 {% block title %}Login{% endblock title %}
 {% block body %} 
-<!--
-<br>
-<div id="login-box">
-    <div class="items">
-      <h1>Login</h1>
-        <form action="/action" method="post"> 
-        {% csrf_token %}
-   
-      <input type="email" name="email" placeholder="Email" />
-      <input type="password" name="password" placeholder="Password" />
-      <input type="submit" name="login_submit" value="Login" />
-      </form>
-    </div>
-  </div>
--->
+
 <section class="Form my-4 mx-5">
+
+<!--    Container conatains the user welcome message, login form to login the user, link to register for new user.  -->
+
   <div class="container">
+
     <div class="row g-0">
+
+<!-- link the image to show it beside the form.   -->
+
        <div class="col-lg-5">
         <img src='/static/img3.jpg' class="img-fluid" alt=''>
        </div>
+
        <div class="col-lg-7 px-5 pt-5">
            <center>
            <h4 class="font-weight-bold pt-5 px-5">Welcome to SAMVADIKA</h4>
+
+<!--   Form for user to login. Take Email Address and user Password as input. For new user provides link to go to register page.  -->
+
            <form action="/action" method="post"  class='px-5'>
             {% csrf_token %}
-               <div class="form-row">
-                   <div class="col-lg-7">
-                       <input type="email"  name="email" placeholder="Email Address" class="form-control my-3 p-2">
-                   </div>
-               </div>
+
+<!--  Entry to the the user eamil for login.   -->
+
+            <div class="form-row">
+                 <div class="col-lg-7">
+                      <input type="email"  name="email" placeholder="Email Address" class="form-control my-3 p-2">
+                 </div>
+            </div>
+
+<!--  Entry to  take the user password -->
+
             <div class="form-row">
                 <div class="col-lg-7">
                     <input type="password" name="password" placeholder="Password" id="password" class="form-control my-3 p-2">
-                  </div>
-
+                </div>
             </div>
-            
+
+<!--  Button to submit the form. -->       
+
             <div class="form-row">
                 <div class="col-lg-7">
-                  <!--  <button type="button" class="btn1 mt-3 mb-5">Sign In</button> -->
                     <input type="submit" class="btn1 mt-3 mb-5" name="login_submit" value="Login" />
                 </div>
             </div>
-            <p>Don't have an account?<a href="/signup">Register here</a></p>
+
+<!--  Registration link for new user  -->
+
+                 <p>Don't have an account?<a href="/signup">Register here</a></p>
+
             </form>
+
+<!--   end login form -->
             </center>
 
        </div>
+
     </div>
+
   </div>
+
 </section> 
-  {% endblock body %}
+{% endblock body %}

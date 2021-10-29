@@ -1,3 +1,4 @@
+/* Styling for padding, box, background for Login/Registration Form Entries */
 *{
     padding: 0;
     margin: 0;
@@ -11,6 +12,7 @@ body{
     border-radius: 0px;
     box-shadow: 12px 12px 22px grey;
 }
+/* Styling background, border, font for Button*/
 .btn1{
     border: none;
     outline: none;
@@ -26,6 +28,7 @@ body{
     border: 1px solid;
     color: black;
 }
+/* Styling for border, height, text for image*/
 img{
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
