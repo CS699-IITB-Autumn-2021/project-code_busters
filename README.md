@@ -21,8 +21,8 @@ Samvadika is an online platform for students to share thoughts, start a discussi
 
 ## Technology Stack
 - **Python**
-- Django
-- Ajax
+- **Django**
+- **Ajax**
 - **SQLite**
 - **HTML, CSS, Bootstrap, JS**
 
@@ -67,6 +67,16 @@ Ajay Ravindran (213059004) <br/>
 Naveen Badathala (213050052) <br/>
 Tushar Tomar (213050023) <br/>
 Vivek Anil Pandey (21q05r004) <br/>
-
+Contributions:
+* Post Questions and replies/comments - **Tushar, Vivek**
+* Questions tagging with default tags or custom created tags and filter by tags functionality - **Naveen, Tushar**
+* Upvotes and Downvotes for each question and replies - **Ajay**
+* Save Question or Comment option - **Vivek**
+* Find people Interface to find people of same interest andsearch by interest/hobby functionality - **Naveen**
+* Notifications and Score Calculation based on User related activity - **Vivek, Ajay**
+* Update Profile functionality - Name, password, profile picture,hobbies and social links - **Tushar, Naveen**
+* Authentication- User Signup and Sigin Interface - **Tushar**
+* Sphinx Documentation - **Naveen**
+* Testing and Code comments - **Ajay, Naveen, Tushar, Vivek**
 ## Path to Code Documentation
 project-code_busters/docs/build/html/index.html
