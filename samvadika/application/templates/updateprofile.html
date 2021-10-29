@@ -1,25 +1,8 @@
-{% extends 'base.html' %}
-{% block title %}Home{% endblock title %}
-{% block body %}
-
-
-
-
-
 <html>
+  <!-- header section start from here-->
 <head>
-  <!--
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
--->
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- link  .css, .js, .jquery file -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -28,7 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<!--Javascript code for selection for multiselect button-->
   <script type="text/javascript">
       $(document).ready(function() {
         $('.select2').select2({
@@ -37,6 +20,7 @@
         });
       </script>
 
+<!--  define style like: padding, color, backgfound-color, font-size etc.. used by elements through id and class.  -->
 
   <style>
       div{
@@ -45,42 +29,40 @@
       }
 
       ::placeholder {
-  color: red;
-  font-size: 1.5em;
-}
+          color: red;
+          font-size: 1.5em;
+      }
 
-textarea{
-    font-size: 1.5em;
-}
+      textarea{
+         font-size: 1.5em;
+      }
 
-input[type=submit]{
-    color:aliceblue;
-    padding:0.5em 2em;
-}
-   /* mouse over link */
-   side-nav-button:hover {
-  color: hotpink;
-}
-
-/* selected link */
-side-nav-button:active {
-  color: blue;
-}  
-.row{
-  border: 1px solid;
-}
-.cc{
-  background-color: bisque;
-}
+      input[type=submit]{
+          color:aliceblue;
+          padding:0.5em 2em;
+      }
+      side-nav-button:hover {
+          color: hotpink;
+      }
+      side-nav-button:active {
+          color: blue;
+      }  
+     .row{
+          border: 1px solid;
+      }
+     .cc{
+           background-color: bisque;
+      }
   </style>
 
 </head>
+
+<!-- body section start from here -->
 <body>
 
-
-
-
      <div class="row progress" style="height:100vh;;border:1px solid;border-bottom:2px solid ;">
+
+<!--   side nav bar here -->
          <div id='menu'class="col-sm-2" style="height:inherit; border-right:4px solid;background-color:black;">
 
             <div class="row" style="width:100%;height:30%;border:1px solid;margin:0px auto" >
@@ -93,6 +75,7 @@ side-nav-button:active {
                </center>
             
             </div>
+<!-- option to go to the different section of the Samvadika like: home page, find people page, notification page etc. -->
 
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/"><i class="fa fa-commenting" aria-hidden="true"></i> Discussions</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="" title="This score is calculated based on predefined formula based on upvotes and downvotes received on both questions and comments"><i class="fa fa-star" aria-hidden="true"></i> Score: {{user.score}}</a></div>
@@ -101,32 +84,37 @@ side-nav-button:active {
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/saveditems"><i class="fa fa-bookmark" aria-hidden="true"></i> Saved Items</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(77, 72, 72);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:medium;"href="/updateprofile"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> Update Profile</a></div>
             <div class="row" style="width:100%;height:10%;border:1px solid;margin:0px auto" ><a style="background-color: rgb(250, 104, 104);color: white;padding: 1em 1.5em;text-decoration: none;text-transform: uppercase;text-align: center; font-size:large;" href="/logout">Logout</a></div>
-
-
-       
          </div>
-         <div class="col-sm-10" style="height:inherit;;">
 
-           <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
-           <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
+<!-- end side nav bar  -->
 
-<div class="row" style="width:100%;height:inherit;padding:20px;padding-top:0px;margin:0px auto;border:none;">
-  <center><h4>Update Profile</h4></center>
-<div>
-  <br>
-  <br>
-  <br>
-<div class="container">
+<!-- update profile section starts from here -->
 
-  <!--  <div class="card-body"> -->
-    <!--  <ul class="list-group">
-        <li class="list-group-item">  -->
+    <div class="col-sm-10" style="height:inherit;;">
+      <div class="row" style="margin:0px auto;width:90%;height:90%;overflow:scroll ;margin-top:40px ;background-color: white; box-shadow:0px 0px 5px 1px #971c1f ;" >
+          <center><h3 style="margin:0px auto;padding:0.9em;color:#971c1f;font-size:32px;font-family:Comic Sans MS">SAMVADIKA </h3></center> 
+
+        <div class="row" style="width:100%;height:inherit;padding:20px;padding-top:0px;margin:0px auto;border:none;">
+            <center><h4>Update Profile</h4></center>
+        <div>
+
+            <br><br><br>
+
+<!-- container where provide options to update details of the user  -->
+
+        <div class="container">
+
+<!-- Shows User Email ID and give option to the user to switch the eamil  -->
+
           <div class="row">
+
             <div class="col-md-5 py-2 cc" style="border-right: 1px solid;">
               <p style="font-size: 1rem; margin-top: 3rem;">
-             <strong> Email:</strong> {{user.email}}<br></p>
+              <strong> Email:</strong> {{user.email}}<br></p>
             </div>
+
             <div class="col-md-7 py-2 cc">
+<!-- Form to take the updated email id of the user as input -->
               <form method='POST' action='update_email'>
                 {% csrf_token %}
                 <p style='font-size: 1rem;' class="my-2">
@@ -134,19 +122,22 @@ side-nav-button:active {
                 <input type="email"  title="use your LDAP ID" pattern="^[a-zA-Z0-9]+@iitb\.ac\.in$" name="email" placeholder="Enter new email address..." class="form-control my-2 p-2" required>
                 <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;"> 
                 </form>
-              </div>
+
+            </div>
+
           </div>
 
+<!-- Shows User name and provide option to change the name  --> 
 
-
-       <!--   </li> -->
-        <!--  <li class="list-group-item"> -->
             <div class="row" >
+
               <div class="col-md-5 py-2 cc" style="border-right: 1px solid;">
                 <p style="font-size: 1rem; margin-top: 3rem;">
-               <strong> Name:</strong> {{user.first_name}}<br></p>
+                <strong> Name:</strong> {{user.first_name}}<br></p>
               </div>
+
               <div class='col-md-7 py-2 cc'>
+<!-- Form to take the updated name of the user as input -->
                 <form method='POST' action='update_name'>
                   {% csrf_token %}
                   <p style='font-size: 1rem;' class="my-2">
@@ -154,147 +145,143 @@ side-nav-button:active {
                   <input type="text"  name="first_name" placeholder="Enter new name..." class="form-control my-2 p-2" required>
                   <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;"> 
                   </form>
-                </div>
+
+              </div>
+
             </div>
-       <!--   </li>  -->
-       <!--   <li class="list-group-item"> -->
+
+<!-- provide option to change the current password -->
+
           <div class="row">
+
             <div class='col-md-5 cc' style="border-right: 1px solid;">
               <p style="font-size: 1rem; margin-top: 2rem;">
                 <strong>Change Password</strong></p>
-                </div>
-                <div class='col-md-7 py-2 cc'>
+            </div>
+
+            <div class='col-md-7 py-2 cc'>
+<!-- Form to take the new password as input -->
               <form method='POST' action='update_pwd'>
                 {% csrf_token %}
                 <input type="password" name="password" title="password contain atleat 1 Uppercase, 1 lowercase, 1 digit, 1 special character(!,@,#,$,%,^,&,*) and length between 6-14" pattern="(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,14}" placeholder="Password" class="form-control my-2 p-2" required>
                 <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;"> 
-                </form>
-              </div>
-              </div>
+              </form>
+            </div>
+
+          </div>
+
+<!-- provide option to update the Facebook Profile, Linked Profile and Hobbies to the user only if he/she filled up the Interest form -->
 {% if user.interest_form_submitted %}
-            
-<!--     for hobbies   -->
-<div class="row">
-  <div class='col-md-5 cc' style="border-right: 1px solid;">
-    <p style="font-size: 1rem; margin-top: 2rem;">
-    <strong>Change Hobbies</strong><br><br></p>
-    </div>
-    <div class='col-md-7 py-2 cc'>
-      <form method="post" action='update_hobbies'>
-        {% csrf_token %}
-        <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select one or more hobbies" style="width: 100%;" tabindex="-1" aria-hidden="true" name="hobbies_list" id="hobbies_list" required>
-          <option value="Cricket">Cricket</option>
-            <option value="Football">Football</option>
-            <option value="Chess">Chess</option>
-            <option value="Evening Walk">Evening Walk</option>
-            <option value = "Cycling">Cycling</option>
-            <option value="Gaming">Gaming</option>
-            <option value="Badminton">Badminton</option>
-            <option value = "Workout">Workout</option>  
-        <input type="submit" class="btn btn-dark mt-2" value="UPDATE" style="position: parent;">
-     </form>
+     
+<!-- provide option to change the Hobbies -->       
+
+          <div class="row">
+
+            <div class='col-md-5 cc' style="border-right: 1px solid;">
+              <p style="font-size: 1rem; margin-top: 2rem;">
+              <strong>Change Hobbies</strong><br><br></p>
+            </div>
+
+            <div class='col-md-7 py-2 cc'>
+<!-- Form to select the hobbies from list of hobbies  -->
+               <form method="post" action='update_hobbies'>
+                  {% csrf_token %}
+                  <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select one or more hobbies" style="width: 100%;" tabindex="-1" aria-hidden="true" name="hobbies_list" id="hobbies_list" required>
+                    <option value="Cricket">Cricket</option>
+                    <option value="Football">Football</option>
+                    <option value="Chess">Chess</option>
+                    <option value="Evening Walk">Evening Walk</option>
+                    <option value = "Cycling">Cycling</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value = "Workout">Workout</option>  
+                    <input type="submit" class="btn btn-dark mt-2" value="UPDATE" style="position: parent;">
+                </form>
+            </div>
           </div>
-    </div>
 
-<!--  end update  -->
+<!-- provide option to change the Facebook profile --> 
 
+          <div class="row">
+              <div class='col-md-5 cc' style="border-right: 1px solid;">
+                <p style="font-size: 1rem; margin-top: 2rem;">
+                <strong>Change Facebook Profile</strong><br><br></p>
+              </div>
 
-<!--     for fb url   -->
-<div class="row">
-  <div class='col-md-5 cc' style="border-right: 1px solid;">
-    <p style="font-size: 1rem; margin-top: 2rem;">
-     <strong>Change Facebook Profile</strong><br><br></p>
-    </div>
-    <div class='col-md-7 py-2 cc'>
-      <form method="post" action='update_fb_link'>
-        {% csrf_token %}
+              <div class='col-md-7 py-2 cc'>
+<!-- Form to take the new facebook profile link -->
+                  <form method="post" action='update_fb_link'>
+                    {% csrf_token %}
         
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon3">https://www.facebook.com/</span>
-          </div>
-          <input type="text" class="form-control" name="fb_url" id="fb_url" aria-describedby="basic-addon3" required>
-        </div>
-        <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;">
-     </form>
-          </div>
-    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">https://www.facebook.com/</span>
+                      </div>
 
-<!--  end fb_url  -->
+                      <input type="text" class="form-control" name="fb_url" id="fb_url" aria-describedby="basic-addon3" required>
+                    </div>
 
+                    <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;">
+                   </form>
+                </div>
+            </div>
 
-<!--     for linked_url   -->
-<div class="row">
-  <div class='col-md-5 cc' style="border-right: 1px solid;">
-    <p style="font-size: 1rem; margin-top: 2rem;">
-       <strong>Change Linked Profile</strong><br><br></p>
-    </div>
-    <div class='col-md-7 py-2 cc'>
-      <form method="post" action='update_linkedin_link'>
-        {% csrf_token %}
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon4">https://www.linkedin.com/in/</span>
+  
+<!-- provide option to change the Linkedin profile -->
+
+          <div class="row">
+
+            <div class='col-md-5 cc' style="border-right: 1px solid;">
+               <p style="font-size: 1rem; margin-top: 2rem;">
+                <strong>Change Linked Profile</strong><br><br></p>
+            </div>
+
+            <div class='col-md-7 py-2 cc'>
+<!-- Form to take the new facebook profile link -->
+               <form method="post" action='update_linkedin_link'>
+               {% csrf_token %}
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon4">https://www.linkedin.com/in/</span>
+                    </div>
+                    <input type="text" class="form-control" name="linkedin_url" id="linkedin_url" aria-describedby="basic-addon3" required>
+                  </div>
+                  <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;">
+                </form>
+            </div>
           </div>
-          <input type="text" class="form-control" name="linkedin_url" id="linkedin_url" aria-describedby="basic-addon3" required>
-        </div>
 
-        <input type="submit" class="btn btn-dark" value="UPDATE" style="position: parent;">
-     </form>
-          </div>
-    </div>
 {% endif %}
-<!--  end linked_url  -->
 
+<!-- provide option to change the Linkedin profile -->
 
-            <div class="row">
+          <div class="row">
               <div class='col-md-5 cc' style="border-right: 1px solid;">
                 <p style="font-size: 1rem; margin-top: 2rem;">
                 <strong>Change Photo</strong><br><br></p>
-                </div>
-                <div class='col-md-7 py-2 cc'>
-                  <form method="post" enctype="multipart/form-data"  action='update_img'>
-                    {% csrf_token %}
-                    
-                   <input type="file" name="myfile" required><br><br>
-                   <input type="submit" class="btn btn-dark" value="UPLOAD"> 
-                 </form>
-                      </div>
-                </div>
-
-
-            </div>
-            </div>
-
-
-
-
-</div>
-</div>
-
-
-</div>
-
-
-
-
               </div>
+              <div class='col-md-7 py-2 cc'>
+                <form method="post" enctype="multipart/form-data"  action='update_img'>
+                  {% csrf_token %}
+                  <input type="file" name="myfile" required><br><br>
+                  <input type="submit" class="btn btn-dark" value="UPLOAD"> 
+                </form>
+              </div>
+          </div>
 
-           </div>
-         </div>
 
+        </div>
 
+      </div>
 
+     </div>
 
+    </div>
 
+   </div>
 
+  </div>
 
+ </body>
 
-</body>
 </html>
-
-
-
-
-
-{% endblock body %}
